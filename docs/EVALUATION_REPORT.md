@@ -1,34 +1,33 @@
 # Evaluation Report - Prompt Optimizer
 
-> Reproduce everything here with `make evaluation`. Report mean ± 95% confidence interval over N seeds.
+> Reproduce with `python -m prompt_optimizer evaluate`. Deterministic and offline.
 
 ## Setup
-- **Task / dataset:** name, size, split.
-- **Metrics:** definition of each metric and why it's the right one.
-- **Graders:** exact-match / model-graded (which model, prompt) / human.
-- **Baselines:** what you compare against.
-- **Seeds:** list. **Hardware:** e.g., 1×A100 80GB. **Cost:** $X. **Runtime:** Yh.
 
-## Headline results
+- **Task:** three-class intent classification (refund, shipping, cancel).
+- **Splits:** disjoint training (9), validation (4), test (6), sharing vocabulary.
+- **Metric:** exact-match accuracy.
+- **Methods:** a naive zero-shot baseline, instruction search, few-shot bootstrap, and the
+  compound optimizer; all compiled on training and validation, reported on test.
 
-| Metric | This project | Baseline | SOTA / ref | Δ vs baseline |
-|---|---:|---:|---:|---:|
-| Primary (↑) | **0.00 ± 0.00** | 0.00 | 0.00 | +0.00 |
-| Latency p95 (ms, ↓) | **0** | 0 | - | - |
-| Cost / 1k ($, ↓) | **0.00** | 0.00 | - | - |
+## Results
 
-## Ablations
+| Method | demonstrations | test accuracy |
+|---|---:|---:|
+| baseline (naive, zero-shot) | 0 | 0.333 |
+| instruction search | 0 | 0.833 |
+| few-shot bootstrap | 3 | 0.833 |
+| compound (instruction + few-shot) | 1 | 1.000 |
 
-| Variant | Metric | Δ | Notes |
-|---|---:|---:|---|
-| Full | 0.00 | - | reference |
-| - component X | 0.00 | −0.00 | shows X matters |
+## Interpretation
 
-## LLM-as-judge validation (if used)
-- Agreement with human labels (Cohen's κ / accuracy), bias controls, sample size.
-
-## Error analysis
-- Top failure categories with counts and representative examples.
+The naive baseline, with no label vocabulary and no demonstrations, must guess from keywords
+and scores 0.333. Declaring the vocabulary (instruction search) or supplying demonstrations
+(few-shot) each lifts accuracy to 0.833. The compound optimizer combines a vocabulary-bearing
+instruction with a single well-chosen demonstration and reaches 1.000, beating either
+component. The two search dimensions are complementary - the central claim of the project,
+measured on held-out data.
 
 ## Reproducibility
-- Exact command, configuration hash, dataset version, W&B/MLflow run URL.
+
+Everything is offline and deterministic; the numbers regenerate exactly.

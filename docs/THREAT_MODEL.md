@@ -1,21 +1,24 @@
 # Threat Model - Prompt Optimizer
 
 ## Assets
-- What's worth protecting (data, keys, model, user trust, budget).
+
+- Integrity of the compiled prompt and the reported metrics.
 
 ## Trust boundaries
-- Where untrusted input crosses into the system (reference the architecture diagram).
 
-## Threats (STRIDE + LLM-specific)
+- **Instructions, demonstrations, and queries are untrusted text.** They are rendered and
+  compared, never executed; there is no path from text to execution.
+
+## Threats and mitigations
 
 | Threat | Vector | Impact | Mitigation |
 |---|---|---|---|
-| Prompt injection | Untrusted content in context / tools | Data exfiltration, unsafe actions | Input/output filtering, tool allow-list, least privilege |
-| Jailbreak | Adversarial user prompt | Policy bypass | System-prompt hardening, output classifier, refusal evaluation |
-| Data exfiltration | Model echoes secrets / PII | Privacy breach | Secret scanning, output redaction, no secrets in context |
-| Excessive cost | Unbounded loops / large inputs | $ blowout | Token/step budgets, rate limits, timeouts |
-| Tool abuse | Agent calls dangerous tool | Destructive action | Approval gates, sandboxing, dry-run |
-| Supply chain | Malicious dependency | Code execution | Pinned dependencies, Dependabot, SBOM |
+| Overfitting the metric | Selection on data used for reporting | Inflated accuracy | Disjoint validation and test splits |
+| Nondeterministic results | A networked model | Irreproducible numbers | Deterministic, offline simulated model |
+| Poisoned demonstrations | Malicious training examples | Skewed prompt | Selection is read-only; callers control the training set |
+| Supply-chain compromise | Malicious dependency | Code execution | Zero runtime dependencies; Dependabot and CodeQL in continuous integration |
 
 ## Residual risk
-- What remains after mitigations and why it's acceptable.
+
+The simulated model is not a real model; absolute numbers do not transfer. The reproducible,
+meaningful quantity is the relative improvement from optimization.
