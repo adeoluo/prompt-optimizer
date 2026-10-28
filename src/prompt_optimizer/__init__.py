@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from prompt_optimizer.evaluation import Row, format_table, run_ablation
 from prompt_optimizer.lm import SimulatedLanguageModel, parse_label_vocabulary
 from prompt_optimizer.metrics import evaluate, exact_match, token_f1
 from prompt_optimizer.optimizers import (
@@ -24,9 +25,12 @@ __all__ = [
     "OptimizationResult",
     "Predictor",
     "Prompt",
+    "Row",
     "SimulatedLanguageModel",
     "evaluate",
     "exact_match",
+    "format_table",
     "parse_label_vocabulary",
+    "run_ablation",
     "token_f1",
 ]
