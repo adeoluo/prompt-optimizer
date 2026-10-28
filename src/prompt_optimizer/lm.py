@@ -69,11 +69,11 @@ class SimulatedLanguageModel:
         return self._keyword_guess(query, vocabulary)
 
     def _keyword_guess(self, query: str, vocabulary: tuple[str, ...]) -> str:
-        tokens = set(tokenize(query))
-        for label in vocabulary:
-            if label in tokens:
-                return label
-        return next(iter(tokens), _UNKNOWN)
+        tokens = tokenize(query)
+        for token in tokens:
+            if token in vocabulary:
+                return token
+        return tokens[0] if tokens else _UNKNOWN
 
     def _snap_to_vocabulary(self, candidate: str, vocabulary: tuple[str, ...]) -> str:
         if not vocabulary:
