@@ -116,6 +116,13 @@ print(Predictor(result.prompt).predict("where is my package"))
   compiled prompt is selected for generalization, not training fit.
   ([ADR-0003](docs/adr/0003-metric-driven-compilation.md))
 
+## Performance
+
+A deterministic micro-benchmark (`uv run python benchmarks/benchmark.py`) compiles the task
+with each optimizer and reports compile time, validation score, and the number of selected
+demonstrations. Each optimizer compiles in under a few milliseconds, since every candidate is
+scored on a small held-out split rather than by calling a model.
+
 ## Responsible AI
 
 - **Model card:** [docs/MODEL_CARD.md](docs/MODEL_CARD.md)
