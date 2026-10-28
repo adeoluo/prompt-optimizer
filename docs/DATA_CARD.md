@@ -1,22 +1,19 @@
 # Data Card - Prompt Optimizer
 
-## Sources & provenance
-- Where each dataset came from (links), collection method, dates.
+The project bundles one small, synthetic intent-classification task. There is no training of
+a model and nothing is downloaded.
 
-## Licensing
-- License of each source and whether usage complies. Redistribution terms.
+## bundled task (`src/prompt_optimizer/data.py`)
 
-## Composition
-- Size, format, fields, language(s), modality.
-
-## Preprocessing & filtering
-- Cleaning, dedup, PII handling, filtering rules.
-
-## Contamination checks
-- How you ensured evaluation data is not in training / few-shot context.
-
-## Known biases & gaps
-- Representation gaps, label noise, sampling bias.
+- **Provenance:** hand-authored for this project. Short customer messages labeled as
+  ``refund``, ``shipping``, or ``cancel``.
+- **Splits:** disjoint training (9), validation (4), and test (6) sets that share vocabulary,
+  so a prompt compiled on training and validation generalizes to test.
+- **Candidate instructions:** four hand-authored instructions, two of which declare the label
+  vocabulary.
+- **Licensing:** authored by this repository; MIT.
+- **Known gaps:** tiny, English, three classes; a demonstration set, not a benchmark.
 
 ## Ethical considerations
-- Consent, sensitive content, privacy.
+
+The task is synthetic and contains no personal, sensitive, or copyrighted content.
