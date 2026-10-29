@@ -16,6 +16,8 @@ A standard-library HTTP server with **zero runtime dependencies**. The prompt is
 | Method | Path | Body | Success |
 |---|---|---|---|
 | GET | `/health` | none | status, instruction, demonstration count |
+| GET | `/ready` | none | readiness once the prompt is compiled |
+| GET | `/metrics` | none | per-route request, error, and latency metrics (Prometheus text) |
 | POST | `/predict` | `{"text"}` | `{"text", "label"}` |
 | POST | `/compile` | none | the compiled instruction and demonstrations |
 
