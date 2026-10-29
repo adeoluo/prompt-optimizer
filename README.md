@@ -116,12 +116,35 @@ print(Predictor(result.prompt).predict("where is my package"))
   compiled prompt is selected for generalization, not training fit.
   ([ADR-0003](docs/adr/0003-metric-driven-compilation.md))
 
-## Performance
+## Running the service
+
+A dependency-free HTTP service compiles the prompt once at startup and serves predictions:
+
+```bash
+python -m prompt_optimizer serve --port 8000
+
+curl localhost:8000/health
+curl -s -X POST localhost:8000/predict -d '{"text": "I need a refund for my money"}'
+curl -s -X POST localhost:8000/compile
+```
+
+`GET /health` reports the compiled instruction and demonstration count; `POST /predict`
+returns a label; `POST /compile` returns the full compiled prompt for inspection. See the
+[operations guide](docs/OPERATIONS.md) for the service contract and operational constraints.
+
+## Performance and reliability
 
 A deterministic micro-benchmark (`uv run python benchmarks/benchmark.py`) compiles the task
 with each optimizer and reports compile time, validation score, and the number of selected
 demonstrations. Each optimizer compiles in under a few milliseconds, since every candidate is
 scored on a small held-out split rather than by calling a model.
+
+A production-style stress benchmark (`uv run python benchmarks/stress.py`) drives the full
+predict handler under concurrent load and reports throughput with p50, p95, and p99 latency.
+It shows the project's distinctive cost shape: compilation is a one-time startup cost, and
+each prediction is a nearest-neighbour lookup serving on the order of 100000 requests per
+second per core. The scaling path and tradeoffs are in [docs/SCALING.md](docs/SCALING.md),
+and a full compile-and-serve walk-through is in the [case study](docs/CASE_STUDY.md).
 
 ## Responsible AI
 
