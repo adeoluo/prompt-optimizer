@@ -131,6 +131,7 @@ curl -s -X POST localhost:8000/compile
 `GET /health` reports the compiled instruction and demonstration count; `POST /predict`
 returns a label; `POST /compile` returns the full compiled prompt for inspection. See the
 [operations guide](docs/OPERATIONS.md) for the service contract and operational constraints.
+The service also exposes `GET /ready` (readiness) and `GET /metrics` (per-route request, error, and latency metrics in Prometheus text format).
 
 ## Performance and reliability
 
@@ -167,5 +168,5 @@ and a full compile-and-serve walk-through is in the [case study](docs/CASE_STUDY
 
 ## License
 
-[MIT](LICENSE). Part of a 28-project artificial intelligence engineering portfolio by
+[MIT](LICENSE). Part of an artificial intelligence engineering portfolio by
 [adeoluo](https://github.com/adeoluo).
