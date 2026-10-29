@@ -21,7 +21,7 @@ Writing prompts by hand is slow and brittle: the instruction wording and the cho
 in-context examples both move accuracy, and tuning them manually does not scale. Prompt
 optimization treats the prompt as something you **compile against a metric**, searching over
 instructions and demonstrations the way an optimizer searches over parameters. This project
-builds that idea **from first principles** - including a deterministic, offline language
+builds that idea **from scratch** - including a deterministic, offline language
 model whose output genuinely responds to the prompt, so the search has real signal - with
 **zero runtime dependencies** and a reproducible test suite.
 
