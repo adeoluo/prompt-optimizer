@@ -39,6 +39,12 @@ def _cmd_predict(args: argparse.Namespace) -> None:
     print(predictor.predict(args.text))
 
 
+def _cmd_serve(args: argparse.Namespace) -> None:
+    from prompt_optimizer.service import serve
+
+    serve(host=args.host, port=args.port)
+
+
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(prog="prompt-optimizer", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -49,10 +55,15 @@ def main(argv: list[str] | None = None) -> None:
     predict = sub.add_parser("predict", help="label a single message")
     predict.add_argument("text", help="the customer message to classify")
 
+    serve = sub.add_parser("serve", help="start the HTTP prediction service")
+    serve.add_argument("--host", default="127.0.0.1", help="bind host")
+    serve.add_argument("--port", type=int, default=8000, help="bind port")
+
     handlers = {
         "evaluate": _cmd_evaluate,
         "compile": _cmd_compile,
         "predict": _cmd_predict,
+        "serve": _cmd_serve,
     }
     args = parser.parse_args(argv)
     handlers[args.command](args)

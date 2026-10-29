@@ -8,38 +8,48 @@ config:
     primaryBorderColor: "#1E293B"
     primaryTextColor: "#1E293B"
     lineColor: "#64748B"
-    clusterBkg: "#E2E8F0"
+    clusterBkg: "#EEF2FF"
     clusterBorder: "#94A3B8"
 ---
-flowchart LR
+flowchart TB
+    classDef edge     fill:#F59E0B,stroke:#1E293B,color:#1E293B,stroke-width:1px;
     classDef core     fill:#6366F1,stroke:#1E293B,color:#ffffff,stroke-width:1px;
     classDef data     fill:#10B981,stroke:#1E293B,color:#ffffff,stroke-width:1px;
-    classDef external fill:#F59E0B,stroke:#1E293B,color:#1E293B,stroke-width:1px;
+    classDef control  fill:#0EA5E9,stroke:#1E293B,color:#ffffff,stroke-width:1px;
+    classDef obs      fill:#CBD5E1,stroke:#1E293B,color:#1E293B,stroke-width:1px;
 
     Train[(Training set)]:::data
     Dev[(Validation set)]:::data
     Candidates[(Candidate instructions)]:::data
 
-    subgraph Compile["Optimization (coordinate ascent)"]
+    subgraph Compile["Compile once at startup (coordinate ascent)"]
+        direction TB
         Instruction[Instruction search]:::core
         FewShot[Bootstrap few-shot selection]:::core
+        Metric[Validation metric]:::control
     end
 
-    Prompt[["Compiled prompt
-    (instruction + demonstrations)"]]:::core
-    Predictor[Predictor]:::core
-    Model{{Simulated language model}}:::external
-    Metric[Metric]:::core
+    Prompt[["Compiled prompt<br/>instruction + demonstrations"]]:::core
+
+    subgraph Serve["Serve layer (stdlib HTTP, stateless)"]
+        direction TB
+        Router["Router<br/>/health | /predict | /compile"]:::core
+        Validate["Input validation<br/>bound: text length"]:::control
+        Predictor["Predictor<br/>nearest-neighbour over demos"]:::core
+    end
+
+    Model{{Simulated language model}}:::edge
+    Client([Client]):::edge
 
     Candidates --> Instruction
     Train --> FewShot
     Instruction <-->|coordinate ascent| FewShot
-    Dev -->|score candidates| Instruction
-    Dev -->|score candidates| FewShot
+    Dev --> Metric
+    Metric -.->|score candidates| Instruction
+    Metric -.->|score candidates| FewShot
     Instruction --> Prompt
     FewShot --> Prompt
     Prompt --> Predictor
+    Client -->|JSON request| Router --> Validate --> Predictor
     Predictor -->|generate| Model
-    Model -->|label| Metric
-    Metric -.->|validation score| Instruction
-    Metric -.->|validation score| FewShot
+    Model -->|label| Router -->|JSON response| Client
