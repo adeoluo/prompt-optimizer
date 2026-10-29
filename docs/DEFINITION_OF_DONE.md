@@ -4,7 +4,7 @@
 > A PR is mergeable only when every applicable box is checked.
 
 ## Engineering
-- [ ] Core logic from first principles; frameworks justified in README.
+- [ ] Core logic from scratch; frameworks justified in README.
 - [ ] Typed, modular, no god-files. ADR added for non-obvious decisions.
 
 ## CI/CD

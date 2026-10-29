@@ -6,7 +6,7 @@ What does this pull request change and why?
 
 > See [`docs/DEFINITION_OF_DONE.md`](../docs/DEFINITION_OF_DONE.md). Check all that apply.
 
-- [ ] Principle-level: core logic from first principles; ADR added for non-obvious choices
+- [ ] Core logic built from scratch; ADR added for non-obvious choices
 - [ ] Continuous integration green: format · lint · type-check · test (coverage ≥ gate)
 - [ ] Architecture diagram updated (centered title, shared palette), SVG re-rendered
 - [ ] README updated (motivation · diagram · results table · limitations)
