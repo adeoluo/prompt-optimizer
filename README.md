@@ -65,6 +65,28 @@ Each search dimension lifts accuracy on its own, and the **compound** optimizer 
 ascent that alternates instruction search and demonstration selection - reaches **1.000**,
 beating either component. The two dimensions are complementary, which is the central claim.
 
+### Scale
+
+To check that the optimizer holds up across many tasks, `benchmarks/scale.py` runs the
+compound optimizer over growing batches of independent synthetic intent-classification
+tasks, timing `CompoundOptimizer.compile` and tracking peak memory with the
+standard-library `tracemalloc`. The quality metric is the mean held-out improvement: the
+optimized prompt's test accuracy minus the naive baseline's. The data is synthetic and the
+numbers are environment-specific; because each task is small and discarded, the optimizer
+is compute-bound, so memory stays small while time scales with the batch.
+
+| Prompts optimized | Wall-clock (s) | Throughput (prompts/s) | Peak memory (MiB) | Mean improvement |
+|---:|---:|---:|---:|---:|
+| 100 | 3.23 | ~31 | 0.04 | +0.572 |
+| 200 | 4.09 | ~49 | 0.06 | +0.598 |
+| 400 | 11.02 | ~36 | 0.11 | +0.596 |
+| 600 | 19.50 | ~31 | 0.17 | +0.588 |
+
+The mean improvement holds near +0.59 as the batch grows, matching the single-task result:
+the compound optimizer reliably lifts a naive prompt well above its baseline. The headline
+quality numbers come from the deterministic offline simulator; a production deployment
+would swap in a real language-model API. Reproduce with `uv run python benchmarks/scale.py`.
+
 ## Optimizers
 
 - **Bootstrap few-shot** - greedy forward selection of demonstrations against the validation
