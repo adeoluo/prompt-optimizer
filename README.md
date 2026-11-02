@@ -182,6 +182,12 @@ The optimized prompt against the baseline.
   <img src="docs/demo/evaluate.gif" alt="The optimized prompt against the baseline" width="860">
 </p>
 
+The HTTP service predicting with the compiled prompt.
+
+<p align="center">
+  <img src="docs/demo/http.gif" alt="The HTTP service predicting with the compiled prompt" width="860">
+</p>
+
 ## Design decisions
 
 - **A simulated language model.** A deterministic, offline model keeps the whole pipeline
