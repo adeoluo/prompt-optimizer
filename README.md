@@ -29,10 +29,15 @@ a reproducible test suite.
   <img src="docs/architecture/architecture.svg" alt="Architecture diagram" width="860">
 </p>
 
-An optimizer draws **demonstrations** from the training set and **instructions** from a
-candidate set, scores each candidate on a held-out **validation set**, and emits a
-**compiled prompt**. A predictor runs that prompt through the language model, and a metric
-closes the loop. See the [ADRs](docs/adr/) for the key design choices.
+<sub>Legend: amber = entry points and external systems, indigo = core logic, green = data and state, blue = validation and control, grey = observability and outputs.</sub>
+
+The compound optimizer alternates between choosing **instructions** from a candidate set and
+selecting **demonstrations** from the training set, scoring every candidate on a held-out
+**validation set** by running it through the predictor, and emits a **compiled prompt** with a
+trace of the search. The HTTP service compiles once at startup, validates each request, and
+answers `/predict` by running the compiled prompt through the simulated language model; the
+ablation compares the naive, instruction-only, few-shot, and compound prompts on the test
+split. See the [ADRs](docs/adr/) for the key design choices.
 
 ### The language model
 
