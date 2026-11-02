@@ -16,7 +16,7 @@
 | Overfitting the metric | Selection on data used for reporting | Inflated accuracy | Disjoint validation and test splits |
 | Nondeterministic results | A networked model | Irreproducible numbers | Deterministic, offline simulated model |
 | Poisoned demonstrations | Malicious training examples | Skewed prompt | Selection is read-only; callers control the training set |
-| Supply-chain compromise | Malicious dependency | Code execution | No third-party runtime packages; Dependabot and CodeQL in continuous integration |
+| Supply-chain compromise | Malicious dependency | Code execution | No third-party runtime packages; development tools pinned in `uv.lock`; CodeQL in continuous integration |
 
 ## Residual risk
 
