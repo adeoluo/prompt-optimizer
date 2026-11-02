@@ -9,7 +9,7 @@ maintainer. Please do not open public issues for vulnerabilities.
 
 - **Secret scanning:** gitleaks (pre-commit) + GitHub secret scanning.
 - **SAST:** CodeQL (`.github/workflows/codeql.yml`).
-- **Dependencies:** Dependabot, pinned versions.
+- **Dependencies:** No third-party runtime packages; development tools pinned in `uv.lock`. CodeQL in continuous integration.
 - **Secrets:** provided via `.env` (never committed); see `.env.example`.
 
 For LLM-specific threats (prompt injection, jailbreak, data exfiltration), see
