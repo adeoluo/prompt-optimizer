@@ -1,4 +1,4 @@
-"""Tests for the dependency-free HTTP prediction service (pure handler layer)."""
+"""Tests for the standard-library HTTP prediction service (pure handler layer)."""
 
 from __future__ import annotations
 

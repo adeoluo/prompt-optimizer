@@ -23,7 +23,7 @@ a standard-library HTTP service. Shared-nothing and stateless per request.
   Prompting a model per request is more flexible but pays a model call every time. The
   reference chooses the compiled path and exposes `/compile` for inspection.
 - **Simulated model vs a hosted model.** The deterministic simulated model keeps the whole
-  pipeline reproducible and dependency-free; a hosted model generalizes but adds latency,
+  pipeline reproducible and offline; a hosted model generalizes but adds latency,
   cost, and nondeterminism. The predictor is the single seam to swap it in.
 - **Greedy few-shot selection vs exhaustive search.** Greedy forward selection is near
   linear and good enough; exhaustive subset search is optimal but exponential. The budget
