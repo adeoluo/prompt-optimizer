@@ -1,55 +1,62 @@
----
-title: System Architecture - Prompt Optimizer
-config:
-  theme: base
-  themeVariables:
-    fontFamily: "Inter, system-ui, sans-serif"
-    primaryColor: "#F8FAFC"
-    primaryBorderColor: "#1E293B"
-    primaryTextColor: "#1E293B"
-    lineColor: "#64748B"
-    clusterBkg: "#EEF2FF"
-    clusterBorder: "#94A3B8"
----
-flowchart TD
+flowchart LR
     classDef edge     fill:#F59E0B,stroke:#1E293B,color:#1E293B,stroke-width:1px;
     classDef core     fill:#6366F1,stroke:#1E293B,color:#ffffff,stroke-width:1px;
     classDef data     fill:#10B981,stroke:#1E293B,color:#ffffff,stroke-width:1px;
     classDef control  fill:#0EA5E9,stroke:#1E293B,color:#ffffff,stroke-width:1px;
     classDef obs      fill:#CBD5E1,stroke:#1E293B,color:#1E293B,stroke-width:1px;
 
-    Train[(Training set)]:::data
-    Dev[(Validation set)]:::data
-    Candidates[(Candidate instructions)]:::data
+    Client(["HTTP client<br/>JSON text"]):::edge
+    Cli(["CLI<br/>evaluate, compile, predict, serve"]):::edge
 
-    subgraph Compile["Compile once at startup (coordinate ascent)"]
+    subgraph Io["Interfaces (stdlib HTTP, stateless)"]
         direction TB
-        Instruction[Instruction search]:::core
-        FewShot[Bootstrap few-shot selection]:::core
-        Metric[Validation metric]:::control
+        Router["Request router<br/>/predict, /compile, /health"]:::core
+        Validate["Input validation<br/>text up to 2000 chars"]:::control
     end
 
-    Prompt[["Compiled prompt<br/>instruction + demonstrations"]]:::core
-
-    subgraph Serve["Serve layer (stdlib HTTP, stateless)"]
+    subgraph Core["Core logic (compile once at startup, predict)"]
         direction TB
-        Router["Router<br/>/health | /predict | /compile"]:::core
-        Validate["Input validation<br/>bound: text length"]:::control
-        Predictor["Predictor<br/>nearest-neighbour over demos"]:::core
+        Compound["CompoundOptimizer<br/>coordinate ascent"]:::core
+        Instr["InstructionSearch<br/>best candidate instruction"]:::core
+        FewShot["BootstrapFewShot<br/>greedy demo selection, budget"]:::core
+        Metric["Validation metric<br/>exact match via Predictor"]:::control
+        Predictor["Predictor<br/>binds prompt to model"]:::core
+        Lm["Simulated language model<br/>nearest demo, label snapping"]:::core
     end
 
-    Model{{Simulated language model}}:::edge
-    Client([Client]):::edge
+    subgraph State["Data and state (bundled intent task)"]
+        direction TB
+        Cands[("Candidate instructions")]:::data
+        Train[("Training split<br/>demonstration pool")]:::data
+        Dev[("Validation split")]:::data
+        Test[("Test split<br/>held out")]:::data
+        Prompt[("Compiled prompt<br/>instruction + demonstrations")]:::data
+    end
 
-    Candidates --> Instruction
-    Train --> FewShot
-    Instruction <-->|coordinate ascent| FewShot
-    Dev --> Metric
-    Metric -.->|score candidates| Instruction
-    Metric -.->|score candidates| FewShot
-    Instruction --> Prompt
-    FewShot --> Prompt
-    Prompt --> Predictor
-    Client -->|JSON request| Router --> Validate --> Predictor
-    Predictor -->|generate| Model
-    Model -->|label| Router -->|JSON response| Client
+    subgraph Obs["Evaluation and observability"]
+        direction TB
+        Trace["OptimizationResult<br/>score and search trace"]:::obs
+        Ablation["Ablation table<br/>naive, instruction, few-shot, compound"]:::obs
+        Metrics["/metrics<br/>Prometheus counts, latency"]:::obs
+    end
+
+    Client -->|POST JSON| Router
+    Cli -->|serve| Router
+    Cli -->|compile, predict| Compound
+    Cli -->|evaluate| Ablation
+    Router -.->|checks| Validate
+    Router -->|text| Predictor
+    Router -.->|/compile| Prompt
+    Compound -->|alternates| Instr
+    Compound -->|alternates| FewShot
+    Instr -.->|reads| Cands
+    FewShot -.->|reads| Train
+    Instr -.->|score| Metric
+    FewShot -.->|score| Metric
+    Metric -.->|reads| Dev
+    Compound -->|emits| Prompt
+    Compound -.-> Trace
+    Predictor -.->|reads| Prompt
+    Predictor -->|generate| Lm
+    Ablation -.->|reads| Test
+    Router -.->|timings| Metrics
