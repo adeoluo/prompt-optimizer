@@ -5,58 +5,44 @@ flowchart LR
     classDef control  fill:#0EA5E9,stroke:#1E293B,color:#ffffff,stroke-width:1px;
     classDef obs      fill:#CBD5E1,stroke:#1E293B,color:#1E293B,stroke-width:1px;
 
-    Client(["HTTP client<br/>JSON text"]):::edge
-    Cli(["CLI<br/>evaluate, compile, predict, serve"]):::edge
-
-    subgraph Io["Interfaces (stdlib HTTP, stateless)"]
+    subgraph Interfaces["Interfaces"]
         direction TB
-        Router["Request router<br/>/predict, /compile, /health"]:::core
-        Validate["Input validation<br/>text up to 2000 chars"]:::control
+        Cli(["CLI<br/>evaluate, predict, serve"]):::edge
+        Client(["HTTP client<br/>JSON text"]):::edge
+        Router["HTTP router<br/>/predict, /compile"]:::core
+        Validate["Validation<br/>text up to 2000 chars"]:::control
+        Cli ~~~ Client --> Router --> Validate
     end
 
-    subgraph Core["Core logic (compile once at startup, predict)"]
+    subgraph Core["Compile and predict"]
         direction TB
         Compound["CompoundOptimizer<br/>coordinate ascent"]:::core
-        Instr["InstructionSearch<br/>best candidate instruction"]:::core
-        FewShot["BootstrapFewShot<br/>greedy demo selection, budget"]:::core
-        Metric["Validation metric<br/>exact match via Predictor"]:::control
-        Predictor["Predictor<br/>binds prompt to model"]:::core
-        Lm["Simulated language model<br/>nearest demo, label snapping"]:::core
+        Instr["InstructionSearch<br/>best candidate"]:::core
+        FewShot["BootstrapFewShot<br/>greedy demo selection"]:::core
+        Metric["Validation metric<br/>exact match"]:::control
+        Predictor["Predictor<br/>prompt plus model"]:::core
+        Lm["Simulated LM<br/>nearest demo, labels"]:::core
+        Compound --> Instr --> FewShot --> Metric ~~~ Predictor --> Lm
     end
 
-    subgraph State["Data and state (bundled intent task)"]
+    subgraph State["Data and state"]
         direction TB
-        Cands[("Candidate instructions")]:::data
-        Train[("Training split<br/>demonstration pool")]:::data
-        Dev[("Validation split")]:::data
-        Test[("Test split<br/>held out")]:::data
-        Prompt[("Compiled prompt<br/>instruction + demonstrations")]:::data
+        Cands[("Candidate<br/>instructions")]:::data
+        Splits[("Intent task splits<br/>train, validation, test")]:::data
+        Prompt[("Compiled prompt<br/>instruction + demos")]:::data
+        Cands ~~~ Splits ~~~ Prompt
     end
 
-    subgraph Obs["Evaluation and observability"]
+    subgraph Obs["Evaluation and outputs"]
         direction TB
-        Trace["OptimizationResult<br/>score and search trace"]:::obs
-        Ablation["Ablation table<br/>naive, instruction, few-shot, compound"]:::obs
-        Metrics["/metrics<br/>Prometheus counts, latency"]:::obs
+        Prediction["Prediction JSON<br/>label"]:::obs
+        Trace["OptimizationResult<br/>score, search trace"]:::obs
+        Ablation["Ablation table<br/>four prompts, test"]:::obs
+        Metrics["/metrics<br/>Prometheus text"]:::obs
+        Prediction ~~~ Trace ~~~ Ablation ~~~ Metrics
     end
 
-    Client -->|POST JSON| Router
-    Cli -->|serve| Router
-    Cli -->|compile, predict| Compound
-    Cli -->|evaluate| Ablation
-    Router -.->|checks| Validate
-    Router -->|text| Predictor
-    Router -.->|/compile| Prompt
-    Compound -->|alternates| Instr
-    Compound -->|alternates| FewShot
-    Instr -.->|reads| Cands
-    FewShot -.->|reads| Train
-    Instr -.->|score| Metric
-    FewShot -.->|score| Metric
-    Metric -.->|reads| Dev
-    Compound -->|emits| Prompt
-    Compound -.-> Trace
-    Predictor -.->|reads| Prompt
-    Predictor -->|generate| Lm
-    Ablation -.->|reads| Test
-    Router -.->|timings| Metrics
+    Interfaces -->|text| Core
+    Core -->|reads, writes| State
+    State -.->|test split| Obs
+    Core -->|labels, scores| Obs
