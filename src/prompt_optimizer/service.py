@@ -1,4 +1,4 @@
-"""A dependency-free HTTP service exposing the compiled prompt.
+"""A standard-library HTTP service exposing the compiled prompt.
 
 The service compiles the optimized prompt once at startup and then answers
 classification requests with it, which is how a compiled prompt would be served

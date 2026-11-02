@@ -8,7 +8,7 @@ The operational contract of the prediction service.
 uv run python -m prompt_optimizer serve --host 0.0.0.0 --port 8000
 ```
 
-A standard-library HTTP server with **zero runtime dependencies**. The prompt is
+A standard-library HTTP server. The prompt is
 **compiled once at startup** (the expensive step) and then serves cheap predictions.
 
 ## Endpoints

@@ -5,12 +5,10 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/adeoluo/prompt-optimizer/actions/workflows/ci.yml"><img alt="Continuous integration" src="https://github.com/adeoluo/prompt-optimizer/actions/workflows/ci.yml/badge.svg"></a>
-  <img alt="Coverage" src="https://img.shields.io/badge/coverage-95%25-brightgreen">
+  <a href="https://github.com/adeoluo/prompt-optimizer/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/adeoluo/prompt-optimizer/actions/workflows/ci.yml/badge.svg"></a>
+  <a href="https://github.com/adeoluo/prompt-optimizer/releases"><img alt="Release" src="https://img.shields.io/github/v/release/adeoluo/prompt-optimizer"></a>
   <img alt="Python" src="https://img.shields.io/badge/python-3.11%20%7C%203.12-blue">
-  <img alt="Type checked" src="https://img.shields.io/badge/mypy-strict-blue">
-  <img alt="Runtime dependencies" src="https://img.shields.io/badge/runtime%20deps-0-brightgreen">
-  <img alt="License" src="https://img.shields.io/badge/license-MIT-green">
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-green"></a>
 </p>
 
 ---
@@ -21,14 +19,14 @@ Writing prompts by hand is slow and brittle: the instruction wording and the cho
 in-context examples both move accuracy, and tuning them manually does not scale. Prompt
 optimization treats the prompt as something you **compile against a metric**, searching over
 instructions and demonstrations the way an optimizer searches over parameters. This project
-builds that idea **from scratch** - including a deterministic, offline language
-model whose output genuinely responds to the prompt, so the search has real signal - with
-**zero runtime dependencies** and a reproducible test suite.
+builds that idea **from scratch**, including a deterministic, offline language
+model whose output genuinely responds to the prompt, so the search has real signal, with
+a reproducible test suite.
 
 ## Architecture
 
 <p align="center">
-  <img src="docs/architecture/architecture.svg" alt="System architecture" width="900">
+  <img src="docs/architecture/architecture.svg" alt="Architecture diagram" width="860">
 </p>
 
 An optimizer draws **demonstrations** from the training set and **instructions** from a
@@ -36,10 +34,10 @@ candidate set, scores each candidate on a held-out **validation set**, and emits
 **compiled prompt**. A predictor runs that prompt through the language model, and a metric
 closes the loop. See the [ADRs](docs/adr/) for the key design choices.
 
-## The language model
+### The language model
 
-Optimizing a prompt requires a model whose answers depend on the prompt. To stay offline,
-deterministic, and dependency-free, this project ships a **simulated language model** that
+Optimizing a prompt requires a model whose answers depend on the prompt. To stay offline and
+deterministic, this project ships a **simulated language model** that
 captures the two behaviours that make prompt optimization work in practice, both generic
 (not tuned to the bundled task):
 
@@ -48,6 +46,24 @@ captures the two behaviours that make prompt optimization work in practice, both
   demonstrations raise accuracy.
 - **Instruction following.** It reads the label vocabulary out of the instruction and snaps
   its answer to the closest valid label; without the vocabulary it must guess from keywords.
+
+### Optimizers
+
+- **Bootstrap few-shot**: greedy forward selection of demonstrations against the validation
+  metric, with a budget. Finds a small, high-value set of in-context examples.
+- **Instruction search**: selects the best instruction from a candidate set.
+- **Compound**: coordinate ascent that alternates the two until the score stabilizes.
+
+Each optimizer is deterministic and returns a traced `OptimizationResult`.
+
+### Components
+
+- **types**: an immutable `Prompt` (instruction plus ordered demonstrations) and `Example`.
+- **lm**: the deterministic simulated language model.
+- **predictor**: binds a prompt to the model.
+- **metrics**: exact match, token F1, and dataset evaluation.
+- **optimizers**: bootstrap few-shot, instruction search, and compound.
+- **evaluation**: the four-way ablation on held-out data.
 
 ## Results
 
@@ -61,8 +77,8 @@ captures the two behaviours that make prompt optimization work in practice, both
 | few-shot bootstrap | 3 | 0.833 |
 | **compound (instruction + few-shot)** | 1 | **1.000** |
 
-Each search dimension lifts accuracy on its own, and the **compound** optimizer - coordinate
-ascent that alternates instruction search and demonstration selection - reaches **1.000**,
+Each search dimension lifts accuracy on its own, and the **compound** optimizer (coordinate
+ascent that alternates instruction search and demonstration selection) reaches **1.000**,
 beating either component. The two dimensions are complementary, which is the central claim.
 
 ### Scale
@@ -87,14 +103,19 @@ the compound optimizer reliably lifts a naive prompt well above its baseline. Th
 quality numbers come from the deterministic offline simulator; a production deployment
 would swap in a real language-model API. Reproduce with `uv run python benchmarks/scale.py`.
 
-## Optimizers
+### Performance and reliability
 
-- **Bootstrap few-shot** - greedy forward selection of demonstrations against the validation
-  metric, with a budget. Finds a small, high-value set of in-context examples.
-- **Instruction search** - selects the best instruction from a candidate set.
-- **Compound** - coordinate ascent that alternates the two until the score stabilizes.
+A deterministic micro-benchmark (`uv run python benchmarks/benchmark.py`) compiles the task
+with each optimizer and reports compile time, validation score, and the number of selected
+demonstrations. Each optimizer compiles in under a few milliseconds, since every candidate is
+scored on a small held-out split rather than by calling a model.
 
-Each optimizer is deterministic and returns a traced `OptimizationResult`.
+A production-style stress benchmark (`uv run python benchmarks/stress.py`) drives the full
+predict handler under concurrent load and reports throughput with p50, p95, and p99 latency.
+It shows the project's distinctive cost shape: compilation is a one-time startup cost, and
+each prediction is a nearest-neighbour lookup serving on the order of 100000 requests per
+second per core. The scaling path and tradeoffs are in [docs/SCALING.md](docs/SCALING.md),
+and a full compile-and-serve walk-through is in the [case study](docs/CASE_STUDY.md).
 
 ## Quickstart
 
@@ -108,7 +129,9 @@ python -m prompt_optimizer compile                      # show the compiled prom
 python -m prompt_optimizer predict "I need a refund for my money"
 ```
 
-Use the library directly:
+## Usage
+
+### Library
 
 ```python
 from prompt_optimizer import CompoundOptimizer, Predictor, Prompt
@@ -120,27 +143,9 @@ print(result.prompt.instruction, len(result.prompt.demonstrations))
 print(Predictor(result.prompt).predict("where is my package"))
 ```
 
-## Components
+### HTTP service
 
-- **types** - an immutable `Prompt` (instruction plus ordered demonstrations) and `Example`.
-- **lm** - the deterministic simulated language model.
-- **predictor** - binds a prompt to the model.
-- **metrics** - exact match, token F1, and dataset evaluation.
-- **optimizers** - bootstrap few-shot, instruction search, and compound.
-- **evaluation** - the four-way ablation on held-out data.
-
-## Design decisions
-
-- **A simulated language model.** A deterministic, offline model keeps the whole pipeline
-  reproducible and dependency-free while still giving the search a real signal.
-  ([ADR-0002](docs/adr/0002-simulated-language-model.md))
-- **Compile against a validation metric.** Candidates are scored on held-out data, so the
-  compiled prompt is selected for generalization, not training fit.
-  ([ADR-0003](docs/adr/0003-metric-driven-compilation.md))
-
-## Running the service
-
-A dependency-free HTTP service compiles the prompt once at startup and serves predictions:
+A standard-library HTTP service compiles the prompt once at startup and serves predictions:
 
 ```bash
 python -m prompt_optimizer serve --port 8000
@@ -151,23 +156,46 @@ curl -s -X POST localhost:8000/compile
 ```
 
 `GET /health` reports the compiled instruction and demonstration count; `POST /predict`
-returns a label; `POST /compile` returns the full compiled prompt for inspection. See the
-[operations guide](docs/OPERATIONS.md) for the service contract and operational constraints.
-The service also exposes `GET /ready` (readiness) and `GET /metrics` (per-route request, error, and latency metrics in Prometheus text format).
+returns a label; `POST /compile` returns the full compiled prompt for inspection. The service
+also exposes `GET /ready` (readiness) and `GET /metrics` (per-route request, error, and latency
+metrics in Prometheus text format). See the [operations guide](docs/OPERATIONS.md) for the
+service contract and operational constraints.
 
-## Performance and reliability
+## Design decisions
 
-A deterministic micro-benchmark (`uv run python benchmarks/benchmark.py`) compiles the task
-with each optimizer and reports compile time, validation score, and the number of selected
-demonstrations. Each optimizer compiles in under a few milliseconds, since every candidate is
-scored on a small held-out split rather than by calling a model.
+- **A simulated language model.** A deterministic, offline model keeps the whole pipeline
+  reproducible and credential-free while still giving the search a real signal.
+  ([ADR-0002](docs/adr/0002-simulated-language-model.md))
+- **Compile against a validation metric.** Candidates are scored on held-out data, so the
+  compiled prompt is selected for generalization, not training fit.
+  ([ADR-0003](docs/adr/0003-metric-driven-compilation.md))
+- **Recording decisions.** ([ADR-0001](docs/adr/0001-record-architecture-decisions.md))
 
-A production-style stress benchmark (`uv run python benchmarks/stress.py`) drives the full
-predict handler under concurrent load and reports throughput with p50, p95, and p99 latency.
-It shows the project's distinctive cost shape: compilation is a one-time startup cost, and
-each prediction is a nearest-neighbour lookup serving on the order of 100000 requests per
-second per core. The scaling path and tradeoffs are in [docs/SCALING.md](docs/SCALING.md),
-and a full compile-and-serve walk-through is in the [case study](docs/CASE_STUDY.md).
+## Testing
+
+```bash
+make test                     # uv run pytest
+make coverage                 # pytest with an 80% coverage gate
+```
+
+The suite has 33 deterministic, offline tests in four modules under `tests/`:
+
+- **Core** (`test_core.py`): `Example` and `Prompt` validation and immutability, prompt
+  rendering, tokenization, Jaccard bounds, exact match and token F1, label parsing, and the
+  simulated model's nearest-demonstration copying, keyword fallback, and snapping to the label
+  vocabulary.
+- **Optimizers** (`test_optimizers.py`): bootstrap improves over zero-shot and respects its
+  budget, instruction search prefers the vocabulary instruction, the compound optimizer beats
+  each component, and invalid budgets, rounds, and candidate sets are rejected.
+- **Evaluation and CLI** (`test_evaluation.py`): the compound optimizer is best in the
+  ablation, each optimizer at least matches the baseline, and the `evaluate`, `compile`, and
+  `predict` commands.
+- **HTTP service** (`test_service.py`): health, readiness, `/predict` (including missing and
+  overlong text), `/compile`, unknown routes, and request metrics.
+
+CI (`.github/workflows/ci.yml`) runs `ruff format --check`, `ruff check`, `mypy src`, and
+`pytest` with an 80% coverage gate on Python 3.11 and 3.12, then builds the package and the
+Docker image.
 
 ## Responsible AI
 
@@ -190,5 +218,4 @@ and a full compile-and-serve walk-through is in the [case study](docs/CASE_STUDY
 
 ## License
 
-[MIT](LICENSE). Part of an artificial intelligence engineering portfolio by
-[adeoluo](https://github.com/adeoluo).
+Released under the [MIT License](LICENSE).
