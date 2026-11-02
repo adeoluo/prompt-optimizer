@@ -166,6 +166,22 @@ also exposes `GET /ready` (readiness) and `GET /metrics` (per-route request, err
 metrics in Prometheus text format). See the [operations guide](docs/OPERATIONS.md) for the
 service contract and operational constraints.
 
+### Demos
+
+Recorded from real runs with [vhs](https://github.com/charmbracelet/vhs); each tape is in `docs/demo/`.
+
+Compiling a prompt by search, then a prediction with it.
+
+<p align="center">
+  <img src="docs/demo/compile.gif" alt="Compiling a prompt by search, then a prediction with it" width="860">
+</p>
+
+The optimized prompt against the baseline.
+
+<p align="center">
+  <img src="docs/demo/evaluate.gif" alt="The optimized prompt against the baseline" width="860">
+</p>
+
 ## Design decisions
 
 - **A simulated language model.** A deterministic, offline model keeps the whole pipeline
