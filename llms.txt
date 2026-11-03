@@ -1,0 +1,39 @@
+# Prompt Optimizer
+
+> Automated prompt and few-shot optimization built from scratch: compile a prompt against a metric by searching over instructions and labeled demonstrations.
+
+Languages: Python. License: MIT. Source: https://github.com/adeoluo/prompt-optimizer
+
+## Docs
+
+- [README](https://github.com/adeoluo/prompt-optimizer/blob/main/README.md): motivation, architecture, results, quickstart, usage, design decisions, testing, responsible ai, limitations, roadmap
+- [AGENTS.md](https://github.com/adeoluo/prompt-optimizer/blob/main/AGENTS.md): layout, commands and conventions for changing the code
+- [Architecture diagram](https://github.com/adeoluo/prompt-optimizer/blob/main/docs/architecture/architecture.mmd): Mermaid source of the component diagram
+- [End-to-End Case Study - Compiling and Serving a Prompt](https://github.com/adeoluo/prompt-optimizer/blob/main/docs/CASE_STUDY.md)
+- [Data Card - Prompt Optimizer](https://github.com/adeoluo/prompt-optimizer/blob/main/docs/DATA_CARD.md)
+- [Definition of Done](https://github.com/adeoluo/prompt-optimizer/blob/main/docs/DEFINITION_OF_DONE.md)
+- [Evaluation Report - Prompt Optimizer](https://github.com/adeoluo/prompt-optimizer/blob/main/docs/EVALUATION_REPORT.md)
+- [System Card - Prompt Optimizer](https://github.com/adeoluo/prompt-optimizer/blob/main/docs/MODEL_CARD.md)
+- [Operations Guide - Prompt Optimizer](https://github.com/adeoluo/prompt-optimizer/blob/main/docs/OPERATIONS.md)
+- [Scaling and Design Tradeoffs - Prompt Optimizer](https://github.com/adeoluo/prompt-optimizer/blob/main/docs/SCALING.md)
+- [Threat Model - Prompt Optimizer](https://github.com/adeoluo/prompt-optimizer/blob/main/docs/THREAT_MODEL.md)
+- [ADR-0001: Record architecture decisions](https://github.com/adeoluo/prompt-optimizer/blob/main/docs/adr/0001-record-architecture-decisions.md)
+- [ADR-0002: A deterministic simulated language model](https://github.com/adeoluo/prompt-optimizer/blob/main/docs/adr/0002-simulated-language-model.md)
+- [ADR-0003: Compile prompts against a held-out validation metric](https://github.com/adeoluo/prompt-optimizer/blob/main/docs/adr/0003-metric-driven-compilation.md)
+- [ADR-NNNN: <short title>](https://github.com/adeoluo/prompt-optimizer/blob/main/docs/adr/template.md)
+- [Changelog](https://github.com/adeoluo/prompt-optimizer/blob/main/CHANGELOG.md): release history
+
+## Source
+
+- [src/prompt_optimizer/__init__.py](https://github.com/adeoluo/prompt-optimizer/blob/main/src/prompt_optimizer/__init__.py): Prompt Optimizer - automated prompt and few-shot optimization from scratch.
+- [src/prompt_optimizer/cli.py](https://github.com/adeoluo/prompt-optimizer/blob/main/src/prompt_optimizer/cli.py): Command line interface for the prompt optimizer.
+- [src/prompt_optimizer/data.py](https://github.com/adeoluo/prompt-optimizer/blob/main/src/prompt_optimizer/data.py): A bundled intent-classification task used for demonstrations and evaluation.
+- [src/prompt_optimizer/evaluation.py](https://github.com/adeoluo/prompt-optimizer/blob/main/src/prompt_optimizer/evaluation.py): An ablation that measures what each optimizer contributes.
+- [src/prompt_optimizer/lm.py](https://github.com/adeoluo/prompt-optimizer/blob/main/src/prompt_optimizer/lm.py): A deterministic, offline simulated language model.
+- [src/prompt_optimizer/metrics.py](https://github.com/adeoluo/prompt-optimizer/blob/main/src/prompt_optimizer/metrics.py): Evaluation metrics and dataset scoring helpers.
+- [src/prompt_optimizer/observability.py](https://github.com/adeoluo/prompt-optimizer/blob/main/src/prompt_optimizer/observability.py): In-process request metrics for the HTTP service.
+- [src/prompt_optimizer/optimizers.py](https://github.com/adeoluo/prompt-optimizer/blob/main/src/prompt_optimizer/optimizers.py): Optimizers that compile a prompt against a metric.
+- [src/prompt_optimizer/predictor.py](https://github.com/adeoluo/prompt-optimizer/blob/main/src/prompt_optimizer/predictor.py): A predictor binds a prompt to the simulated language model.
+- [src/prompt_optimizer/service.py](https://github.com/adeoluo/prompt-optimizer/blob/main/src/prompt_optimizer/service.py): A standard-library HTTP service exposing the compiled prompt.
+- [src/prompt_optimizer/text.py](https://github.com/adeoluo/prompt-optimizer/blob/main/src/prompt_optimizer/text.py): Deterministic text utilities shared by the language model and metrics.
+- [src/prompt_optimizer/types.py](https://github.com/adeoluo/prompt-optimizer/blob/main/src/prompt_optimizer/types.py): Core data types shared across the package.
