@@ -62,7 +62,7 @@ class RunSpec:
         return root / "test" / self.task / eval_model / f"{self.run_id}.json"
 
 
-def test_order(examples: Sequence[TaskExample], seed: int = SPLIT_SEED) -> list[TaskExample]:
+def ordered_examples(examples: Sequence[TaskExample], seed: int = SPLIT_SEED) -> list[TaskExample]:
     """The fixed seeded order in which test examples are scored (prefixes nest)."""
 
     order = sorted(examples, key=lambda ex: ex.id)
@@ -168,7 +168,7 @@ def evaluate_program(
     """Score ``program`` on a prefix of the ordered test set and write the test file."""
 
     path = spec.test_path(eval_model, root)
-    ordered = test_order(examples)
+    ordered = ordered_examples(examples)
     wanted = ordered if limit is None else ordered[:limit]
     if path.exists():
         existing = load_json(path)
