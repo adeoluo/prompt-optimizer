@@ -51,7 +51,9 @@ class ResponseCache:
         if self.path != ":memory:":
             Path(self.path).parent.mkdir(parents=True, exist_ok=True)
         self._lock = threading.Lock()
-        self._conn = sqlite3.connect(self.path, check_same_thread=False, isolation_level=None)
+        self._conn = sqlite3.connect(
+            self.path, check_same_thread=False, isolation_level=None, timeout=120.0
+        )
         self._conn.execute("PRAGMA journal_mode=WAL")
         self._conn.execute("PRAGMA synchronous=NORMAL")
         self._conn.execute(_SCHEMA)
@@ -143,11 +145,22 @@ class CachedLM:
                 pending[key] = req
         fresh: dict[str, LMResponse] = {}
         if pending:
-            answers = self.inner.generate(list(pending.values()))
-            fresh = dict(zip(pending.keys(), answers, strict=True))
-            self.cache.put_many(
-                [(key, self._model_id, pending[key], fresh[key]) for key in pending]
-            )
+            keys_pending = list(pending)
+            if getattr(self.inner, "streams_results", False):
+                # Persist each answer the moment it arrives, so an interrupted batch
+                # resumes from the last finished call instead of from the batch start.
+                def save(index: int, resp: LMResponse) -> None:
+                    key = keys_pending[index]
+                    self.cache.put_many([(key, self._model_id, pending[key], resp)])
+
+                answers = self.inner.generate(list(pending.values()), on_result=save)  # type: ignore[call-arg]
+                fresh = dict(zip(keys_pending, answers, strict=True))
+            else:
+                answers = self.inner.generate(list(pending.values()))
+                fresh = dict(zip(keys_pending, answers, strict=True))
+                self.cache.put_many(
+                    [(key, self._model_id, pending[key], fresh[key]) for key in pending]
+                )
         out: list[LMResponse] = []
         counted: set[str] = set()
         for key, req in zip(keys, requests, strict=True):

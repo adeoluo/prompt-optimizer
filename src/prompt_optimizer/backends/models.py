@@ -56,7 +56,7 @@ MODELS: dict[str, ModelSpec] = {
         "qwen3.5-0.8b", "unsloth/Qwen3.5-0.8B-GGUF", "Qwen3.5-0.8B-Q4_K_M.gguf", 32, 4096
     ),
     "qwen3.5-2b": ModelSpec(
-        "qwen3.5-2b", "unsloth/Qwen3.5-2B-GGUF", "Qwen3.5-2B-Q4_K_M.gguf", 32, 4096
+        "qwen3.5-2b", "unsloth/Qwen3.5-2B-GGUF", "Qwen3.5-2B-Q4_K_M.gguf", 24, 3072
     ),
     "qwen3.5-4b": ModelSpec(
         "qwen3.5-4b", "unsloth/Qwen3.5-4B-GGUF", "Qwen3.5-4B-Q4_K_M.gguf", 16, 4096

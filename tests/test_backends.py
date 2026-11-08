@@ -301,3 +301,29 @@ class TestFake:
             reply = lm.generate([_req("please verify", purpose="reflect", seed=seed)])[0].text
             hits += "verify" in reply
         assert hits >= 18  # preferred phrases are chosen far more often than 0.22 * 40
+
+
+class TestStreamingCache:
+    def test_each_answer_is_cached_on_arrival(self) -> None:
+        from prompt_optimizer.backends import CachedLM, FakeLM, ResponseCache
+        from prompt_optimizer.backends.base import system_user
+
+        seen: list[int] = []
+
+        class Streaming(FakeLM):
+            streams_results = True
+
+            def generate(self, requests, on_result=None):  # type: ignore[no-untyped-def,override]
+                out = super().generate(requests)
+                for index, resp in enumerate(out):
+                    seen.append(len(cache))
+                    if on_result is not None:
+                        on_result(index, resp)
+                return out
+
+        cache = ResponseCache()
+        lm = CachedLM(Streaming(), cache)
+        reqs = [system_user("s", f"What is {i} + 1?") for i in range(3)]
+        lm.generate(reqs)
+        assert seen == [0, 1, 2] and len(cache) == 3
+        assert all(r.cached for r in lm.generate(reqs))
