@@ -9,6 +9,7 @@ from pathlib import Path
 import pytest
 
 dspy = pytest.importorskip("dspy")
+pytestmark = pytest.mark.filterwarnings("ignore::DeprecationWarning")
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "benchmarks"))
 
 import dspy_compare as dc  # noqa: E402
