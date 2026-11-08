@@ -20,6 +20,7 @@ from prompt_optimizer.report import (
     label_for,
     load_rows,
     main_table,
+    overfit_table,
     render,
     transfer_table,
 )
@@ -174,6 +175,9 @@ class TestReport:
         assert "Test examples: 50 shared" in table
         transfer = transfer_table("arith", ["fake", "fake-b"], "fake", tmp_path)
         assert "fake-b" in transfer and "OPRO" in transfer
+        overfit = overfit_table("arith", "fake", "fake", tmp_path)
+        assert "Val minus test" in overfit and "| Seed prompt (zero-shot) | 1 |" in overfit
+        assert "No overfitting" in overfit_table("x", "m", "m", tmp_path)
         text = render(tmp_path, opt_model="fake")
         assert "## arith" in text and "### Transfer" in text
 
