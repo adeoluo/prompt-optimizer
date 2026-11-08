@@ -67,6 +67,11 @@ class Task(ABC):
     def score(self, example: TaskExample, output: str) -> float:
         """Score in [0, 1] for one response."""
 
+    def metrics(self, example: TaskExample, output: str) -> dict[str, float]:
+        """Extra per-example metrics reported next to the score (none by default)."""
+
+        return {}
+
     def feedback(self, example: TaskExample, output: str) -> str:
         """Natural-language feedback for reflective optimizers."""
 
