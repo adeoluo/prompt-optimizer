@@ -1,10 +1,22 @@
 cff-version: 1.2.0
-message: "If you use this work, please cite it."
+message: "If you use this software, please cite it as below."
+type: software
 title: "Prompt Optimizer"
+abstract: "Automated prompt optimization from scratch: instruction search and bootstrapped few-shot selection compiled against a metric, with a four-way ablation and an HTTP service."
 authors:
   - family-names: "Ogunnoiki"
     given-names: "Adeolu"
-version: 0.1.0
-date-released: 2026-01-01
+version: "0.1.0"
+date-released: "2026-11-03"
 license: MIT
+repository-code: "https://github.com/adeoluo/prompt-optimizer"
 url: "https://github.com/adeoluo/prompt-optimizer"
+keywords:
+  - "dspy"
+  - "few-shot"
+  - "from-scratch"
+  - "in-context-learning"
+  - "llm"
+  - "prompt-engineering"
+  - "prompt-optimization"
+  - "python"
