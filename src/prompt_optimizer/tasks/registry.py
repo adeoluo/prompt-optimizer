@@ -100,8 +100,8 @@ class SplitConfig:
 
 
 DEFAULT_SPLITS: dict[str, SplitConfig] = {
-    "gsm8k": SplitConfig(train=200, val=100, test=None),
-    "bbh": SplitConfig(train=8, val=4, test=None),
+    "gsm8k": SplitConfig(train=200, val=60, test=None),
+    "bbh": SplitConfig(train=8, val=2, test=15),
     "hotpotqa": SplitConfig(train=150, val=100, test=500),
     "math500": SplitConfig(train=200, val=100, test=None),
     "ifeval": SplitConfig(train=100, val=100, test=None),

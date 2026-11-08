@@ -112,17 +112,43 @@ class Evaluator:
     def evaluate(
         self, program: PromptProgram, examples: Sequence[TaskExample], *, charge: bool = True
     ) -> EvalResult:
+        return self.evaluate_many([(program, examples)], charge=charge)[0]
+
+    def pending(self, program: PromptProgram, examples: Sequence[TaskExample]) -> int:
+        """Rollouts ``evaluate`` would still have to run (and charge)."""
+
         fingerprint = program.fingerprint()
-        todo = [ex for ex in dict.fromkeys(examples) if (fingerprint, ex.id) not in self._memo]
+        return sum(1 for ex in dict.fromkeys(examples) if (fingerprint, ex.id) not in self._memo)
+
+    def evaluate_many(
+        self,
+        jobs: Sequence[tuple[PromptProgram, Sequence[TaskExample]]],
+        *,
+        charge: bool = True,
+    ) -> list[EvalResult]:
+        """Score several programs with one model batch, so the server's slots stay full."""
+
+        todo: dict[tuple[str, str], tuple[PromptProgram, TaskExample]] = {}
+        for program, examples in jobs:
+            fingerprint = program.fingerprint()
+            for ex in examples:
+                key = (fingerprint, ex.id)
+                if key not in self._memo and key not in todo:
+                    todo[key] = (program, ex)
         if todo:
             if charge:
                 self.budget.charge(len(todo))
-            responses = self.lm.generate([self.request(program, ex) for ex in todo])
-            for ex, resp in zip(todo, responses, strict=True):
-                self._memo[(fingerprint, ex.id)] = Rollout(
+            responses = self.lm.generate([self.request(p, ex) for p, ex in todo.values()])
+            for key, (_, ex), resp in zip(todo, todo.values(), responses, strict=True):
+                self._memo[key] = Rollout(
                     ex, resp.text, self.task.score(ex, resp.text), resp.truncated
                 )
-        return EvalResult(program, tuple(self._memo[(fingerprint, ex.id)] for ex in examples))
+        return [
+            EvalResult(
+                program, tuple(self._memo[(program.fingerprint(), ex.id)] for ex in examples)
+            )
+            for program, examples in jobs
+        ]
 
     def known(self, program: PromptProgram, example: TaskExample) -> bool:
         return (program.fingerprint(), example.id) in self._memo
@@ -219,6 +245,7 @@ class OptimizerContext:
         self.step = 0
         self._best: tuple[float, PromptProgram] | None = None
         self._val_scores: dict[str, float] = {}
+        self._programs: dict[str, PromptProgram] = {}
 
     # -- scoring ---------------------------------------------------------------------------
     def score_val(self, program: PromptProgram, note: str = "") -> float:
@@ -234,16 +261,72 @@ class OptimizerContext:
             self._best = (result.mean, program)
         return result.mean
 
-    def score_batch(
-        self, program: PromptProgram, batch: Sequence[TaskExample], note: str = ""
-    ) -> EvalResult:
-        """Minibatch score on training examples, recorded as a trial."""
+    def score_val_many(self, programs: Sequence[PromptProgram], note: str = "") -> list[float]:
+        """Full-validation scores for several programs, run as one batch."""
 
-        result = self.evaluator.evaluate(program, batch)
-        self._record(program, result.mean, len(batch), "train", note)
-        return result
+        fresh = list(
+            {
+                p.fingerprint(): p for p in programs if p.fingerprint() not in self._val_scores
+            }.values()
+        )
+        if fresh:
+            results = self.evaluator.evaluate_many([(p, self.valset) for p in fresh])
+            for program, result in zip(fresh, results, strict=True):
+                self._val_scores[program.fingerprint()] = result.mean
+                self._record(program, result.mean, len(self.valset), "val", note)
+                if self._best is None or result.mean > self._best[0]:
+                    self._best = (result.mean, program)
+        return [self._val_scores[p.fingerprint()] for p in programs]
+
+    def score_finalists(self, programs: Sequence[PromptProgram], note: str = "finalist") -> None:
+        """Score, in order, as many distinct programs on validation as the budget allows."""
+
+        chosen: dict[str, PromptProgram] = {}
+        need = 0
+        for program in programs:
+            if program.fingerprint() in chosen:
+                continue
+            cost = self.unseen_val_cost(program)
+            if self.affordable(need + cost):
+                chosen[program.fingerprint()] = program
+                need += cost
+        self.score_val_many(list(chosen.values()), note)
+
+    def val_rollouts(self, program: PromptProgram, note: str = "") -> EvalResult:
+        """The memoized validation rollouts of a program (scores it first if needed)."""
+
+        self.score_val(program, note=note)
+        return self.evaluator.evaluate(program, self.valset, charge=False)
+
+    def score_batch(
+        self,
+        program: PromptProgram,
+        batch: Sequence[TaskExample],
+        note: str = "",
+        *,
+        split: str = "train",
+    ) -> EvalResult:
+        """Minibatch score (training examples unless ``split`` says otherwise), recorded."""
+
+        return self.score_batch_many([program], batch, note=note, split=split)[0]
+
+    def score_batch_many(
+        self,
+        programs: Sequence[PromptProgram],
+        batch: Sequence[TaskExample],
+        note: str = "",
+        *,
+        split: str = "train",
+    ) -> list[EvalResult]:
+        """Minibatch scores for several programs, run as one batch and recorded as trials."""
+
+        results = self.evaluator.evaluate_many([(p, batch) for p in programs])
+        for program, result in zip(programs, results, strict=True):
+            self._record(program, result.mean, len(batch), split, note)
+        return results
 
     def _record(self, program: PromptProgram, score: float, n: int, split: str, note: str) -> None:
+        self._programs.setdefault(program.fingerprint(), program)
         self.trials.append(
             Trial(
                 step=self.step,
@@ -291,6 +374,43 @@ class OptimizerContext:
         ]
         return [resp.text for resp in self.lm.generate(requests)]
 
+    def ask_many(
+        self,
+        system: str,
+        users: Sequence[str],
+        *,
+        purpose: Purpose = "propose",
+        temperature: float | None = None,
+        max_tokens: int | None = None,
+    ) -> list[str]:
+        """One reply per user message, sent to the model as a single batch."""
+
+        temp = self.proposer_temperature if temperature is None else temperature
+        requests = [
+            LMRequest(
+                messages=(Message("system", system), Message("user", user)),
+                max_tokens=max_tokens or self.proposer_max_tokens,
+                temperature=temp,
+                seed=self.rng.randrange(2**31),
+                purpose=purpose,
+            )
+            for user in users
+        ]
+        return [resp.text for resp in self.lm.generate(requests)]
+
+    def propose_many(
+        self,
+        system: str,
+        users: Sequence[str],
+        *,
+        purpose: Purpose = "propose",
+        temperature: float | None = None,
+    ) -> list[str | None]:
+        """Batched proposals, parsed; position ``i`` answers ``users[i]`` (None if empty)."""
+
+        texts = self.ask_many(system, users, purpose=purpose, temperature=temperature)
+        return [extract_instruction(text) for text in texts]
+
     def propose_instructions(
         self,
         system: str,
@@ -313,6 +433,40 @@ class OptimizerContext:
     def sample(self, pool: Sequence[TaskExample], k: int) -> list[TaskExample]:
         k = min(k, len(pool))
         return self.rng.sample(list(pool), k)
+
+    # -- budget helpers --------------------------------------------------------------------
+    @property
+    def val_cost(self) -> int:
+        """Rollouts one full-validation score costs."""
+
+        return len(self.valset)
+
+    def affordable(self, n: int, reserve: int = 0) -> bool:
+        """True when ``n`` more rollouts still leave ``reserve`` for later steps."""
+
+        return self.budget.remaining - reserve >= n
+
+    def cap(self, n: int, reserve: int = 0) -> int:
+        """The largest count up to ``n`` that still leaves ``reserve`` rollouts."""
+
+        return int(max(0.0, min(float(n), self.budget.remaining - reserve)))
+
+    def unseen_val_cost(self, program: PromptProgram) -> int:
+        """Validation rollouts not yet memoized for ``program`` (0 if already scored)."""
+
+        if program.fingerprint() in self._val_scores:
+            return 0
+        return sum(1 for ex in self.valset if not self.evaluator.known(program, ex))
+
+    def scored_programs(self) -> list[tuple[float, PromptProgram]]:
+        """Every program with a full-validation score, best first."""
+
+        seen: dict[str, PromptProgram] = {}
+        for trial in self.trials:
+            if trial.split == "val" and trial.fingerprint not in seen:
+                seen[trial.fingerprint] = self._programs[trial.fingerprint]
+        ranked = [(self._val_scores[fp], prog) for fp, prog in seen.items()]
+        return sorted(ranked, key=lambda pair: -pair[0])
 
 
 class Optimizer(ABC):
@@ -365,3 +519,28 @@ def format_examples(examples: Sequence[TaskExample], task: Task, limit: int = 3)
     for ex in examples[:limit]:
         blocks.append(f"Input:\n{ex.question}\n\nReference output:\n{task.gold_output(ex)}")
     return "\n\n---\n\n".join(blocks)
+
+
+def clip(text: str, limit: int = 1200) -> str:
+    """Shorten long inputs (HotpotQA contexts, long BBH tables) inside meta-prompts."""
+
+    text = text.strip()
+    if len(text) <= limit:
+        return text
+    return text[: limit - 16].rstrip() + " ... [truncated]"
+
+
+def format_rollouts(
+    rollouts: Sequence[Rollout], task: Task, *, limit: int = 4, input_chars: int = 1200
+) -> str:
+    """Render rollouts with the task's feedback for critique and reflection prompts."""
+
+    blocks = []
+    for index, rollout in enumerate(rollouts[:limit], start=1):
+        blocks.append(
+            f"### Example {index}\n"
+            f"Input:\n{clip(rollout.example.question, input_chars)}\n\n"
+            f"Model output:\n{clip(rollout.output, 900)}\n\n"
+            f"Feedback: {task.feedback(rollout.example, rollout.output)}"
+        )
+    return "\n\n".join(blocks)

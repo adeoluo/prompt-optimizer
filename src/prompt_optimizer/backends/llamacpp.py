@@ -21,7 +21,7 @@ import signal
 import subprocess
 import threading
 import time
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from dataclasses import dataclass, field
 from pathlib import Path
 from types import TracebackType
@@ -32,6 +32,9 @@ import httpx
 from prompt_optimizer.backends.base import LMRequest, LMResponse
 
 _THINK_CLOSE = "</think>"
+
+#: Called with (position in the batch, response) as soon as one request finishes.
+ResultCallback = Callable[[int, LMResponse], None]
 
 
 def _strip_thinking(text: str) -> str:
@@ -72,6 +75,9 @@ def parse_completion(data: dict[str, Any], latency_s: float) -> LMResponse:
 class LlamaCppLM:
     """Batched async client for a running ``llama-server``."""
 
+    #: ``CachedLM`` passes a per-response callback so every answer is cached on arrival.
+    streams_results = True
+
     def __init__(
         self,
         base_url: str = "http://127.0.0.1:8091",
@@ -79,8 +85,9 @@ class LlamaCppLM:
         *,
         concurrency: int = 16,
         timeout_s: float = 900.0,
-        retries: int = 3,
+        retries: int = 8,
         retry_delay_s: float = 1.0,
+        max_retry_delay_s: float = 30.0,
         transport: httpx.AsyncBaseTransport | None = None,
     ) -> None:
         if concurrency < 1:
@@ -91,6 +98,7 @@ class LlamaCppLM:
         self.timeout_s = timeout_s
         self.retries = retries
         self.retry_delay_s = retry_delay_s
+        self.max_retry_delay_s = max_retry_delay_s
         self.transport = transport
 
     @property
@@ -98,6 +106,19 @@ class LlamaCppLM:
         return self._model_id
 
     async def _one(
+        self,
+        client: httpx.AsyncClient,
+        gate: asyncio.Semaphore,
+        request: LMRequest,
+        index: int = 0,
+        on_result: ResultCallback | None = None,
+    ) -> LMResponse:
+        response = await self._attempt(client, gate, request)
+        if on_result is not None:
+            on_result(index, response)
+        return response
+
+    async def _attempt(
         self, client: httpx.AsyncClient, gate: asyncio.Semaphore, request: LMRequest
     ) -> LMResponse:
         async with gate:
@@ -114,29 +135,39 @@ class LlamaCppLM:
                     if attempt == self.retries:
                         raise
                     await asyncio.sleep(delay)
-                    delay *= 2.0
+                    delay = min(2.0 * delay, self.max_retry_delay_s)
         raise RuntimeError("unreachable")  # pragma: no cover
 
-    async def agenerate(self, requests: Sequence[LMRequest]) -> list[LMResponse]:
+    async def agenerate(
+        self, requests: Sequence[LMRequest], on_result: ResultCallback | None = None
+    ) -> list[LMResponse]:
         gate = asyncio.Semaphore(self.concurrency)
         limits = httpx.Limits(max_connections=self.concurrency)
         async with httpx.AsyncClient(
             timeout=self.timeout_s, limits=limits, transport=self.transport
         ) as client:
-            return list(await asyncio.gather(*(self._one(client, gate, r) for r in requests)))
+            return list(
+                await asyncio.gather(
+                    *(self._one(client, gate, r, i, on_result) for i, r in enumerate(requests))
+                )
+            )
 
-    def generate(self, requests: Sequence[LMRequest]) -> list[LMResponse]:
+    def generate(
+        self, requests: Sequence[LMRequest], on_result: ResultCallback | None = None
+    ) -> list[LMResponse]:
+        """Answer a batch concurrently; ``on_result(i, response)`` fires as each finishes."""
+
         if not requests:
             return []
         try:
             asyncio.get_running_loop()
         except RuntimeError:
-            return asyncio.run(self.agenerate(requests))
+            return asyncio.run(self.agenerate(requests, on_result))
         # Called from inside a running event loop: run the batch on a helper thread.
         box: dict[str, list[LMResponse]] = {}
 
         def runner() -> None:
-            box["out"] = asyncio.run(self.agenerate(requests))
+            box["out"] = asyncio.run(self.agenerate(requests, on_result))
 
         thread = threading.Thread(target=runner)
         thread.start()
