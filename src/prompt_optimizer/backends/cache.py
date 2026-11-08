@@ -2,8 +2,9 @@
 
 Every LM call is keyed by the SHA-256 of its canonical request (model id,
 messages, decoding parameters; see ``LMRequest.cache_key``). The cache lives in
-one SQLite file in WAL mode, so concurrent readers never block and a crashed
-run loses at most the in-flight batch.
+one SQLite file in WAL mode, so concurrent readers never block. Backends that
+stream results (llama.cpp) have each answer written the moment it arrives, so a
+crashed run loses at most the calls still in flight.
 
 Two properties follow and the rest of the system relies on them:
 
