@@ -206,7 +206,9 @@ class TestCli:
             ["optimize", "--fake", "--optimizer", "opro", "--budget", "200", "--set", "steps=2"]
         )
         out = capsys.readouterr().out
-        assert "opro on arithmetic" in out and "selected: val" in out and "cost:" in out
+        assert (
+            "opro on arithmetic with fake-lm" in out and "selected: val" in out and "cost:" in out
+        )
 
     def test_report(self, tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
         cli.main(["report", "--root", str(tmp_path)])
@@ -237,7 +239,10 @@ class TestCli:
                 str(cache),
             ]
         )
-        assert "bootstrap_fewshot on arithmetic: 40 train, 20 validation" in capsys.readouterr().out
+        assert (
+            "bootstrap_fewshot on arithmetic with fake-lm: 40 train, 20 validation"
+            in capsys.readouterr().out
+        )
         assert cache.exists()
         json.dumps({})
 
