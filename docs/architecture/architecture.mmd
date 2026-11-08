@@ -7,42 +7,43 @@ flowchart LR
 
     subgraph Interfaces["Interfaces"]
         direction TB
-        Cli(["CLI<br/>evaluate, predict, serve"]):::edge
-        Client(["HTTP client<br/>JSON text"]):::edge
-        Router["HTTP router<br/>/predict, /compile"]:::core
-        Validate["Validation<br/>text up to 2000 chars"]:::control
-        Cli ~~~ Client --> Router --> Validate
+        Cli(["CLI<br/>optimize, report"]):::edge
+        Runner["Experiment runner<br/>resumable jobs"]:::control
+        Dspy(["DSPy 3.4.1<br/>RoutedLM adapter"]):::edge
+        Splits["Seeded splits<br/>train, val, test"]:::control
+        Service["HTTP service<br/>reference classifier"]:::core
+        Cli --> Runner ~~~ Dspy ~~~ Splits ~~~ Service
     end
 
-    subgraph Core["Compile and predict"]
+    subgraph Core["Optimizers (one contract)"]
         direction TB
-        Compound["CompoundOptimizer<br/>coordinate ascent"]:::core
-        Instr["InstructionSearch<br/>best candidate"]:::core
-        FewShot["BootstrapFewShot<br/>greedy demo selection"]:::core
-        Metric["Validation metric<br/>exact match"]:::control
-        Predictor["Predictor<br/>prompt plus model"]:::core
-        Lm["Simulated LM<br/>nearest demo, labels"]:::core
-        Compound --> Instr --> FewShot --> Metric ~~~ Predictor --> Lm
+        Contract["Optimizer context<br/>budget, memo, batches"]:::control
+        Search["Instruction search<br/>APE, OPRO, Breeder"]:::core
+        Feedback["Feedback driven<br/>TextGrad, GEPA Pareto"]:::core
+        Demos["Demo search<br/>bootstrap, MIPROv2 TPE"]:::core
+        Reference["Reference optimizers<br/>simulated model"]:::core
+        Contract --> Search ~~~ Feedback ~~~ Demos ~~~ Reference
     end
 
-    subgraph State["Data and state"]
+    subgraph Models["Models and data"]
         direction TB
-        Cands[("Candidate<br/>instructions")]:::data
-        Splits[("Intent task splits<br/>train, validation, test")]:::data
-        Prompt[("Compiled prompt<br/>instruction + demos")]:::data
-        Cands ~~~ Splits ~~~ Prompt
+        Client["CachedLM<br/>async batched client"]:::core
+        Cache[("Response cache<br/>SQLite, content hash")]:::data
+        Server(["llama-server<br/>Qwen3.5 0.8B, 2B, 4B"]):::edge
+        Bench[("Benchmarks<br/>GSM8K, BBH, MATH, ...")]:::data
+        Client --> Cache ~~~ Server ~~~ Bench
     end
 
     subgraph Obs["Evaluation and outputs"]
         direction TB
-        Prediction["Prediction JSON<br/>label"]:::obs
-        Trace["OptimizationResult<br/>score, search trace"]:::obs
-        Ablation["Ablation table<br/>four prompts, test"]:::obs
-        Metrics["/metrics<br/>Prometheus text"]:::obs
-        Prediction ~~~ Trace ~~~ Ablation ~~~ Metrics
+        Test["Test scoring<br/>ordered prefix"]:::obs
+        Meter["Cost meter<br/>calls and tokens"]:::obs
+        Stats["Statistics<br/>bootstrap, paired"]:::obs
+        Report["Results tables<br/>JSON per example"]:::obs
+        Overfit["Overfitting check<br/>val versus test"]:::obs
+        Test --> Stats --> Report ~~~ Meter ~~~ Overfit
     end
 
-    Interfaces -->|text| Core
-    Core -->|reads, writes| State
-    State -.->|test split| Obs
-    Core -->|labels, scores| Obs
+    Interfaces -->|budget| Core
+    Core -->|rollouts| Models
+    Models -.->|usage| Obs
