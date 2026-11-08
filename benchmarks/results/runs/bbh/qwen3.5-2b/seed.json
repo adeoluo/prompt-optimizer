@@ -1,0 +1,34 @@
+{
+ "task": "bbh",
+ "optimizer": "seed",
+ "model": "qwen3.5-2b",
+ "seed": 0,
+ "budget": 400,
+ "overrides": {},
+ "splits": {
+  "train": 216,
+  "val": 54,
+  "test": 405
+ },
+ "val_score": 0.4444444444444444,
+ "rollouts_used": 54,
+ "program": {
+  "instruction": "Answer the question.",
+  "demos": []
+ },
+ "fingerprint": "3fdde98294d77a89",
+ "trials": [],
+ "info": {},
+ "cost": {
+  "task": {
+   "calls": 54,
+   "fresh_calls": 54,
+   "prompt_tokens": 10658,
+   "completion_tokens": 19174,
+   "truncated": 18,
+   "model_seconds": 23176.83806037897,
+   "total_tokens": 29832
+  }
+ },
+ "wall_seconds": 973.1
+}

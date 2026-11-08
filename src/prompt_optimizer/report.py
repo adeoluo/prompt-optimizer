@@ -151,6 +151,34 @@ def main_table(task: str, eval_model: str, opt_model: str, root: Path = RESULTS_
     return "\n".join(lines)
 
 
+def overfit_table(task: str, eval_model: str, opt_model: str, root: Path = RESULTS_ROOT) -> str:
+    """Validation score of each selected program next to its test score.
+
+    The validation score is what selected the program (the maximum over the
+    candidates a method scored), so it is biased upward; the gap to the test score
+    measures how much of the apparent gain was selection noise.
+    """
+
+    rows = [r for r in load_rows(task, eval_model, opt_model, root) if r.val is not None]
+    if not rows:
+        return f"No overfitting data for {task}."
+    ids = common_ids(r.test for r in rows)
+    lines = [
+        "| Method | Candidates scored on val | Val acc | Test acc | Val minus test |",
+        "|---|---:|---:|---:|---:|",
+    ]
+    for row in rows:
+        test = bootstrap_ci(_scores(row.test, ids)).mean
+        assert row.val is not None
+        trials = (row.run or {}).get("trials", [])
+        candidates = len({t["fingerprint"] for t in trials if t.get("split") == "val"}) or 1
+        lines.append(
+            f"| {row.label} | {candidates} | {100 * row.val:.1f} | {100 * test:.1f} | "
+            f"{100 * (row.val - test):+.1f} |"
+        )
+    return "\n".join(lines)
+
+
 def transfer_table(
     task: str, eval_models: Sequence[str], opt_model: str, root: Path = RESULTS_ROOT
 ) -> str:
@@ -184,6 +212,8 @@ def render(root: Path = RESULTS_ROOT, opt_model: str = "qwen3.5-2b") -> str:
         task = task_dir.name
         parts.append(f"## {task}\n")
         parts.append(main_table(task, opt_model, opt_model, root))
+        parts.append("\n### Validation versus test\n")
+        parts.append(overfit_table(task, opt_model, opt_model, root))
         models = sorted(p.name for p in task_dir.iterdir() if p.is_dir())
         if len(models) > 1:
             parts.append("\n### Transfer\n")

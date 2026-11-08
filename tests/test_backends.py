@@ -327,3 +327,46 @@ class TestStreamingCache:
         lm.generate(reqs)
         assert seen == [0, 1, 2] and len(cache) == 3
         assert all(r.cached for r in lm.generate(reqs))
+
+
+class TestPermanentErrors:
+    def test_bad_request_becomes_an_empty_error_answer(self) -> None:
+        import httpx
+
+        from prompt_optimizer.backends import LlamaCppLM
+        from prompt_optimizer.backends.base import system_user
+
+        calls: list[int] = []
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            calls.append(1)
+            return httpx.Response(400, text="the request exceeds the available context size")
+
+        lm = LlamaCppLM(transport=httpx.MockTransport(handler), retry_delay_s=0.0)
+        (resp,) = lm.generate([system_user("s", "u")])
+        assert resp.text == "" and resp.finish_reason == "error" and len(calls) == 1
+        assert resp.extra["status"] == "400" and "context" in resp.extra["error"]
+
+
+def test_error_answers_are_not_cached() -> None:
+    from prompt_optimizer.backends import CachedLM, FakeLM, ResponseCache
+    from prompt_optimizer.backends.base import LMResponse, system_user
+
+    class Failing(FakeLM):
+        def generate(self, requests):  # type: ignore[no-untyped-def,override]
+            return [LMResponse("", 0, 0, finish_reason="error") for _ in requests]
+
+    class FailingStream(Failing):
+        streams_results = True
+
+        def generate(self, requests, on_result=None):  # type: ignore[no-untyped-def,override]
+            out = super().generate(requests)
+            for i, r in enumerate(out):
+                if on_result is not None:
+                    on_result(i, r)
+            return out
+
+    for inner in (Failing(), FailingStream()):
+        cache = ResponseCache()
+        CachedLM(inner, cache).generate([system_user("s", "u")])
+        assert len(cache) == 0
