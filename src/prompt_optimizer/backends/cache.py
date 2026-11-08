@@ -152,7 +152,8 @@ class CachedLM:
                 # resumes from the last finished call instead of from the batch start.
                 def save(index: int, resp: LMResponse) -> None:
                     key = keys_pending[index]
-                    self.cache.put_many([(key, self._model_id, pending[key], resp)])
+                    if resp.finish_reason != "error":
+                        self.cache.put_many([(key, self._model_id, pending[key], resp)])
 
                 answers = self.inner.generate(list(pending.values()), on_result=save)  # type: ignore[call-arg]
                 fresh = dict(zip(keys_pending, answers, strict=True))
@@ -160,7 +161,11 @@ class CachedLM:
                 answers = self.inner.generate(list(pending.values()))
                 fresh = dict(zip(keys_pending, answers, strict=True))
                 self.cache.put_many(
-                    [(key, self._model_id, pending[key], fresh[key]) for key in pending]
+                    [
+                        (key, self._model_id, pending[key], fresh[key])
+                        for key in pending
+                        if fresh[key].finish_reason != "error"
+                    ]
                 )
         out: list[LMResponse] = []
         counted: set[str] = set()

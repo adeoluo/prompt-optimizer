@@ -1,38 +1,44 @@
-# System Card - Prompt Optimizer
+# Model Card: Prompt Optimizer
 
-## Overview
+This project does not train model weights. It optimizes *prompts* (an instruction plus
+in-context demonstrations) for existing instruction models, and its artifacts are optimized
+prompts with their search histories (`benchmarks/results/runs/`).
 
-- **What it is:** an automated prompt optimizer - it compiles a prompt (instruction plus
-  demonstrations) against a metric by searching over instructions and demonstrations.
-- **What it is not:** a language model. It ships a deterministic simulated model to make the
-  optimization reproducible; a real model drops in behind the predictor.
-- **Version:** 0.1.0.
+## Models used
+
+| Model | Build | File size | Role |
+|---|---|---:|---|
+| Qwen/Qwen3.5-0.8B (Feb 2026) | unsloth/Qwen3.5-0.8B-GGUF, Q4_K_M | 533 MB | transfer evaluation |
+| Qwen/Qwen3.5-2B (Feb 2026) | unsloth/Qwen3.5-2B-GGUF, Q4_K_M | 1.28 GB | optimization and evaluation |
+| Qwen/Qwen3.5-4B (Feb 2026) | unsloth/Qwen3.5-4B-GGUF, Q4_K_M | 2.74 GB | transfer evaluation |
+
+- **License:** Apache 2.0 (model and GGUF builds).
+- **Serving:** llama.cpp `llama-server` (Homebrew build 9.0, b12110), Metal, flash attention,
+  q8_0 KV cache, thinking disabled (`--reasoning off`), greedy decoding (temperature 0) for
+  task rollouts, temperature 0.9 to 1.0 with per-request seeds for proposer calls.
+- **Hardware:** Apple M1, 8 cores, 8 GB unified memory, shared with other jobs.
 
 ## Intended use
 
-- **Primary use cases:** learning and demonstrating prompt and few-shot optimization; a
-  from-scratch reference for metric-driven prompt compilation.
-- **Primary users:** engineers and researchers building prompt programs.
+- Research and engineering comparison of prompt-optimization methods under equal budgets.
+- A readable, tested reference implementation of APE, OPRO, MIPROv2-style, TextGrad-style,
+  GEPA-style, PromptBreeder-style and bootstrapped few-shot optimization.
 
-## Out-of-scope / prohibited use
+## Out of scope
 
-- Absolute accuracy reflects the simulated model, not any hosted model.
-- The bundled task is a demonstration, not a benchmark.
+- Optimized prompts are selected for one model and one benchmark split; the transfer
+  results show how much carries over to other model sizes, and it is not guaranteed.
+- Absolute accuracies are for 4-bit quantized small models without thinking and are not
+  comparable to published numbers for full-precision or larger models.
 
-## Performance
+## Risks
 
-See the README ablation: baseline 0.333, instruction search 0.833, few-shot 0.833, compound
-1.000 on held-out test data. The meaningful quantity is the relative lift.
+- Prompt optimization can overfit the validation set; the evaluation report shows the
+  validation to test gap for every selected prompt.
+- Proposer models can write instructions that leak answers seen in feedback. Proposers see
+  training and validation examples only; the test split is never passed to an optimizer.
 
-## Risks and limitations
+## Reference pipeline
 
-- Greedy few-shot selection can overfit a small validation split.
-- The instruction candidate set is enumerated, not generated.
-
-## Safety mitigations
-
-- Deterministic, offline, reproducible; held-out validation and test splits.
-
-## Environmental / cost footprint
-
-Negligible; all in-memory with no model calls.
+The original simulated language model (`lm.py`) and its three optimizers remain as a
+deterministic, offline reference with their own small classification task.

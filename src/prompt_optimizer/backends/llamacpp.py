@@ -33,6 +33,9 @@ from prompt_optimizer.backends.base import LMRequest, LMResponse
 
 _THINK_CLOSE = "</think>"
 
+#: HTTP statuses that will not change on retry (bad request, payload too large).
+_PERMANENT = frozenset({400, 413, 422})
+
 #: Called with (position in the batch, response) as soon as one request finishes.
 ResultCallback = Callable[[int, LMResponse], None]
 
@@ -129,6 +132,18 @@ class LlamaCppLM:
                     reply = await client.post(
                         f"{self.base_url}/v1/chat/completions", json=_payload(request)
                     )
+                    if reply.status_code in _PERMANENT:
+                        # A request the server can never answer (for example a prompt
+                        # longer than the slot context) scores as an empty answer instead
+                        # of aborting a long run; the reason is kept for accounting.
+                        return LMResponse(
+                            text="",
+                            prompt_tokens=0,
+                            completion_tokens=0,
+                            finish_reason="error",
+                            latency_s=time.perf_counter() - start,
+                            extra={"status": str(reply.status_code), "error": reply.text[:200]},
+                        )
                     reply.raise_for_status()
                     return parse_completion(reply.json(), time.perf_counter() - start)
                 except (httpx.TransportError, httpx.HTTPStatusError):
