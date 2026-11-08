@@ -58,7 +58,7 @@ def ensure_server(model: str, port: int) -> None:
     spec = get_model(model)
     url = f"http://127.0.0.1:{port}"
     current = served_model(url)
-    if current is not None and current.endswith(spec.filename):
+    if current is not None and Path(current).resolve() == spec.resolve().resolve():
         return
     if current is not None and PID_FILE.exists():
         pid = int(PID_FILE.read_text().strip())
@@ -76,7 +76,7 @@ def ensure_server(model: str, port: int) -> None:
         parallel=spec.parallel,
         ctx_per_slot=spec.ctx_per_slot,
         log_path=BENCH / "logs" / f"server_{model}.log",
-        extra_args=("-fa", "on"),
+        extra_args=("-fa", "on", "-ctk", "q8_0", "-ctv", "q8_0"),
     )
     log(f"starting {model}: {' '.join(server.command())}")
     server.start()
