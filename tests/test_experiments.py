@@ -240,3 +240,10 @@ class TestCli:
         assert "bootstrap_fewshot on arithmetic: 40 train, 20 validation" in capsys.readouterr().out
         assert cache.exists()
         json.dumps({})
+
+
+def test_results_root_is_inside_the_repository() -> None:
+    from prompt_optimizer.experiments import RESULTS_ROOT
+
+    repo = Path(__file__).resolve().parents[1]
+    assert repo / "benchmarks" / "results" == RESULTS_ROOT

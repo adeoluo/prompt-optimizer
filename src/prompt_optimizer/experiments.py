@@ -34,7 +34,7 @@ from prompt_optimizer.program import PromptProgram
 from prompt_optimizer.tasks.base import Task, TaskExample
 from prompt_optimizer.tasks.registry import SPLIT_SEED, Splits
 
-RESULTS_ROOT = Path(__file__).resolve().parents[3] / "benchmarks" / "results"
+RESULTS_ROOT = Path(__file__).resolve().parents[2] / "benchmarks" / "results"
 SEED_RUN = "seed"
 
 
