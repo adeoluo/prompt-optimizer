@@ -122,10 +122,19 @@ class RoutedLM(dspy.BaseLM):  # type: ignore[misc]
         return SimpleNamespace(choices=choices, usage=usage, model=self.model)
 
 
+#: The brevity clause of the task contracts (ADR-0005), carried by DSPy's reasoning field,
+#: which DSPy optimizers do not rewrite (they rewrite the signature instructions).
+REASONING_FIELD = {
+    "gsm8k": "your reasoning in a few short steps (no more than about 120 words)",
+    "bbh": "your reasoning in a few short sentences (no more than about 120 words)",
+}
+
+
 def make_program(task: Task) -> dspy.Module:
     signature = dspy.Signature("question -> answer", task.seed_instruction)
     signature = signature.with_updated_fields("answer", desc=ANSWER_FIELD.get(task.name, "answer"))
-    return dspy.ChainOfThought(signature)
+    rationale = dspy.OutputField(desc=REASONING_FIELD.get(task.name, "${reasoning}"))
+    return dspy.ChainOfThought(signature, rationale_field=rationale)
 
 
 def as_output(prediction: Any) -> str:
