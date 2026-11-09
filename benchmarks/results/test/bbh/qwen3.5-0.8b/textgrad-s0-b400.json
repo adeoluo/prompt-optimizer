@@ -1,0 +1,1916 @@
+{
+ "task": "bbh",
+ "run_id": "textgrad-s0-b400",
+ "optimizer": "textgrad",
+ "optimized_on": "qwen3.5-2b",
+ "eval_model": "qwen3.5-0.8b",
+ "fingerprint": "9f247865065829dd",
+ "n": 270,
+ "n_available": 405,
+ "accuracy": 0.34444444444444444,
+ "truncated": 28,
+ "records": [
+  {
+   "id": "bbh-boolean_expressions-56",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "boolean_expressions"
+  },
+  {
+   "id": "bbh-causal_judgement-31",
+   "score": 1.0,
+   "pred": "No",
+   "truncated": false,
+   "group": "causal_judgement"
+  },
+  {
+   "id": "bbh-date_understanding-89",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "date_understanding"
+  },
+  {
+   "id": "bbh-disambiguation_qa-182",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "disambiguation_qa"
+  },
+  {
+   "id": "bbh-dyck_languages-139",
+   "score": 0.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "dyck_languages"
+  },
+  {
+   "id": "bbh-formal_fallacies-186",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "formal_fallacies"
+  },
+  {
+   "id": "bbh-geometric_shapes-214",
+   "score": 1.0,
+   "pred": "(F)",
+   "truncated": false,
+   "group": "geometric_shapes"
+  },
+  {
+   "id": "bbh-hyperbaton-141",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "hyperbaton"
+  },
+  {
+   "id": "bbh-logical_deduction_five_objects-47",
+   "score": 1.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "logical_deduction_five_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_seven_objects-86",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "logical_deduction_seven_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_three_objects-137",
+   "score": 1.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "logical_deduction_three_objects"
+  },
+  {
+   "id": "bbh-movie_recommendation-191",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "movie_recommendation"
+  },
+  {
+   "id": "bbh-multistep_arithmetic_two-122",
+   "score": 1.0,
+   "pred": "-264",
+   "truncated": false,
+   "group": "multistep_arithmetic_two"
+  },
+  {
+   "id": "bbh-navigate-48",
+   "score": 1.0,
+   "pred": "Yes",
+   "truncated": false,
+   "group": "navigate"
+  },
+  {
+   "id": "bbh-object_counting-5",
+   "score": 1.0,
+   "pred": "3",
+   "truncated": false,
+   "group": "object_counting"
+  },
+  {
+   "id": "bbh-penguins_in_a_table-41",
+   "score": 0.0,
+   "pred": "(E)",
+   "truncated": false,
+   "group": "penguins_in_a_table"
+  },
+  {
+   "id": "bbh-reasoning_about_colored_objects-165",
+   "score": 1.0,
+   "pred": "(D)",
+   "truncated": false,
+   "group": "reasoning_about_colored_objects"
+  },
+  {
+   "id": "bbh-ruin_names-37",
+   "score": 0.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "ruin_names"
+  },
+  {
+   "id": "bbh-salient_translation_error_detection-126",
+   "score": 0.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "salient_translation_error_detection"
+  },
+  {
+   "id": "bbh-snarks-62",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "snarks"
+  },
+  {
+   "id": "bbh-sports_understanding-198",
+   "score": 0.0,
+   "pred": "False",
+   "truncated": false,
+   "group": "sports_understanding"
+  },
+  {
+   "id": "bbh-temporal_sequences-123",
+   "score": 0.0,
+   "pred": "(D)",
+   "truncated": false,
+   "group": "temporal_sequences"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_five_objects-230",
+   "score": 1.0,
+   "pred": "(D)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_five_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_seven_objects-238",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_seven_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_three_objects-60",
+   "score": 0.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_three_objects"
+  },
+  {
+   "id": "bbh-web_of_lies-103",
+   "score": 0.0,
+   "pred": "(F)",
+   "truncated": false,
+   "group": "web_of_lies"
+  },
+  {
+   "id": "bbh-word_sorting-174",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "word_sorting"
+  },
+  {
+   "id": "bbh-boolean_expressions-210",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "boolean_expressions"
+  },
+  {
+   "id": "bbh-causal_judgement-24",
+   "score": 0.0,
+   "pred": "No",
+   "truncated": false,
+   "group": "causal_judgement"
+  },
+  {
+   "id": "bbh-date_understanding-26",
+   "score": 0.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "date_understanding"
+  },
+  {
+   "id": "bbh-disambiguation_qa-236",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "disambiguation_qa"
+  },
+  {
+   "id": "bbh-dyck_languages-148",
+   "score": 0.0,
+   "pred": "`<`: depth becomes 2.",
+   "truncated": true,
+   "group": "dyck_languages"
+  },
+  {
+   "id": "bbh-formal_fallacies-188",
+   "score": 0.0,
+   "pred": "valid",
+   "truncated": false,
+   "group": "formal_fallacies"
+  },
+  {
+   "id": "bbh-geometric_shapes-120",
+   "score": 0.0,
+   "pred": "(F)",
+   "truncated": false,
+   "group": "geometric_shapes"
+  },
+  {
+   "id": "bbh-hyperbaton-236",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "hyperbaton"
+  },
+  {
+   "id": "bbh-logical_deduction_five_objects-45",
+   "score": 0.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "logical_deduction_five_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_seven_objects-167",
+   "score": 0.0,
+   "pred": "To determine the correct order, we first arrange the known facts: Ada (3rd), Rob (2nd), Dan (last), and Ana (4th). This gives us the sequence: Ada, Rob, Ana, Dan. We know Ada finished second-to-last, ",
+   "truncated": true,
+   "group": "logical_deduction_seven_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_three_objects-77",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "logical_deduction_three_objects"
+  },
+  {
+   "id": "bbh-movie_recommendation-50",
+   "score": 0.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "movie_recommendation"
+  },
+  {
+   "id": "bbh-multistep_arithmetic_two-164",
+   "score": 1.0,
+   "pred": "30",
+   "truncated": false,
+   "group": "multistep_arithmetic_two"
+  },
+  {
+   "id": "bbh-navigate-106",
+   "score": 1.0,
+   "pred": "Yes",
+   "truncated": false,
+   "group": "navigate"
+  },
+  {
+   "id": "bbh-object_counting-0",
+   "score": 0.0,
+   "pred": "10",
+   "truncated": false,
+   "group": "object_counting"
+  },
+  {
+   "id": "bbh-penguins_in_a_table-110",
+   "score": 0.0,
+   "pred": "(D)",
+   "truncated": false,
+   "group": "penguins_in_a_table"
+  },
+  {
+   "id": "bbh-reasoning_about_colored_objects-57",
+   "score": 0.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "reasoning_about_colored_objects"
+  },
+  {
+   "id": "bbh-ruin_names-171",
+   "score": 0.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "ruin_names"
+  },
+  {
+   "id": "bbh-salient_translation_error_detection-119",
+   "score": 1.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "salient_translation_error_detection"
+  },
+  {
+   "id": "bbh-snarks-44",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "snarks"
+  },
+  {
+   "id": "bbh-sports_understanding-93",
+   "score": 0.0,
+   "pred": "False",
+   "truncated": false,
+   "group": "sports_understanding"
+  },
+  {
+   "id": "bbh-temporal_sequences-195",
+   "score": 0.0,
+   "pred": "Emily woke up at 5am. The cafe was open from 5am to 6am, so she could have gone then. The park was closed after 10pm, meaning she could not have gone after 10pm. She could have gone from 6am to 2pm (l",
+   "truncated": true,
+   "group": "temporal_sequences"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_five_objects-115",
+   "score": 0.0,
+   "pred": "E: U (Ulysses)",
+   "truncated": true,
+   "group": "tracking_shuffled_objects_five_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_seven_objects-50",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_seven_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_three_objects-10",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_three_objects"
+  },
+  {
+   "id": "bbh-web_of_lies-218",
+   "score": 0.0,
+   "pred": "True",
+   "truncated": false,
+   "group": "web_of_lies"
+  },
+  {
+   "id": "bbh-word_sorting-214",
+   "score": 0.0,
+   "pred": "- s",
+   "truncated": true,
+   "group": "word_sorting"
+  },
+  {
+   "id": "bbh-boolean_expressions-153",
+   "score": 1.0,
+   "pred": "False",
+   "truncated": false,
+   "group": "boolean_expressions"
+  },
+  {
+   "id": "bbh-causal_judgement-6",
+   "score": 0.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "causal_judgement"
+  },
+  {
+   "id": "bbh-date_understanding-135",
+   "score": 0.0,
+   "pred": "In 2000, February had 28 days. Today is her 16th birthday, so yesterday was the 15th of February. The date is February 15th, 2000. Converting this to MM/DD/YYYY format gives 02/15/2000. None of the op",
+   "truncated": true,
+   "group": "date_understanding"
+  },
+  {
+   "id": "bbh-disambiguation_qa-106",
+   "score": 0.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "disambiguation_qa"
+  },
+  {
+   "id": "bbh-dyck_languages-34",
+   "score": 0.0,
+   "pred": ")",
+   "truncated": false,
+   "group": "dyck_languages"
+  },
+  {
+   "id": "bbh-formal_fallacies-89",
+   "score": 1.0,
+   "pred": "valid",
+   "truncated": false,
+   "group": "formal_fallacies"
+  },
+  {
+   "id": "bbh-geometric_shapes-162",
+   "score": 0.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "geometric_shapes"
+  },
+  {
+   "id": "bbh-hyperbaton-168",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "hyperbaton"
+  },
+  {
+   "id": "bbh-logical_deduction_five_objects-136",
+   "score": 0.0,
+   "pred": "Let's re-verify",
+   "truncated": true,
+   "group": "logical_deduction_five_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_seven_objects-37",
+   "score": 1.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "logical_deduction_seven_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_three_objects-189",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "logical_deduction_three_objects"
+  },
+  {
+   "id": "bbh-movie_recommendation-120",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "movie_recommendation"
+  },
+  {
+   "id": "bbh-multistep_arithmetic_two-57",
+   "score": 1.0,
+   "pred": "211",
+   "truncated": false,
+   "group": "multistep_arithmetic_two"
+  },
+  {
+   "id": "bbh-navigate-222",
+   "score": 0.0,
+   "pred": "No",
+   "truncated": false,
+   "group": "navigate"
+  },
+  {
+   "id": "bbh-object_counting-22",
+   "score": 0.0,
+   "pred": "10",
+   "truncated": false,
+   "group": "object_counting"
+  },
+  {
+   "id": "bbh-penguins_in_a_table-107",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "penguins_in_a_table"
+  },
+  {
+   "id": "bbh-reasoning_about_colored_objects-62",
+   "score": 1.0,
+   "pred": "(H)",
+   "truncated": false,
+   "group": "reasoning_about_colored_objects"
+  },
+  {
+   "id": "bbh-ruin_names-145",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "ruin_names"
+  },
+  {
+   "id": "bbh-salient_translation_error_detection-31",
+   "score": 1.0,
+   "pred": "(F)",
+   "truncated": false,
+   "group": "salient_translation_error_detection"
+  },
+  {
+   "id": "bbh-snarks-107",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "snarks"
+  },
+  {
+   "id": "bbh-sports_understanding-11",
+   "score": 0.0,
+   "pred": "True",
+   "truncated": false,
+   "group": "sports_understanding"
+  },
+  {
+   "id": "bbh-temporal_sequences-78",
+   "score": 0.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "temporal_sequences"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_five_objects-152",
+   "score": 1.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_five_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_seven_objects-68",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_seven_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_three_objects-95",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_three_objects"
+  },
+  {
+   "id": "bbh-web_of_lies-241",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "web_of_lies"
+  },
+  {
+   "id": "bbh-word_sorting-147",
+   "score": 0.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "word_sorting"
+  },
+  {
+   "id": "bbh-boolean_expressions-232",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "boolean_expressions"
+  },
+  {
+   "id": "bbh-causal_judgement-26",
+   "score": 1.0,
+   "pred": "No",
+   "truncated": false,
+   "group": "causal_judgement"
+  },
+  {
+   "id": "bbh-date_understanding-20",
+   "score": 0.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "date_understanding"
+  },
+  {
+   "id": "bbh-disambiguation_qa-169",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "disambiguation_qa"
+  },
+  {
+   "id": "bbh-dyck_languages-56",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "dyck_languages"
+  },
+  {
+   "id": "bbh-formal_fallacies-112",
+   "score": 1.0,
+   "pred": "valid",
+   "truncated": false,
+   "group": "formal_fallacies"
+  },
+  {
+   "id": "bbh-geometric_shapes-92",
+   "score": 0.0,
+   "pred": "(F)",
+   "truncated": false,
+   "group": "geometric_shapes"
+  },
+  {
+   "id": "bbh-hyperbaton-210",
+   "score": 1.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "hyperbaton"
+  },
+  {
+   "id": "bbh-logical_deduction_five_objects-55",
+   "score": 1.0,
+   "pred": "(D)",
+   "truncated": false,
+   "group": "logical_deduction_five_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_seven_objects-107",
+   "score": 0.0,
+   "pred": "-   **Seventh from left**: The **Hawk** is the second from the right. The rightmost bird is the Hawk. The second from the right is the one immediately to the left of the Hawk. Since the Falcon is at t",
+   "truncated": true,
+   "group": "logical_deduction_seven_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_three_objects-202",
+   "score": 1.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "logical_deduction_three_objects"
+  },
+  {
+   "id": "bbh-movie_recommendation-185",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "movie_recommendation"
+  },
+  {
+   "id": "bbh-multistep_arithmetic_two-232",
+   "score": 0.0,
+   "pred": "12",
+   "truncated": false,
+   "group": "multistep_arithmetic_two"
+  },
+  {
+   "id": "bbh-navigate-60",
+   "score": 1.0,
+   "pred": "No. Answer: No",
+   "truncated": false,
+   "group": "navigate"
+  },
+  {
+   "id": "bbh-object_counting-65",
+   "score": 0.0,
+   "pred": "10",
+   "truncated": false,
+   "group": "object_counting"
+  },
+  {
+   "id": "bbh-penguins_in_a_table-34",
+   "score": 0.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "penguins_in_a_table"
+  },
+  {
+   "id": "bbh-reasoning_about_colored_objects-22",
+   "score": 0.0,
+   "pred": "(O)",
+   "truncated": false,
+   "group": "reasoning_about_colored_objects"
+  },
+  {
+   "id": "bbh-ruin_names-150",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "ruin_names"
+  },
+  {
+   "id": "bbh-salient_translation_error_detection-0",
+   "score": 0.0,
+   "pred": "(D)",
+   "truncated": false,
+   "group": "salient_translation_error_detection"
+  },
+  {
+   "id": "bbh-snarks-121",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "snarks"
+  },
+  {
+   "id": "bbh-sports_understanding-218",
+   "score": 0.0,
+   "pred": "True",
+   "truncated": false,
+   "group": "sports_understanding"
+  },
+  {
+   "id": "bbh-temporal_sequences-57",
+   "score": 1.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "temporal_sequences"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_five_objects-59",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_five_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_seven_objects-204",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_seven_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_three_objects-70",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_three_objects"
+  },
+  {
+   "id": "bbh-web_of_lies-88",
+   "score": 0.0,
+   "pred": "Yes",
+   "truncated": false,
+   "group": "web_of_lies"
+  },
+  {
+   "id": "bbh-word_sorting-223",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "word_sorting"
+  },
+  {
+   "id": "bbh-boolean_expressions-158",
+   "score": 1.0,
+   "pred": "True",
+   "truncated": false,
+   "group": "boolean_expressions"
+  },
+  {
+   "id": "bbh-causal_judgement-110",
+   "score": 0.0,
+   "pred": "No",
+   "truncated": false,
+   "group": "causal_judgement"
+  },
+  {
+   "id": "bbh-date_understanding-164",
+   "score": 0.0,
+   "pred": "(E)",
+   "truncated": false,
+   "group": "date_understanding"
+  },
+  {
+   "id": "bbh-disambiguation_qa-36",
+   "score": 0.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "disambiguation_qa"
+  },
+  {
+   "id": "bbh-dyck_languages-184",
+   "score": 0.0,
+   "pred": "To correctly close the Dyck-n word, we must ensure that every opening parenthesis `(` is matched by a corresponding closing parenthesis `)`, and that the nesting depth never exceeds the given limit of",
+   "truncated": true,
+   "group": "dyck_languages"
+  },
+  {
+   "id": "bbh-formal_fallacies-150",
+   "score": 0.0,
+   "pred": "valid",
+   "truncated": false,
+   "group": "formal_fallacies"
+  },
+  {
+   "id": "bbh-geometric_shapes-123",
+   "score": 1.0,
+   "pred": "(E)",
+   "truncated": false,
+   "group": "geometric_shapes"
+  },
+  {
+   "id": "bbh-hyperbaton-137",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "hyperbaton"
+  },
+  {
+   "id": "bbh-logical_deduction_five_objects-192",
+   "score": 0.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "logical_deduction_five_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_seven_objects-15",
+   "score": 0.0,
+   "pred": "\"The",
+   "truncated": true,
+   "group": "logical_deduction_seven_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_three_objects-233",
+   "score": 1.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "logical_deduction_three_objects"
+  },
+  {
+   "id": "bbh-movie_recommendation-40",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "movie_recommendation"
+  },
+  {
+   "id": "bbh-multistep_arithmetic_two-128",
+   "score": 1.0,
+   "pred": "-196",
+   "truncated": false,
+   "group": "multistep_arithmetic_two"
+  },
+  {
+   "id": "bbh-navigate-99",
+   "score": 0.0,
+   "pred": "Yes",
+   "truncated": false,
+   "group": "navigate"
+  },
+  {
+   "id": "bbh-object_counting-88",
+   "score": 0.0,
+   "pred": "10",
+   "truncated": false,
+   "group": "object_counting"
+  },
+  {
+   "id": "bbh-penguins_in_a_table-139",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "penguins_in_a_table"
+  },
+  {
+   "id": "bbh-reasoning_about_colored_objects-232",
+   "score": 0.0,
+   "pred": "(E)",
+   "truncated": false,
+   "group": "reasoning_about_colored_objects"
+  },
+  {
+   "id": "bbh-ruin_names-22",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "ruin_names"
+  },
+  {
+   "id": "bbh-salient_translation_error_detection-113",
+   "score": 0.0,
+   "pred": "(D)",
+   "truncated": false,
+   "group": "salient_translation_error_detection"
+  },
+  {
+   "id": "bbh-snarks-132",
+   "score": 1.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "snarks"
+  },
+  {
+   "id": "bbh-sports_understanding-202",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "sports_understanding"
+  },
+  {
+   "id": "bbh-temporal_sequences-36",
+   "score": 0.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "temporal_sequences"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_five_objects-51",
+   "score": 0.0,
+   "pred": "(D)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_five_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_seven_objects-241",
+   "score": 0.0,
+   "pred": "(D)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_seven_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_three_objects-178",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_three_objects"
+  },
+  {
+   "id": "bbh-web_of_lies-29",
+   "score": 0.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "web_of_lies"
+  },
+  {
+   "id": "bbh-word_sorting-187",
+   "score": 0.0,
+   "pred": "To sort the list alphabetically, we arrange the words based on their first letter, then second letter, and so on. The words starting with 'd' come first: defend, delicious, distort, define (not in lis",
+   "truncated": true,
+   "group": "word_sorting"
+  },
+  {
+   "id": "bbh-boolean_expressions-93",
+   "score": 0.0,
+   "pred": "True",
+   "truncated": false,
+   "group": "boolean_expressions"
+  },
+  {
+   "id": "bbh-causal_judgement-122",
+   "score": 0.0,
+   "pred": "No",
+   "truncated": false,
+   "group": "causal_judgement"
+  },
+  {
+   "id": "bbh-date_understanding-204",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "date_understanding"
+  },
+  {
+   "id": "bbh-disambiguation_qa-181",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "disambiguation_qa"
+  },
+  {
+   "id": "bbh-dyck_languages-190",
+   "score": 0.0,
+   "pred": ")",
+   "truncated": false,
+   "group": "dyck_languages"
+  },
+  {
+   "id": "bbh-formal_fallacies-155",
+   "score": 0.0,
+   "pred": "valid",
+   "truncated": false,
+   "group": "formal_fallacies"
+  },
+  {
+   "id": "bbh-geometric_shapes-2",
+   "score": 0.0,
+   "pred": "(G)",
+   "truncated": false,
+   "group": "geometric_shapes"
+  },
+  {
+   "id": "bbh-hyperbaton-192",
+   "score": 1.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "hyperbaton"
+  },
+  {
+   "id": "bbh-logical_deduction_five_objects-150",
+   "score": 0.0,
+   "pred": "-",
+   "truncated": true,
+   "group": "logical_deduction_five_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_seven_objects-12",
+   "score": 0.0,
+   "pred": "(F) Eve finished last (False, Eve is 4",
+   "truncated": true,
+   "group": "logical_deduction_seven_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_three_objects-182",
+   "score": 0.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "logical_deduction_three_objects"
+  },
+  {
+   "id": "bbh-movie_recommendation-70",
+   "score": 1.0,
+   "pred": "(D)",
+   "truncated": false,
+   "group": "movie_recommendation"
+  },
+  {
+   "id": "bbh-multistep_arithmetic_two-133",
+   "score": 0.0,
+   "pred": "-79",
+   "truncated": false,
+   "group": "multistep_arithmetic_two"
+  },
+  {
+   "id": "bbh-navigate-95",
+   "score": 1.0,
+   "pred": "No",
+   "truncated": false,
+   "group": "navigate"
+  },
+  {
+   "id": "bbh-object_counting-57",
+   "score": 0.0,
+   "pred": "16",
+   "truncated": false,
+   "group": "object_counting"
+  },
+  {
+   "id": "bbh-penguins_in_a_table-84",
+   "score": 1.0,
+   "pred": "(D)",
+   "truncated": false,
+   "group": "penguins_in_a_table"
+  },
+  {
+   "id": "bbh-reasoning_about_colored_objects-185",
+   "score": 1.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "reasoning_about_colored_objects"
+  },
+  {
+   "id": "bbh-ruin_names-181",
+   "score": 1.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "ruin_names"
+  },
+  {
+   "id": "bbh-salient_translation_error_detection-158",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "salient_translation_error_detection"
+  },
+  {
+   "id": "bbh-snarks-144",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "snarks"
+  },
+  {
+   "id": "bbh-sports_understanding-5",
+   "score": 0.0,
+   "pred": "True",
+   "truncated": false,
+   "group": "sports_understanding"
+  },
+  {
+   "id": "bbh-temporal_sequences-103",
+   "score": 0.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "temporal_sequences"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_five_objects-215",
+   "score": 1.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_five_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_seven_objects-59",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_seven_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_three_objects-91",
+   "score": 0.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_three_objects"
+  },
+  {
+   "id": "bbh-web_of_lies-111",
+   "score": 0.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "web_of_lies"
+  },
+  {
+   "id": "bbh-word_sorting-97",
+   "score": 0.0,
+   "pred": "To sort the list alphabetically, we arrange the words based on their first letter, then second letter, and so on. The words starting with 'c' come first: crystallography, chiang, carnal (not in list),",
+   "truncated": true,
+   "group": "word_sorting"
+  },
+  {
+   "id": "bbh-boolean_expressions-42",
+   "score": 1.0,
+   "pred": "27. `True and True`",
+   "truncated": true,
+   "group": "boolean_expressions"
+  },
+  {
+   "id": "bbh-causal_judgement-15",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "causal_judgement"
+  },
+  {
+   "id": "bbh-date_understanding-150",
+   "score": 0.0,
+   "pred": "(F)",
+   "truncated": false,
+   "group": "date_understanding"
+  },
+  {
+   "id": "bbh-disambiguation_qa-52",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "disambiguation_qa"
+  },
+  {
+   "id": "bbh-dyck_languages-232",
+   "score": 0.0,
+   "pred": "To correctly close the Dyck-n word, we must ensure that every opening parenthesis `(` is matched by a closing one `)`, and every opening curly brace `{` is matched by a closing one `}`, while respecti",
+   "truncated": true,
+   "group": "dyck_languages"
+  },
+  {
+   "id": "bbh-formal_fallacies-236",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "formal_fallacies"
+  },
+  {
+   "id": "bbh-geometric_shapes-136",
+   "score": 1.0,
+   "pred": "(E)",
+   "truncated": false,
+   "group": "geometric_shapes"
+  },
+  {
+   "id": "bbh-hyperbaton-239",
+   "score": 1.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "hyperbaton"
+  },
+  {
+   "id": "bbh-logical_deduction_five_objects-147",
+   "score": 0.0,
+   "pred": "-   (D) Amy finished first:",
+   "truncated": true,
+   "group": "logical_deduction_five_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_seven_objects-174",
+   "score": 1.0,
+   "pred": "(F)",
+   "truncated": false,
+   "group": "logical_deduction_seven_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_three_objects-87",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "logical_deduction_three_objects"
+  },
+  {
+   "id": "bbh-movie_recommendation-104",
+   "score": 0.0,
+   "pred": "(D)",
+   "truncated": false,
+   "group": "movie_recommendation"
+  },
+  {
+   "id": "bbh-multistep_arithmetic_two-189",
+   "score": 1.0,
+   "pred": "237",
+   "truncated": false,
+   "group": "multistep_arithmetic_two"
+  },
+  {
+   "id": "bbh-navigate-34",
+   "score": 0.0,
+   "pred": "No",
+   "truncated": false,
+   "group": "navigate"
+  },
+  {
+   "id": "bbh-object_counting-111",
+   "score": 1.0,
+   "pred": "3",
+   "truncated": false,
+   "group": "object_counting"
+  },
+  {
+   "id": "bbh-penguins_in_a_table-48",
+   "score": 0.0,
+   "pred": "Let's look at the options again",
+   "truncated": true,
+   "group": "penguins_in_a_table"
+  },
+  {
+   "id": "bbh-reasoning_about_colored_objects-76",
+   "score": 0.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "reasoning_about_colored_objects"
+  },
+  {
+   "id": "bbh-ruin_names-234",
+   "score": 0.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "ruin_names"
+  },
+  {
+   "id": "bbh-salient_translation_error_detection-231",
+   "score": 1.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "salient_translation_error_detection"
+  },
+  {
+   "id": "bbh-snarks-70",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "snarks"
+  },
+  {
+   "id": "bbh-sports_understanding-85",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "sports_understanding"
+  },
+  {
+   "id": "bbh-temporal_sequences-11",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "temporal_sequences"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_five_objects-99",
+   "score": 0.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_five_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_seven_objects-178",
+   "score": 1.0,
+   "pred": "(F)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_seven_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_three_objects-31",
+   "score": 0.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_three_objects"
+  },
+  {
+   "id": "bbh-web_of_lies-97",
+   "score": 0.0,
+   "pred": "Yes",
+   "truncated": false,
+   "group": "web_of_lies"
+  },
+  {
+   "id": "bbh-word_sorting-138",
+   "score": 0.0,
+   "pred": "1. athlete",
+   "truncated": true,
+   "group": "word_sorting"
+  },
+  {
+   "id": "bbh-boolean_expressions-152",
+   "score": 1.0,
+   "pred": "False",
+   "truncated": false,
+   "group": "boolean_expressions"
+  },
+  {
+   "id": "bbh-causal_judgement-175",
+   "score": 1.0,
+   "pred": "No",
+   "truncated": false,
+   "group": "causal_judgement"
+  },
+  {
+   "id": "bbh-date_understanding-166",
+   "score": 0.0,
+   "pred": "Yesterday was 12/31/1929. Today is 12/32/1929. One year ago from today is 12/31/1928. The question asks for the date one year ago from today, which corresponds to 12/31/1928. Looking at the options, n",
+   "truncated": true,
+   "group": "date_understanding"
+  },
+  {
+   "id": "bbh-disambiguation_qa-84",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "disambiguation_qa"
+  },
+  {
+   "id": "bbh-dyck_languages-191",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "dyck_languages"
+  },
+  {
+   "id": "bbh-formal_fallacies-19",
+   "score": 1.0,
+   "pred": "valid",
+   "truncated": false,
+   "group": "formal_fallacies"
+  },
+  {
+   "id": "bbh-geometric_shapes-76",
+   "score": 0.0,
+   "pred": "The path starts at (89.63, 34.92) and ends at (98.15, 63.53), forming a closed loop. The sequence of vertices is M, L, A, L, M, L, A, L, M, L, A, L, M, L, A, L, M, L, A, L, M, L, A, L, M, L, A, L, M, ",
+   "truncated": true,
+   "group": "geometric_shapes"
+  },
+  {
+   "id": "bbh-hyperbaton-155",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "hyperbaton"
+  },
+  {
+   "id": "bbh-logical_deduction_five_objects-108",
+   "score": 0.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "logical_deduction_five_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_seven_objects-103",
+   "score": 0.0,
+   "pred": "-   (D)",
+   "truncated": true,
+   "group": "logical_deduction_seven_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_three_objects-50",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "logical_deduction_three_objects"
+  },
+  {
+   "id": "bbh-movie_recommendation-35",
+   "score": 0.0,
+   "pred": "(D)",
+   "truncated": false,
+   "group": "movie_recommendation"
+  },
+  {
+   "id": "bbh-multistep_arithmetic_two-245",
+   "score": 0.0,
+   "pred": "32",
+   "truncated": false,
+   "group": "multistep_arithmetic_two"
+  },
+  {
+   "id": "bbh-navigate-9",
+   "score": 1.0,
+   "pred": "No",
+   "truncated": false,
+   "group": "navigate"
+  },
+  {
+   "id": "bbh-object_counting-196",
+   "score": 1.0,
+   "pred": "5",
+   "truncated": false,
+   "group": "object_counting"
+  },
+  {
+   "id": "bbh-penguins_in_a_table-7",
+   "score": 0.0,
+   "pred": "(D)",
+   "truncated": false,
+   "group": "penguins_in_a_table"
+  },
+  {
+   "id": "bbh-reasoning_about_colored_objects-127",
+   "score": 0.0,
+   "pred": "(D)",
+   "truncated": false,
+   "group": "reasoning_about_colored_objects"
+  },
+  {
+   "id": "bbh-ruin_names-40",
+   "score": 0.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "ruin_names"
+  },
+  {
+   "id": "bbh-salient_translation_error_detection-121",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "salient_translation_error_detection"
+  },
+  {
+   "id": "bbh-snarks-78",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "snarks"
+  },
+  {
+   "id": "bbh-sports_understanding-170",
+   "score": 1.0,
+   "pred": "Yes",
+   "truncated": false,
+   "group": "sports_understanding"
+  },
+  {
+   "id": "bbh-temporal_sequences-163",
+   "score": 0.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "temporal_sequences"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_five_objects-173",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_five_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_seven_objects-244",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_seven_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_three_objects-146",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_three_objects"
+  },
+  {
+   "id": "bbh-web_of_lies-28",
+   "score": 1.0,
+   "pred": "Yes",
+   "truncated": false,
+   "group": "web_of_lies"
+  },
+  {
+   "id": "bbh-word_sorting-70",
+   "score": 0.0,
+   "pred": "To sort the list alphabetically, we arrange the words based on their first letter, then second letter, and so on. The sorted sequence is: booby, funtor, freak, freaky, freaky, freaky, freaky, freaky, ",
+   "truncated": true,
+   "group": "word_sorting"
+  },
+  {
+   "id": "bbh-boolean_expressions-29",
+   "score": 0.0,
+   "pred": "(E)",
+   "truncated": false,
+   "group": "boolean_expressions"
+  },
+  {
+   "id": "bbh-causal_judgement-149",
+   "score": 0.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "causal_judgement"
+  },
+  {
+   "id": "bbh-date_understanding-196",
+   "score": 1.0,
+   "pred": "Today is the last day of Q1 2008, which is December 31, 2008. One week ago would be October 31, 2008. Converting October 31, 2008 to MM/DD/YYYY gives 10/31/2008. None of the options match this exact d",
+   "truncated": true,
+   "group": "date_understanding"
+  },
+  {
+   "id": "bbh-disambiguation_qa-136",
+   "score": 1.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "disambiguation_qa"
+  },
+  {
+   "id": "bbh-dyck_languages-62",
+   "score": 0.0,
+   "pred": "1",
+   "truncated": true,
+   "group": "dyck_languages"
+  },
+  {
+   "id": "bbh-formal_fallacies-144",
+   "score": 1.0,
+   "pred": "valid",
+   "truncated": false,
+   "group": "formal_fallacies"
+  },
+  {
+   "id": "bbh-geometric_shapes-67",
+   "score": 0.0,
+   "pred": "(F)",
+   "truncated": false,
+   "group": "geometric_shapes"
+  },
+  {
+   "id": "bbh-hyperbaton-59",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "hyperbaton"
+  },
+  {
+   "id": "bbh-logical_deduction_five_objects-246",
+   "score": 0.0,
+   "pred": "(E)",
+   "truncated": false,
+   "group": "logical_deduction_five_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_seven_objects-142",
+   "score": 0.0,
+   "pred": "-   **Option (B) Crow is",
+   "truncated": true,
+   "group": "logical_deduction_seven_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_three_objects-67",
+   "score": 0.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "logical_deduction_three_objects"
+  },
+  {
+   "id": "bbh-movie_recommendation-116",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "movie_recommendation"
+  },
+  {
+   "id": "bbh-multistep_arithmetic_two-208",
+   "score": 0.0,
+   "pred": "-22",
+   "truncated": false,
+   "group": "multistep_arithmetic_two"
+  },
+  {
+   "id": "bbh-navigate-132",
+   "score": 1.0,
+   "pred": "No",
+   "truncated": false,
+   "group": "navigate"
+  },
+  {
+   "id": "bbh-object_counting-178",
+   "score": 1.0,
+   "pred": "4",
+   "truncated": false,
+   "group": "object_counting"
+  },
+  {
+   "id": "bbh-penguins_in_a_table-103",
+   "score": 1.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "penguins_in_a_table"
+  },
+  {
+   "id": "bbh-reasoning_about_colored_objects-111",
+   "score": 1.0,
+   "pred": "(E)",
+   "truncated": false,
+   "group": "reasoning_about_colored_objects"
+  },
+  {
+   "id": "bbh-ruin_names-62",
+   "score": 0.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "ruin_names"
+  },
+  {
+   "id": "bbh-salient_translation_error_detection-235",
+   "score": 0.0,
+   "pred": "(F)",
+   "truncated": false,
+   "group": "salient_translation_error_detection"
+  },
+  {
+   "id": "bbh-snarks-100",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "snarks"
+  },
+  {
+   "id": "bbh-sports_understanding-210",
+   "score": 0.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "sports_understanding"
+  },
+  {
+   "id": "bbh-temporal_sequences-148",
+   "score": 1.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "temporal_sequences"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_five_objects-13",
+   "score": 0.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_five_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_seven_objects-207",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_seven_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_three_objects-19",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_three_objects"
+  },
+  {
+   "id": "bbh-web_of_lies-36",
+   "score": 1.0,
+   "pred": "Yes",
+   "truncated": false,
+   "group": "web_of_lies"
+  },
+  {
+   "id": "bbh-word_sorting-98",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "word_sorting"
+  },
+  {
+   "id": "bbh-boolean_expressions-19",
+   "score": 1.0,
+   "pred": "False",
+   "truncated": false,
+   "group": "boolean_expressions"
+  },
+  {
+   "id": "bbh-causal_judgement-151",
+   "score": 0.0,
+   "pred": "No",
+   "truncated": false,
+   "group": "causal_judgement"
+  },
+  {
+   "id": "bbh-date_understanding-99",
+   "score": 0.0,
+   "pred": "(E)",
+   "truncated": false,
+   "group": "date_understanding"
+  },
+  {
+   "id": "bbh-disambiguation_qa-145",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "disambiguation_qa"
+  },
+  {
+   "id": "bbh-dyck_languages-248",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "dyck_languages"
+  },
+  {
+   "id": "bbh-formal_fallacies-65",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "formal_fallacies"
+  },
+  {
+   "id": "bbh-geometric_shapes-65",
+   "score": 0.0,
+   "pred": "The SVG path `M 57.33,25.85 A 18.81,18.81 351.25 1,0 20.15,31.57 A 18.81,18.81 351.25 1,0 57.33,25.85` defines a closed loop with 8 vertices. The vertices are (57.33, 25.85), (57.33+18.81, 25.85+18.81",
+   "truncated": true,
+   "group": "geometric_shapes"
+  },
+  {
+   "id": "bbh-hyperbaton-97",
+   "score": 1.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "hyperbaton"
+  },
+  {
+   "id": "bbh-logical_deduction_five_objects-247",
+   "score": 1.0,
+   "pred": "(E)",
+   "truncated": false,
+   "group": "logical_deduction_five_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_seven_objects-110",
+   "score": 0.0,
+   "pred": "(D) Cardinal is 4th from left:",
+   "truncated": true,
+   "group": "logical_deduction_seven_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_three_objects-236",
+   "score": 1.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "logical_deduction_three_objects"
+  },
+  {
+   "id": "bbh-movie_recommendation-53",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "movie_recommendation"
+  },
+  {
+   "id": "bbh-multistep_arithmetic_two-53",
+   "score": 1.0,
+   "pred": "36",
+   "truncated": false,
+   "group": "multistep_arithmetic_two"
+  },
+  {
+   "id": "bbh-navigate-229",
+   "score": 1.0,
+   "pred": "No",
+   "truncated": false,
+   "group": "navigate"
+  },
+  {
+   "id": "bbh-object_counting-15",
+   "score": 0.0,
+   "pred": "7",
+   "truncated": false,
+   "group": "object_counting"
+  },
+  {
+   "id": "bbh-penguins_in_a_table-86",
+   "score": 0.0,
+   "pred": "(E)",
+   "truncated": false,
+   "group": "penguins_in_a_table"
+  },
+  {
+   "id": "bbh-reasoning_about_colored_objects-217",
+   "score": 1.0,
+   "pred": "(I)",
+   "truncated": false,
+   "group": "reasoning_about_colored_objects"
+  },
+  {
+   "id": "bbh-ruin_names-233",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "ruin_names"
+  },
+  {
+   "id": "bbh-salient_translation_error_detection-36",
+   "score": 0.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "salient_translation_error_detection"
+  },
+  {
+   "id": "bbh-snarks-111",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "snarks"
+  },
+  {
+   "id": "bbh-sports_understanding-189",
+   "score": 0.0,
+   "pred": "False",
+   "truncated": false,
+   "group": "sports_understanding"
+  },
+  {
+   "id": "bbh-temporal_sequences-244",
+   "score": 0.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "temporal_sequences"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_five_objects-225",
+   "score": 0.0,
+   "pred": "(D)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_five_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_seven_objects-189",
+   "score": 1.0,
+   "pred": "(F)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_seven_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_three_objects-202",
+   "score": 1.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_three_objects"
+  },
+  {
+   "id": "bbh-web_of_lies-199",
+   "score": 0.0,
+   "pred": "(F)",
+   "truncated": false,
+   "group": "web_of_lies"
+  },
+  {
+   "id": "bbh-word_sorting-8",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "word_sorting"
+  }
+ ],
+ "cost": {
+  "task": {
+   "calls": 270,
+   "fresh_calls": 270,
+   "prompt_tokens": 61392,
+   "completion_tokens": 32397,
+   "truncated": 28,
+   "model_seconds": 2489.7248641190818,
+   "total_tokens": 93789
+  }
+ },
+ "wall_seconds": 325.2
+}

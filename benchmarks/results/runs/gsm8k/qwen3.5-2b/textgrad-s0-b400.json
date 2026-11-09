@@ -1,0 +1,222 @@
+{
+ "task": "gsm8k",
+ "optimizer": "textgrad",
+ "model": "qwen3.5-2b",
+ "seed": 0,
+ "budget": 400,
+ "overrides": {},
+ "splits": {
+  "train": 200,
+  "val": 60,
+  "test": 1319
+ },
+ "val_score": 0.8666666666666667,
+ "rollouts_used": 399,
+ "program": {
+  "instruction": "<solution>\nSolve the math word problem by **performing all arithmetic operations first**, including any required multiplications, summations of components (e.g., volumes over time), and divisions, to determine the intermediate totals. Explicitly state the known constraints and the specific scenario logic **only after** all calculations are complete. Ensure the reasoning clearly distinguishes between additive components (volumes, counts) and the final net result after any specific operations like consumption or division. End with the final answer derived directly from the corrected arithmetic logic.\n</solution>",
+  "demos": []
+ },
+ "fingerprint": "6d92daff15ede3bd",
+ "trials": [
+  {
+   "step": 0,
+   "fingerprint": "5505bd69fbcfb580",
+   "instruction": "Solve the math word problem.",
+   "n_demos": 0,
+   "score": 0.7666666666666667,
+   "n_examples": 60,
+   "split": "val",
+   "rollouts_used": 60,
+   "note": "seed"
+  },
+  {
+   "step": 1,
+   "fingerprint": "5505bd69fbcfb580",
+   "instruction": "Solve the math word problem.",
+   "n_demos": 0,
+   "score": 0.6,
+   "n_examples": 10,
+   "split": "train",
+   "rollouts_used": 70,
+   "note": "forward"
+  },
+  {
+   "step": 1,
+   "fingerprint": "e5fae34dd0ccd01c",
+   "instruction": "<instruction>",
+   "n_demos": 0,
+   "score": 0.8,
+   "n_examples": 10,
+   "split": "train",
+   "rollouts_used": 80,
+   "note": "step"
+  },
+  {
+   "step": 1,
+   "fingerprint": "e5fae34dd0ccd01c",
+   "instruction": "<instruction>",
+   "n_demos": 0,
+   "score": 0.7666666666666667,
+   "n_examples": 60,
+   "split": "val",
+   "rollouts_used": 140,
+   "note": "accepted-on-batch"
+  },
+  {
+   "step": 2,
+   "fingerprint": "5505bd69fbcfb580",
+   "instruction": "Solve the math word problem.",
+   "n_demos": 0,
+   "score": 0.6,
+   "n_examples": 10,
+   "split": "train",
+   "rollouts_used": 150,
+   "note": "forward"
+  },
+  {
+   "step": 2,
+   "fingerprint": "d68a8200dc752504",
+   "instruction": "Solve the math word problem by providing a clear, step-by-step breakdown of the logic and calculations. Ensure the reasoning is concise but complete enough to justify all steps, including intermediate arithmetic operations.",
+   "n_demos": 0,
+   "score": 0.5,
+   "n_examples": 10,
+   "split": "train",
+   "rollouts_used": 160,
+   "note": "step"
+  },
+  {
+   "step": 3,
+   "fingerprint": "5505bd69fbcfb580",
+   "instruction": "Solve the math word problem.",
+   "n_demos": 0,
+   "score": 0.4,
+   "n_examples": 10,
+   "split": "train",
+   "rollouts_used": 170,
+   "note": "forward"
+  },
+  {
+   "step": 3,
+   "fingerprint": "48941a29d417180a",
+   "instruction": "<system_prompt>Solve the math word problem.</system_prompt>",
+   "n_demos": 0,
+   "score": 0.5,
+   "n_examples": 10,
+   "split": "train",
+   "rollouts_used": 180,
+   "note": "step"
+  },
+  {
+   "step": 3,
+   "fingerprint": "48941a29d417180a",
+   "instruction": "<system_prompt>Solve the math word problem.</system_prompt>",
+   "n_demos": 0,
+   "score": 0.75,
+   "n_examples": 60,
+   "split": "val",
+   "rollouts_used": 240,
+   "note": "accepted-on-batch"
+  },
+  {
+   "step": 4,
+   "fingerprint": "5505bd69fbcfb580",
+   "instruction": "Solve the math word problem.",
+   "n_demos": 0,
+   "score": 0.4,
+   "n_examples": 10,
+   "split": "train",
+   "rollouts_used": 249,
+   "note": "forward"
+  },
+  {
+   "step": 4,
+   "fingerprint": "69a91151c3c7abc4",
+   "instruction": "Solve the math word problem by first extracting all numerical values and unit information, then explicitly stating the known constraints and the specific scenario logic before performing the final calculation. Ensure the reasoning clearly distinguishes between additive components (volumes/counts) and the final net result after specific operations like consumption or division, avoiding ambiguous intermediate totals. End with the final answer derived from the corrected logic.",
+   "n_demos": 0,
+   "score": 0.8,
+   "n_examples": 10,
+   "split": "train",
+   "rollouts_used": 259,
+   "note": "step"
+  },
+  {
+   "step": 4,
+   "fingerprint": "69a91151c3c7abc4",
+   "instruction": "Solve the math word problem by first extracting all numerical values and unit information, then explicitly stating the known constraints and the specific scenario logic before performing the final calculation. Ensure the reasoning clearly distinguishes between additive components (volumes/counts) and the final net result after specific operations like consumption or division, avoiding ambiguous intermediate totals. End with the final answer derived from the corrected logic.",
+   "n_demos": 0,
+   "score": 0.85,
+   "n_examples": 60,
+   "split": "val",
+   "rollouts_used": 319,
+   "note": "accepted-on-batch"
+  },
+  {
+   "step": 5,
+   "fingerprint": "69a91151c3c7abc4",
+   "instruction": "Solve the math word problem by first extracting all numerical values and unit information, then explicitly stating the known constraints and the specific scenario logic before performing the final calculation. Ensure the reasoning clearly distinguishes between additive components (volumes/counts) and the final net result after specific operations like consumption or division, avoiding ambiguous intermediate totals. End with the final answer derived from the corrected logic.",
+   "n_demos": 0,
+   "score": 0.8,
+   "n_examples": 10,
+   "split": "train",
+   "rollouts_used": 329,
+   "note": "forward"
+  },
+  {
+   "step": 5,
+   "fingerprint": "6d92daff15ede3bd",
+   "instruction": "<solution>\nSolve the math word problem by **performing all arithmetic operations first**, including any required multiplications, summations of components (e.g., volumes over time), and divisions, to determine the intermediate totals. Explicitly state the known constraints and the specific scenario logic **only after** all calculations are complete. Ensure the reasoning clearly distinguishes between additive components (volumes, counts) and the final net result after any specific operations like consumption or division. End with the final answer derived directly from the corrected arithmetic logic.\n</solution>",
+   "n_demos": 0,
+   "score": 0.9,
+   "n_examples": 10,
+   "split": "train",
+   "rollouts_used": 339,
+   "note": "step"
+  },
+  {
+   "step": 5,
+   "fingerprint": "6d92daff15ede3bd",
+   "instruction": "<solution>\nSolve the math word problem by **performing all arithmetic operations first**, including any required multiplications, summations of components (e.g., volumes over time), and divisions, to determine the intermediate totals. Explicitly state the known constraints and the specific scenario logic **only after** all calculations are complete. Ensure the reasoning clearly distinguishes between additive components (volumes, counts) and the final net result after any specific operations like consumption or division. End with the final answer derived directly from the corrected arithmetic logic.\n</solution>",
+   "n_demos": 0,
+   "score": 0.8666666666666667,
+   "n_examples": 60,
+   "split": "val",
+   "rollouts_used": 399,
+   "note": "accepted-on-batch"
+  }
+ ],
+ "info": {
+  "stopped": "completed",
+  "optimizer": "textgrad",
+  "seed": 0
+ },
+ "cost": {
+  "critique": {
+   "calls": 5,
+   "fresh_calls": 5,
+   "prompt_tokens": 5371,
+   "completion_tokens": 1986,
+   "truncated": 4,
+   "model_seconds": 232.4939172090235,
+   "total_tokens": 7357
+  },
+  "propose": {
+   "calls": 5,
+   "fresh_calls": 5,
+   "prompt_tokens": 2772,
+   "completion_tokens": 285,
+   "truncated": 0,
+   "model_seconds": 54.47242308201385,
+   "total_tokens": 3057
+  },
+  "task": {
+   "calls": 399,
+   "fresh_calls": 309,
+   "prompt_tokens": 60431,
+   "completion_tokens": 56866,
+   "truncated": 9,
+   "model_seconds": 22258.17490633807,
+   "total_tokens": 117297
+  }
+ },
+ "wall_seconds": 1732.4
+}

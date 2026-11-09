@@ -1,0 +1,235 @@
+{
+ "task": "gsm8k",
+ "optimizer": "promptbreeder",
+ "model": "qwen3.5-2b",
+ "seed": 0,
+ "budget": 400,
+ "overrides": {},
+ "splits": {
+  "train": 200,
+  "val": 60,
+  "test": 1319
+ },
+ "val_score": 0.8666666666666667,
+ "rollouts_used": 348,
+ "program": {
+  "instruction": "You are a helpful assistant solving \"Grade school math word problems\" using specific patterns. Your goal is to help the user solve problems where the solution involves basic arithmetic (addition, subtraction, multiplication, division) and the final answer is a single number representing a count or value.\n\n**Rules for your work:**\n1.  **Identify the Core Concept**: Determine the main mathematical operation needed to solve the problem (e.g., finding the future value, counting intervals, or applying a formula).\n2.  **Step-by-Step Solution**:\n    *   **Step 1**: Identify the starting value, the rate of change (or the interval count), and the operation involved.\n    *   **Step 2**: Perform the calculation for the intermediate step(s).\n    *   **Step 3**: If multiple steps are needed, chain them logically until you reach the final result.\n    *   **Step 4**: State the final answer clearly as a single number.\n3.  **Tone**: Be encouraging and clear, suitable for students or adults learning the specific concept.\n4.  **Output Format**:\n    *   Label the section \"Working out:\".\n    *   List the steps as numbered items (e.g., 1., 2., 3.).\n    *   End with \"Answer: [The calculated number]\".",
+  "demos": []
+ },
+ "fingerprint": "8b073a2509ca9b19",
+ "trials": [
+  {
+   "step": 0,
+   "fingerprint": "5505bd69fbcfb580",
+   "instruction": "Solve the math word problem.",
+   "n_demos": 0,
+   "score": 0.7666666666666667,
+   "n_examples": 60,
+   "split": "val",
+   "rollouts_used": 60,
+   "note": "seed"
+  },
+  {
+   "step": 0,
+   "fingerprint": "5505bd69fbcfb580",
+   "instruction": "Solve the math word problem.",
+   "n_demos": 0,
+   "score": 0.6666666666666666,
+   "n_examples": 12,
+   "split": "train",
+   "rollouts_used": 120,
+   "note": "fitness"
+  },
+  {
+   "step": 0,
+   "fingerprint": "2fd6acab0c6aced0",
+   "instruction": "You are a teacher preparing an assessment for Grade school students. Your task is to generate math word problems.\n\nEach problem must:\n1. Be a word problem suitable for children.\n2. Contain a clear narrative involving counting, adding, subtracting, or simple multiplication/division.\n3. Require 2 to 8 steps of basic arithmetic to reach the final answer (e.g., \"There are 3 baskets with apples. Each basket has 5 apples. How many apples are in the first basket?\").\n4. End with a single numerical answer.\n\nEnsure the problems are clear enough to be understood by 8-year-olds and do not require complex intermediate steps or multi-stage calculations that are too hard for the target age group.",
+   "n_demos": 0,
+   "score": 0.5,
+   "n_examples": 12,
+   "split": "train",
+   "rollouts_used": 120,
+   "note": "fitness"
+  },
+  {
+   "step": 0,
+   "fingerprint": "1d4fa21a51d63faa",
+   "instruction": "1. Read the provided math word problem carefully.\n2. Identify the relevant numbers and the question asked.\n3. Perform the necessary calculations or logical steps.\n4. State the final answer clearly.",
+   "n_demos": 0,
+   "score": 0.75,
+   "n_examples": 12,
+   "split": "train",
+   "rollouts_used": 120,
+   "note": "fitness"
+  },
+  {
+   "step": 0,
+   "fingerprint": "13e5b6ffd904a836",
+   "instruction": "You are a helpful assistant. Read the math word problem below carefully and solve it step-by-step.\n\n**Problem:** [Insert the math word problem here]\n\nPlease show your work clearly so I can understand how you got the answer.",
+   "n_demos": 0,
+   "score": 0.75,
+   "n_examples": 12,
+   "split": "train",
+   "rollouts_used": 120,
+   "note": "fitness"
+  },
+  {
+   "step": 0,
+   "fingerprint": "4138555bb268c822",
+   "instruction": "Here is a clear and step-by-step guide to solve the word problem:",
+   "n_demos": 0,
+   "score": 0.9166666666666666,
+   "n_examples": 12,
+   "split": "train",
+   "rollouts_used": 120,
+   "note": "fitness"
+  },
+  {
+   "step": 1,
+   "fingerprint": "73f0a710c74b1332",
+   "instruction": "You are an experienced editor tasked with improving the quality of an educational text. Your goal is to rewrite a collection of draft instructions for a math word problem generator to make them more professional, engaging, and pedagogically sound for young learners.\n1. Rewrite each draft instruction from the provided list (or generate new instructions that better fit this new context) to ensure they align with the specific educational goals of teaching children to read and solve mathematical problems.\n2. Ensure all instructions emphasize clarity, step-by-step reasoning, and age-appropriate difficulty levels.\n3. Maintain a tone that is encouraging, authoritative yet supportive, and focused on the learning process.\n4. Output only the rewritten set of instructions in a structured format, removing any conversational filler or meta-commentary, and presenting them as a cohesive guide for educators or students.",
+   "n_demos": 0,
+   "score": 0.16666666666666666,
+   "n_examples": 12,
+   "split": "train",
+   "rollouts_used": 144,
+   "note": "fitness"
+  },
+  {
+   "step": 1,
+   "fingerprint": "67fd8fac2a278d38",
+   "instruction": "You are a Grade School Math Word Problem Solver.\n\n**Goal:** Solve the provided word problem by performing 2 to 8 steps of basic arithmetic (addition, subtraction, multiplication, and division).\n\n**Step-by-Step Process:**\n1.  **Read and Identify:** Read the problem carefully to identify the numbers and operations involved.\n2.  **Translate to Math:** Convert the word problem into a mathematical equation or sequence of calculations.\n3.  **Execute Step-by-Step:** Solve the problem one operation at a time. Write down each calculation step clearly.\n4.  **Final Answer:** Calculate the final result and present it as the answer to the problem.\n5.  **Formatting:** Ensure all calculations are shown clearly before stating the final answer.\n\n**Constraints:**\n-   You must only use basic arithmetic operations (+, -, *, /).\n-   You must show the intermediate result of each step.\n-   If the problem involves multiple units (e.g., converting units), convert them first before performing the main calculation.\n-   Do not guess; only use logical arithmetic steps.\n\n**Input Example:**\n\"The John has 5 apples. He buys 3 more apples. Then he gives away half the total amount he has. How many apples does he have left?\"\n\n**Output:**\n-   Step 1: 5 + 3 = 8\n-   Step 2: 8 / 2 = 4\n-   Final Answer: 4 apples",
+   "n_demos": 0,
+   "score": 0.5,
+   "n_examples": 12,
+   "split": "train",
+   "rollouts_used": 144,
+   "note": "fitness"
+  },
+  {
+   "step": 2,
+   "fingerprint": "51b6d04f2bdeb468",
+   "instruction": "You are a Grade School Math Word Problem Solver.\n\n**Goal:** Solve the provided word problem by performing 2 to 8 steps of basic arithmetic (addition, subtraction, multiplication, and division).\n\n**Step-by-Step Process:**\n1.  **Read and Identify:** Read the problem carefully to identify the numbers and operations involved.\n2.  **Translate to Math:** Convert the word problem into a mathematical equation or sequence of calculations.\n3.  **Execute Step-by-Step:** Solve the problem one operation at a time. Write down each calculation step clearly.\n4.  **Final Answer:** Calculate the final result and present it as the answer to the problem.\n5.  **Formatting:** Ensure all calculations are shown clearly before stating the final answer.\n\n**Constraints:**\n-   You must only use basic arithmetic operations (+, -, *, /).\n-   You must show the intermediate result of each step.\n-   If the problem involves multiple units (e.g., converting units), convert them first before performing the main calculation.\n-   Do not guess; only use logical arithmetic steps.\n\n**Input Example:**\n\"The John has 5 apples. He buys 3 more apples. Then he gives away half the total amount he has. How many apples does he have left?\"\n\n**Output:**\n-   Step 1: 5 + 3 = 8\n-   Step 2: 8 / 2 = 4\n-   Final Answer: 4 apples\n\n**Input Example 2:**\n\"Amanda has 40 marbles. She loses 12 at first. Then she finds 8 more, but 3 are broken. How many marbles does Amanda have left?\"\n\n**Output:**\n-   Step 1: 40 - 12 = 28\n-   Step 2: 28 + 8 =",
+   "n_demos": 0,
+   "score": 0.5833333333333334,
+   "n_examples": 12,
+   "split": "train",
+   "rollouts_used": 156,
+   "note": "fitness"
+  },
+  {
+   "step": 3,
+   "fingerprint": "dabfa8ab2e5d74c6",
+   "instruction": "You are a creative writing assistant helping children write their first story.\n\n**Goal:** Create a simple, engaging 3-sentence story for a 6-year-old reader.\n\n**Constraints & Guidelines:**\n1.  **Topic:** The story must be about a child, a pet, or a daily routine (e.g., school, playing, eating).\n2.  **Tone:** Keep it enthusiastic, simple, and positive. Avoid complex vocabulary or scary situations.\n3.  **Length:** Exactly three sentences.\n4.  **Narrative Arc:** \n    *   Sentence 1: Introduce the character and the main event happening.\n    *   Sentence 2: Describe what the character does or sees.\n    *   Sentence 3: Conclude with a positive outcome or feeling.\n5.  **Safety:** Ensure the story contains no harmful content.\n6.  **Output Format:** Provide only the story text, without any introductory text or explanations.",
+   "n_demos": 0,
+   "score": 0.16666666666666666,
+   "n_examples": 12,
+   "split": "train",
+   "rollouts_used": 180,
+   "note": "fitness"
+  },
+  {
+   "step": 3,
+   "fingerprint": "27f5260edf6cc03f",
+   "instruction": "1. Define the input as a single-line text string containing a grade school math word problem.\n2. Parse the problem to extract the initial value, operations (+, -, *, /), and target value, ensuring all operands are valid numbers.\n3. Simulate a calculation trace by applying the operations step-by-step.\n4. For each step, strictly evaluate the result using a floating-point number and validate that the result is not NaN, Infinity, or empty. If an intermediate result fails this check, halt and output the error.\n5. Continue this simulation until the final result matches the provided answer.\n6. If the trace diverges from the target answer, identify the specific arithmetic operation or operand mismatch causing the failure.\n7. Output the final number of steps taken and the specific error message describing why the calculation failed.",
+   "n_demos": 0,
+   "score": 0.25,
+   "n_examples": 12,
+   "split": "train",
+   "rollouts_used": 180,
+   "note": "fitness"
+  },
+  {
+   "step": 4,
+   "fingerprint": "810a61b63d37427a",
+   "instruction": "You are a professional copywriter. Write a catchy, 30-character slogan for a brand named \"Sparkle\" that promotes high-quality, eco-friendly cleaning products.",
+   "n_demos": 0,
+   "score": 0.5,
+   "n_examples": 12,
+   "split": "train",
+   "rollouts_used": 192,
+   "note": "fitness"
+  },
+  {
+   "step": 5,
+   "fingerprint": "f28a5bc8100a40da",
+   "instruction": "You are a professional copywriter. Write a catchy, 30-character slogan for a brand named \"Sparkle\" that promotes high-quality, eco-friendly cleaning products. One key tip: Always use the exact brand name \"Sparkle\" without replacing it with a variation to ensure brand recognition.",
+   "n_demos": 0,
+   "score": 0.5,
+   "n_examples": 12,
+   "split": "train",
+   "rollouts_used": 216,
+   "note": "fitness"
+  },
+  {
+   "step": 5,
+   "fingerprint": "8b073a2509ca9b19",
+   "instruction": "You are a helpful assistant solving \"Grade school math word problems\" using specific patterns. Your goal is to help the user solve problems where the solution involves basic arithmetic (addition, subtraction, multiplication, division) and the final answer is a single number representing a count or value.\n\n**Rules for your work:**\n1.  **Identify the Core Concept**: Determine the main mathematical operation needed to solve the problem (e.g., finding the future value, counting intervals, or applying a formula).\n2.  **Step-by-Step Solution**:\n    *   **Step 1**: Identify the starting value, the rate of change (or the interval count), and the operation involved.\n    *   **Step 2**: Perform the calculation for the intermediate step(s).\n    *   **Step 3**: If multiple steps are needed, chain them logically until you reach the final result.\n    *   **Step 4**: State the final answer clearly as a single number.\n3.  **Tone**: Be encouraging and clear, suitable for students or adults learning the specific concept.\n4.  **Output Format**:\n    *   Label the section \"Working out:\".\n    *   List the steps as numbered items (e.g., 1., 2., 3.).\n    *   End with \"Answer: [The calculated number]\".",
+   "n_demos": 0,
+   "score": 0.8333333333333334,
+   "n_examples": 12,
+   "split": "train",
+   "rollouts_used": 216,
+   "note": "fitness"
+  },
+  {
+   "step": 6,
+   "fingerprint": "c465729711d98554",
+   "instruction": "Here is an instruction to guide a language model in solving word problems that involve basic arithmetic:\n\n**Problem:** A gym charges its members $18 twice a month. If it has 300 members how much does it make a month?\n\n**Working out:**\n1. Calculate the monthly charge per member: $18 \\times 2 = \\$36$.\n2. Multiply the monthly charge by the number of members: $36 \\times 300 = \\$10,800$.\nAnswer: 10800",
+   "n_demos": 0,
+   "score": 0.5833333333333334,
+   "n_examples": 12,
+   "split": "train",
+   "rollouts_used": 228,
+   "note": "fitness"
+  },
+  {
+   "step": 6,
+   "fingerprint": "4138555bb268c822",
+   "instruction": "Here is a clear and step-by-step guide to solve the word problem:",
+   "n_demos": 0,
+   "score": 0.8333333333333334,
+   "n_examples": 60,
+   "split": "val",
+   "rollouts_used": 348,
+   "note": "finalist"
+  },
+  {
+   "step": 6,
+   "fingerprint": "8b073a2509ca9b19",
+   "instruction": "You are a helpful assistant solving \"Grade school math word problems\" using specific patterns. Your goal is to help the user solve problems where the solution involves basic arithmetic (addition, subtraction, multiplication, division) and the final answer is a single number representing a count or value.\n\n**Rules for your work:**\n1.  **Identify the Core Concept**: Determine the main mathematical operation needed to solve the problem (e.g., finding the future value, counting intervals, or applying a formula).\n2.  **Step-by-Step Solution**:\n    *   **Step 1**: Identify the starting value, the rate of change (or the interval count), and the operation involved.\n    *   **Step 2**: Perform the calculation for the intermediate step(s).\n    *   **Step 3**: If multiple steps are needed, chain them logically until you reach the final result.\n    *   **Step 4**: State the final answer clearly as a single number.\n3.  **Tone**: Be encouraging and clear, suitable for students or adults learning the specific concept.\n4.  **Output Format**:\n    *   Label the section \"Working out:\".\n    *   List the steps as numbered items (e.g., 1., 2., 3.).\n    *   End with \"Answer: [The calculated number]\".",
+   "n_demos": 0,
+   "score": 0.8666666666666667,
+   "n_examples": 60,
+   "split": "val",
+   "rollouts_used": 348,
+   "note": "finalist"
+  }
+ ],
+ "info": {
+  "stopped": "completed",
+  "optimizer": "promptbreeder",
+  "seed": 0
+ },
+ "cost": {
+  "mutate": {
+   "calls": 19,
+   "fresh_calls": 7,
+   "prompt_tokens": 4776,
+   "completion_tokens": 2839,
+   "truncated": 1,
+   "model_seconds": 265.63841300003696,
+   "total_tokens": 7615
+  },
+  "task": {
+   "calls": 348,
+   "fresh_calls": 168,
+   "prompt_tokens": 81213,
+   "completion_tokens": 53514,
+   "truncated": 9,
+   "model_seconds": 17166.676496822955,
+   "total_tokens": 134727
+  }
+ },
+ "wall_seconds": 1042.5
+}

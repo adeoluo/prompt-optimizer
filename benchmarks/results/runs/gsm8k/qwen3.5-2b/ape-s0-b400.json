@@ -1,0 +1,233 @@
+{
+ "task": "gsm8k",
+ "optimizer": "ape",
+ "model": "qwen3.5-2b",
+ "seed": 0,
+ "budget": 400,
+ "overrides": {},
+ "splits": {
+  "train": 200,
+  "val": 60,
+  "test": 1319
+ },
+ "val_score": 0.8166666666666667,
+ "rollouts_used": 388,
+ "program": {
+  "instruction": "When given a word problem, first determine the total quantity or number of items involved (often by multiplication or division). Then identify the remaining quantity by subtracting or adding the consumed amounts to find the final value. Conclude the response with the final number using the specific format 'Answer: <number>'.",
+  "demos": []
+ },
+ "fingerprint": "22ed4c870bc04999",
+ "trials": [
+  {
+   "step": 0,
+   "fingerprint": "5505bd69fbcfb580",
+   "instruction": "Solve the math word problem.",
+   "n_demos": 0,
+   "score": 0.7666666666666667,
+   "n_examples": 60,
+   "split": "val",
+   "rollouts_used": 60,
+   "note": "seed"
+  },
+  {
+   "step": 0,
+   "fingerprint": "5505bd69fbcfb580",
+   "instruction": "Solve the math word problem.",
+   "n_demos": 0,
+   "score": 0.625,
+   "n_examples": 16,
+   "split": "train",
+   "rollouts_used": 204,
+   "note": "induced"
+  },
+  {
+   "step": 0,
+   "fingerprint": "11f9a990d4304338",
+   "instruction": "Analyze the input problem, extract the necessary values (variables), identify the operations (multiplication, division, addition), calculate intermediate results step-by-step, and format the output as a step-by-step reasoning followed by \"Answer: <final_value>\". Ensure the final line is strictly 'Answer: <number>'.",
+   "n_demos": 0,
+   "score": 0.75,
+   "n_examples": 16,
+   "split": "train",
+   "rollouts_used": 204,
+   "note": "induced"
+  },
+  {
+   "step": 0,
+   "fingerprint": "0553213df92d8941",
+   "instruction": "Write a step-by-step solution for each input. First, derive the value of each given quantity. Second, substitute these values into the relevant equation. Third, perform the arithmetic to reach the final answer, ending with the format 'Answer: <number>'. Include a brief explanation in words. Do not use code blocks, markdown headers, or any other formatting other than the instruction tags.",
+   "n_demos": 0,
+   "score": 0.625,
+   "n_examples": 16,
+   "split": "train",
+   "rollouts_used": 204,
+   "note": "induced"
+  },
+  {
+   "step": 0,
+   "fingerprint": "cc5c31d0d8f66239",
+   "instruction": "Write a step-by-step mathematical reasoning instruction that guides a model to perform specific arithmetic operations on the first input, then count the number of steps taken by the model to solve it, and finally verify if the answer matches the correct expected answer.",
+   "n_demos": 0,
+   "score": 0.625,
+   "n_examples": 16,
+   "split": "train",
+   "rollouts_used": 204,
+   "note": "induced"
+  },
+  {
+   "step": 0,
+   "fingerprint": "953e3d0ac979a842",
+   "instruction": "When a user provides a word problem containing a list of entities with specific quantities and actions, ask the model to: 1) Calculate the total time spent for each activity based on the multipliers described (e.g., \"twice as long\" or \"three times\"), 2) Sum the total time across all activities, 3) Convert the total time into the required unit (hours, days, or weeks), and 4) Calculate the new total if the rate is applied over the full duration or per activity. The final output must follow the strict format: 'Answer: <total_amount>' without any introductory text or reasoning blocks.",
+   "n_demos": 0,
+   "score": 0.375,
+   "n_examples": 16,
+   "split": "train",
+   "rollouts_used": 204,
+   "note": "induced"
+  },
+  {
+   "step": 0,
+   "fingerprint": "36c3d873f82ce274",
+   "instruction": "Write the problem statement and step-by-step solution for new input pairs, ensuring the solution follows these specific constraints:\n1. Maintain the original question as the input and the calculated answer as the final output line.\n2. Break down the calculation into 3 to 5 short, clear steps.\n3. Ensure each step shows exactly one mathematical operation performed on a specific value derived from the input data.\n4. The final calculation steps must multiply two values together.\n5. The final step must subtract the total calculated value from the initial value to find the remainder.\n6. The final line must strictly end with 'Answer: <result>'.\n7. Include an explicit summary line immediately before the final answer line stating the steps taken.\n8. Keep the total word count for the entire response under 130 words.",
+   "n_demos": 0,
+   "score": 0.3125,
+   "n_examples": 16,
+   "split": "train",
+   "rollouts_used": 204,
+   "note": "induced"
+  },
+  {
+   "step": 0,
+   "fingerprint": "64e271fd22395310",
+   "instruction": "For each pair of input/output provided, perform the following steps: 1) Identify all cost items from the input, calculate individual prices by multiplying unit cost by quantity, and sum them to find the total expense. 2) Identify all revenue items from the input, calculate their total income, and sum them to find the total profit. 3) Compute the payback period by dividing total cost by total profit. 4) Format the reasoning as a few short steps and end with the required 'Answer: <number>' line.",
+   "n_demos": 0,
+   "score": 0.5,
+   "n_examples": 16,
+   "split": "train",
+   "rollouts_used": 204,
+   "note": "induced"
+  },
+  {
+   "step": 0,
+   "fingerprint": "22ed4c870bc04999",
+   "instruction": "When given a word problem, first determine the total quantity or number of items involved (often by multiplication or division). Then identify the remaining quantity by subtracting or adding the consumed amounts to find the final value. Conclude the response with the final number using the specific format 'Answer: <number>'.",
+   "n_demos": 0,
+   "score": 0.75,
+   "n_examples": 16,
+   "split": "train",
+   "rollouts_used": 204,
+   "note": "induced"
+  },
+  {
+   "step": 0,
+   "fingerprint": "214fb1d0723f9dfb",
+   "instruction": "Analyze the user's input to extract the mathematical relationships and variables. Generate the solution by calculating the intermediate values step-by-step until the final answer is found.",
+   "n_demos": 0,
+   "score": 0.6875,
+   "n_examples": 16,
+   "split": "train",
+   "rollouts_used": 204,
+   "note": "induced"
+  },
+  {
+   "step": 1,
+   "fingerprint": "094211e98ff54e0a",
+   "instruction": "Input: Evaluate the input problem by determining required variables, defining the arithmetic operations, performing a detailed step-by-step calculation, and presenting the result as a final line strictly formatted as 'Answer: <number>'.",
+   "n_demos": 0,
+   "score": 0.75,
+   "n_examples": 16,
+   "split": "train",
+   "rollouts_used": 268,
+   "note": "variant"
+  },
+  {
+   "step": 1,
+   "fingerprint": "605452d137a0fdd3",
+   "instruction": "Generate a variation of the following instruction while keeping the semantic meaning.\n\nInput: Analyze the input problem, extract the necessary values (variables), identify the operations (multiplication, division, addition), calculate intermediate results step-by-step, and format the output as a step-by-step reasoning followed by \"Answer: <final_value>\". Ensure the final line is strictly 'Answer: <number>'.\n\nOutput the variation only.",
+   "n_demos": 0,
+   "score": 0.75,
+   "n_examples": 16,
+   "split": "train",
+   "rollouts_used": 268,
+   "note": "variant"
+  },
+  {
+   "step": 1,
+   "fingerprint": "2f90b8a923c7404e",
+   "instruction": "When provided with a word problem, initially calculate the total sum of quantities (using multiplication or division) before finding the remainder by adding or subtracting given values to determine the outcome. Conclude with the final result using the exact format 'Answer: <number>'.",
+   "n_demos": 0,
+   "score": 0.625,
+   "n_examples": 16,
+   "split": "train",
+   "rollouts_used": 268,
+   "note": "variant"
+  },
+  {
+   "step": 1,
+   "fingerprint": "c1d069cbeae57a14",
+   "instruction": "Given a word problem, initially calculate the sum or total count of entities (using addition or multiplication). Next, isolate the leftover amount by adding back the original total to the difference between the initial and final states, or subtract the difference from the total. Conclude the response with the final value using the format 'Answer: <number>'.",
+   "n_demos": 0,
+   "score": 0.625,
+   "n_examples": 16,
+   "split": "train",
+   "rollouts_used": 268,
+   "note": "variant"
+  },
+  {
+   "step": 2,
+   "fingerprint": "11f9a990d4304338",
+   "instruction": "Analyze the input problem, extract the necessary values (variables), identify the operations (multiplication, division, addition), calculate intermediate results step-by-step, and format the output as a step-by-step reasoning followed by \"Answer: <final_value>\". Ensure the final line is strictly 'Answer: <number>'.",
+   "n_demos": 0,
+   "score": 0.8,
+   "n_examples": 60,
+   "split": "val",
+   "rollouts_used": 388,
+   "note": "finalist"
+  },
+  {
+   "step": 2,
+   "fingerprint": "22ed4c870bc04999",
+   "instruction": "When given a word problem, first determine the total quantity or number of items involved (often by multiplication or division). Then identify the remaining quantity by subtracting or adding the consumed amounts to find the final value. Conclude the response with the final number using the specific format 'Answer: <number>'.",
+   "n_demos": 0,
+   "score": 0.8166666666666667,
+   "n_examples": 60,
+   "split": "val",
+   "rollouts_used": 388,
+   "note": "finalist"
+  }
+ ],
+ "info": {
+  "stopped": "completed",
+  "optimizer": "ape",
+  "seed": 0
+ },
+ "cost": {
+  "mutate": {
+   "calls": 4,
+   "fresh_calls": 4,
+   "prompt_tokens": 492,
+   "completion_tokens": 275,
+   "truncated": 0,
+   "model_seconds": 32.76035645799129,
+   "total_tokens": 767
+  },
+  "propose": {
+   "calls": 8,
+   "fresh_calls": 8,
+   "prompt_tokens": 6335,
+   "completion_tokens": 745,
+   "truncated": 0,
+   "model_seconds": 266.14177462299995,
+   "total_tokens": 7080
+  },
+  "task": {
+   "calls": 388,
+   "fresh_calls": 312,
+   "prompt_tokens": 66437,
+   "completion_tokens": 51236,
+   "truncated": 4,
+   "model_seconds": 16013.057828871897,
+   "total_tokens": 117673
+  }
+ },
+ "wall_seconds": 813.2
+}

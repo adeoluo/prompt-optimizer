@@ -1,0 +1,235 @@
+{
+ "task": "gsm8k",
+ "optimizer": "opro",
+ "model": "qwen3.5-2b",
+ "seed": 0,
+ "budget": 400,
+ "overrides": {},
+ "splits": {
+  "train": 200,
+  "val": 60,
+  "test": 1319
+ },
+ "val_score": 0.8333333333333334,
+ "rollouts_used": 390,
+ "program": {
+  "instruction": "Solve the following math word problem step by step, showing your reasoning in a few short steps (no more than about 120 words), then end with a final line of the form 'Answer: <number>'.",
+  "demos": []
+ },
+ "fingerprint": "16f1d05fd3283ee9",
+ "trials": [
+  {
+   "step": 0,
+   "fingerprint": "5505bd69fbcfb580",
+   "instruction": "Solve the math word problem.",
+   "n_demos": 0,
+   "score": 0.7666666666666667,
+   "n_examples": 60,
+   "split": "val",
+   "rollouts_used": 60,
+   "note": "seed"
+  },
+  {
+   "step": 0,
+   "fingerprint": "5505bd69fbcfb580",
+   "instruction": "Solve the math word problem.",
+   "n_demos": 0,
+   "score": 0.6666666666666666,
+   "n_examples": 15,
+   "split": "train",
+   "rollouts_used": 75,
+   "note": "seed"
+  },
+  {
+   "step": 1,
+   "fingerprint": "34a1059af0dbdb80",
+   "instruction": "Solve the following problem step by step, showing your reasoning, and provide the final numerical answer in the format 'Answer: <number>'.\n\nInput:\nQ: <INS>\nThere are 5 apples, 3 bananas, and 2 oranges in a basket. If 2 oranges are eaten, how many fruits remain?",
+   "n_demos": 0,
+   "score": 0.6,
+   "n_examples": 15,
+   "split": "train",
+   "rollouts_used": 120,
+   "note": "opro"
+  },
+  {
+   "step": 1,
+   "fingerprint": "b544dc59e841737d",
+   "instruction": "Solve the math word problem by following these steps: 1) Identify all quantities and their relationships in the text. 2) List all separate calculations required to find the total. 3) Perform each calculation step-by-step as described in the text. 4) Sum the results to find the final answer.\nAnswer: 5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555",
+   "n_demos": 0,
+   "score": 0.6666666666666666,
+   "n_examples": 15,
+   "split": "train",
+   "rollouts_used": 120,
+   "note": "opro"
+  },
+  {
+   "step": 1,
+   "fingerprint": "42c7bea785cc33a8",
+   "instruction": "Read the following text: A store sells 5 identical books, each 3 inches by 4 inches, for $2.50. How much money did the store sell for in total?\nA:\noutput:\nFirst, calculate the area of one book: 3 inches * 4 inches = 12 square inches.\nNext, determine the total area for five books: 12 square inches * 5 books = 60 square inches.\nThen, calculate the total cost by multiplying the total area by the price per square unit: 60 * $2.50 = $150.\nAnswer: 150",
+   "n_demos": 0,
+   "score": 0.6,
+   "n_examples": 15,
+   "split": "train",
+   "rollouts_used": 120,
+   "note": "opro"
+  },
+  {
+   "step": 2,
+   "fingerprint": "8c84ac9fed6c84fc",
+   "instruction": "Solve the following word problem step-by-step by identifying quantities, performing all necessary calculations, and summing the results to find the final total. Ensure the reasoning is concise, all steps are shown, and the final answer is formatted exactly as 'Answer: <number>'.",
+   "n_demos": 0,
+   "score": 0.6,
+   "n_examples": 15,
+   "split": "train",
+   "rollouts_used": 165,
+   "note": "opro"
+  },
+  {
+   "step": 2,
+   "fingerprint": "816ece141888ca24",
+   "instruction": "You are an expert mathematician tasked with solving word problems. First, extract all relevant quantities and their specific numerical relationships stated in the text. Second, identify the exact calculation steps (e.g., subtraction, multiplication, division) and perform them step-by-step to determine the final result. Third, ensure your final answer is presented exactly in the format 'Answer: <number>'.",
+   "n_demos": 0,
+   "score": 0.6666666666666666,
+   "n_examples": 15,
+   "split": "train",
+   "rollouts_used": 165,
+   "note": "opro"
+  },
+  {
+   "step": 2,
+   "fingerprint": "16f1d05fd3283ee9",
+   "instruction": "Solve the following math word problem step by step, showing your reasoning in a few short steps (no more than about 120 words), then end with a final line of the form 'Answer: <number>'.",
+   "n_demos": 0,
+   "score": 0.7333333333333333,
+   "n_examples": 15,
+   "split": "train",
+   "rollouts_used": 165,
+   "note": "opro"
+  },
+  {
+   "step": 3,
+   "fingerprint": "3b7c00998a0e65e3",
+   "instruction": "You are an expert mathematician tasked with solving word problems step by step. First, extract all relevant quantities and their specific numerical relationships stated in the text. Second, identify the exact calculation steps (e.g., multiplication, subtraction, addition) and perform them step-by-step to determine the final result. Third, ensure your final answer is presented exactly in the format 'Answer: <number>'.",
+   "n_demos": 0,
+   "score": 0.7333333333333333,
+   "n_examples": 15,
+   "split": "train",
+   "rollouts_used": 180,
+   "note": "opro"
+  },
+  {
+   "step": 4,
+   "fingerprint": "83f32201d96a0f9a",
+   "instruction": "Solve the following math word problem step by step by identifying quantities and performing the necessary calculations. First, list the initial amounts and relationships in the text. Second, perform the specific mathematical operations in a concise sequence. Third, ensure your final answer is presented exactly in the format 'Answer: <number>'. Show your reasoning in a few short steps (no more than about 120 words), then end with a final line of the form 'Answer: <number>'.",
+   "n_demos": 0,
+   "score": 0.6666666666666666,
+   "n_examples": 15,
+   "split": "train",
+   "rollouts_used": 195,
+   "note": "opro"
+  },
+  {
+   "step": 5,
+   "fingerprint": "e11d477caec613d1",
+   "instruction": "Solve the following word problem step by step, showing your reasoning in a few short steps (no more than about 120 words), then end with a final line of the form 'Answer: <number>'.",
+   "n_demos": 0,
+   "score": 0.7333333333333333,
+   "n_examples": 15,
+   "split": "train",
+   "rollouts_used": 240,
+   "note": "opro"
+  },
+  {
+   "step": 5,
+   "fingerprint": "40b628f1749b77e3",
+   "instruction": "Solve the following word problem step by step by extracting relevant quantities, identifying their specific numerical relationships, and performing step-by-step calculations. First, list all initial amounts and operations from the text. Next, carry out the arithmetic operations (addition, subtraction, multiplication, division) clearly showing intermediate values. Finally, state the final answer in the exact format 'Answer: <number>'. Ensure your reasoning is concise (under 120 words) and demonstrates clear logical progression.",
+   "n_demos": 0,
+   "score": 0.7333333333333333,
+   "n_examples": 15,
+   "split": "train",
+   "rollouts_used": 240,
+   "note": "opro"
+  },
+  {
+   "step": 5,
+   "fingerprint": "0cea270a5ce14980",
+   "instruction": "Solve the following word problem step by step. First, identify all relevant quantities and their relationships mentioned in the text. Second, break down the problem into logical steps such as calculating totals or performing arithmetic operations, showing your work for each. Third, ensure your final answer is presented exactly in the format 'Answer: <number>'.",
+   "n_demos": 0,
+   "score": 0.6,
+   "n_examples": 15,
+   "split": "train",
+   "rollouts_used": 240,
+   "note": "opro"
+  },
+  {
+   "step": 6,
+   "fingerprint": "dd238186ceabf772",
+   "instruction": "Solve the following math word problem step by step. First, identify all relevant quantities and their numerical relationships in the text. Second, perform the necessary calculations (subtraction, addition, etc.) step-by-step, ensuring all intermediate values are shown. Third, present the final numerical answer exactly in the format 'Answer: <number>'. Show your reasoning in a few short steps (no more than about 120 words), then end with the final line of the form 'Answer: <number>'.",
+   "n_demos": 0,
+   "score": 0.7333333333333333,
+   "n_examples": 15,
+   "split": "train",
+   "rollouts_used": 270,
+   "note": "opro"
+  },
+  {
+   "step": 6,
+   "fingerprint": "02da75aaa2c006a7",
+   "instruction": "You are an expert mathematician tasked with solving word problems step by step. First, extract all relevant quantities and their specific numerical relationships stated in the text. Second, identify the exact calculation steps (e.g., multiplication, division, addition, subtraction) and perform them step-by-step to determine the final result. Third, ensure your final answer is presented exactly in the format 'Answer: <number>'. Show your reasoning in a few short steps (no more than about 120 words), then end with a final line of the form 'Answer: <number>'.",
+   "n_demos": 0,
+   "score": 0.6666666666666666,
+   "n_examples": 15,
+   "split": "train",
+   "rollouts_used": 270,
+   "note": "opro"
+  },
+  {
+   "step": 7,
+   "fingerprint": "16f1d05fd3283ee9",
+   "instruction": "Solve the following math word problem step by step, showing your reasoning in a few short steps (no more than about 120 words), then end with a final line of the form 'Answer: <number>'.",
+   "n_demos": 0,
+   "score": 0.8333333333333334,
+   "n_examples": 60,
+   "split": "val",
+   "rollouts_used": 390,
+   "note": "finalist"
+  },
+  {
+   "step": 7,
+   "fingerprint": "3b7c00998a0e65e3",
+   "instruction": "You are an expert mathematician tasked with solving word problems step by step. First, extract all relevant quantities and their specific numerical relationships stated in the text. Second, identify the exact calculation steps (e.g., multiplication, subtraction, addition) and perform them step-by-step to determine the final result. Third, ensure your final answer is presented exactly in the format 'Answer: <number>'.",
+   "n_demos": 0,
+   "score": 0.8,
+   "n_examples": 60,
+   "split": "val",
+   "rollouts_used": 390,
+   "note": "finalist"
+  }
+ ],
+ "info": {
+  "stopped": "completed",
+  "optimizer": "opro",
+  "seed": 0
+ },
+ "cost": {
+  "propose": {
+   "calls": 18,
+   "fresh_calls": 18,
+   "prompt_tokens": 25794,
+   "completion_tokens": 1774,
+   "truncated": 1,
+   "model_seconds": 717.121829124022,
+   "total_tokens": 27568
+  },
+  "task": {
+   "calls": 390,
+   "fresh_calls": 315,
+   "prompt_tokens": 72888,
+   "completion_tokens": 55365,
+   "truncated": 6,
+   "model_seconds": 22803.61879299399,
+   "total_tokens": 128253
+  }
+ },
+ "wall_seconds": 1852.7
+}

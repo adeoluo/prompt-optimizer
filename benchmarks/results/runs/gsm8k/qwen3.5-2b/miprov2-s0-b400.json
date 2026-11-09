@@ -1,0 +1,207 @@
+{
+ "task": "gsm8k",
+ "optimizer": "miprov2",
+ "model": "qwen3.5-2b",
+ "seed": 0,
+ "budget": 400,
+ "overrides": {},
+ "splits": {
+  "train": 200,
+  "val": 60,
+  "test": 1319
+ },
+ "val_score": 0.8666666666666667,
+ "rollouts_used": 320,
+ "program": {
+  "instruction": "You are a helpful assistant designed to solve Grade school math word problems with exactly two to eight steps of basic arithmetic. Your task is to first derive the answer by clearly stating each step, keeping the total reasoning under 120 words. After listing the steps, provide a final line strictly in the format 'Answer: <number>'. Ensure your reasoning focuses on parsing the text to identify relevant quantities, tracking relationships between entities, and applying order of operations correctly to reach the final value. Do not include any conversational filler outside of the steps and the final answer line.",
+  "demos": [
+   {
+    "input": "A doctor needs to give medicine to a child, and he knows that he cannot give the same amount of medicine that he would give to an adult. The instructions say that for every kilogram of weight the child must be given 5 ml of medicine. The doctor knows that the child weighs 30 kilograms and that also the full dose has to be given in 3 equal parts. How many milligrams will each part of the dose be?",
+    "output": "1. Calculate the total medicine needed for the child: 30 kg × 5 ml/kg = 150 ml.\n2. Divide the total dose into 3 equal parts: 150 ml ÷ 3 = 50 ml per part.\n3. Convert milliliters to milligrams using the standard conversion factor of 1 ml = 1 mg: 50 mg.\nAnswer: 50",
+    "source_id": "gsm8k-train-1110",
+    "group": ""
+   }
+  ]
+ },
+ "fingerprint": "fd7105e4ff9c44a1",
+ "trials": [
+  {
+   "step": 0,
+   "fingerprint": "5505bd69fbcfb580",
+   "instruction": "Solve the math word problem.",
+   "n_demos": 0,
+   "score": 0.7666666666666667,
+   "n_examples": 60,
+   "split": "val",
+   "rollouts_used": 60,
+   "note": "seed"
+  },
+  {
+   "step": 0,
+   "fingerprint": "5505bd69fbcfb580",
+   "instruction": "Solve the math word problem.",
+   "n_demos": 0,
+   "score": 0.575,
+   "n_examples": 40,
+   "split": "train",
+   "rollouts_used": 100,
+   "note": "bootstrap"
+  },
+  {
+   "step": 2,
+   "fingerprint": "f2ae9a5f96d3811a",
+   "instruction": "Act as a tutor solving multi-step arithmetic word problems for middle schoolers. First, write a concise explanation of 2 to 8 steps of logic, highlighting key relationships and tracking quantities without getting stuck. Then, provide a final line exactly in the format 'Answer: <number>'. Ensure all calculations are shown step-by-step. For any word problems involving inequalities or \"at least/less than\", use standard arithmetic (e.g., convert to multiplication/division) to find the whole number solution.",
+   "n_demos": 1,
+   "score": 0.7,
+   "n_examples": 20,
+   "split": "val-minibatch",
+   "rollouts_used": 120,
+   "note": "tpe"
+  },
+  {
+   "step": 3,
+   "fingerprint": "989aec9170257484",
+   "instruction": "Solve the math word problem.",
+   "n_demos": 3,
+   "score": 0.7,
+   "n_examples": 20,
+   "split": "val-minibatch",
+   "rollouts_used": 140,
+   "note": "tpe"
+  },
+  {
+   "step": 4,
+   "fingerprint": "0ea089c403003438",
+   "instruction": "You are a helpful assistant that solves multi-step arithmetic word problems.\n1. **Analyze** the input text to identify all entities (numbers, units, relationships like \"twice\", \"half\", \"total\").\n2. **Calculate** step-by-step, ensuring no more than about 120 words total.\n3. **Format** your reasoning clearly with intermediate steps.\n4. **Always** end your response with a single line in the format 'Answer: <final_number>'.\n5. **Do not** include any conversational filler, introductions, or explanations outside of the reasoning and the final answer line.",
+   "n_demos": 1,
+   "score": 0.8,
+   "n_examples": 20,
+   "split": "val-minibatch",
+   "rollouts_used": 160,
+   "note": "tpe"
+  },
+  {
+   "step": 5,
+   "fingerprint": "c2e20d3253427715",
+   "instruction": "Act as a tutor solving multi-step arithmetic word problems for middle schoolers. First, write a concise explanation of 2 to 8 steps of logic, highlighting key relationships and tracking quantities without getting stuck. Then, provide a final line exactly in the format 'Answer: <number>'. Ensure all calculations are shown step-by-step. For any word problems involving inequalities or \"at least/less than\", use standard arithmetic (e.g., convert to multiplication/division) to find the whole number solution.",
+   "n_demos": 3,
+   "score": 0.65,
+   "n_examples": 20,
+   "split": "val-minibatch",
+   "rollouts_used": 180,
+   "note": "tpe"
+  },
+  {
+   "step": 6,
+   "fingerprint": "e171957dccd7e9cf",
+   "instruction": "You are a helpful assistant that solves multi-step arithmetic word problems.\n1. **Analyze** the input text to identify all entities (numbers, units, relationships like \"twice\", \"half\", \"total\").\n2. **Calculate** step-by-step, ensuring no more than about 120 words total.\n3. **Format** your reasoning clearly with intermediate steps.\n4. **Always** end your response with a single line in the format 'Answer: <final_number>'.\n5. **Do not** include any conversational filler, introductions, or explanations outside of the reasoning and the final answer line.",
+   "n_demos": 0,
+   "score": 0.95,
+   "n_examples": 20,
+   "split": "val-minibatch",
+   "rollouts_used": 200,
+   "note": "tpe"
+  },
+  {
+   "step": 7,
+   "fingerprint": "e171957dccd7e9cf",
+   "instruction": "You are a helpful assistant that solves multi-step arithmetic word problems.\n1. **Analyze** the input text to identify all entities (numbers, units, relationships like \"twice\", \"half\", \"total\").\n2. **Calculate** step-by-step, ensuring no more than about 120 words total.\n3. **Format** your reasoning clearly with intermediate steps.\n4. **Always** end your response with a single line in the format 'Answer: <final_number>'.\n5. **Do not** include any conversational filler, introductions, or explanations outside of the reasoning and the final answer line.",
+   "n_demos": 0,
+   "score": 0.7,
+   "n_examples": 20,
+   "split": "val-minibatch",
+   "rollouts_used": 211,
+   "note": "tpe"
+  },
+  {
+   "step": 8,
+   "fingerprint": "e171957dccd7e9cf",
+   "instruction": "You are a helpful assistant that solves multi-step arithmetic word problems.\n1. **Analyze** the input text to identify all entities (numbers, units, relationships like \"twice\", \"half\", \"total\").\n2. **Calculate** step-by-step, ensuring no more than about 120 words total.\n3. **Format** your reasoning clearly with intermediate steps.\n4. **Always** end your response with a single line in the format 'Answer: <final_number>'.\n5. **Do not** include any conversational filler, introductions, or explanations outside of the reasoning and the final answer line.",
+   "n_demos": 0,
+   "score": 0.7833333333333333,
+   "n_examples": 60,
+   "split": "val",
+   "rollouts_used": 240,
+   "note": "trial-6"
+  },
+  {
+   "step": 8,
+   "fingerprint": "e171957dccd7e9cf",
+   "instruction": "You are a helpful assistant that solves multi-step arithmetic word problems.\n1. **Analyze** the input text to identify all entities (numbers, units, relationships like \"twice\", \"half\", \"total\").\n2. **Calculate** step-by-step, ensuring no more than about 120 words total.\n3. **Format** your reasoning clearly with intermediate steps.\n4. **Always** end your response with a single line in the format 'Answer: <final_number>'.\n5. **Do not** include any conversational filler, introductions, or explanations outside of the reasoning and the final answer line.",
+   "n_demos": 0,
+   "score": 0.8,
+   "n_examples": 20,
+   "split": "val-minibatch",
+   "rollouts_used": 240,
+   "note": "tpe"
+  },
+  {
+   "step": 9,
+   "fingerprint": "5f3c91db6a7a8452",
+   "instruction": "<system_prompt>Solve the math word problem. Provide a multi-step solution of no more than 120 words, listing the intermediate calculation steps. End with exactly one line of the format 'Answer: <number>' containing the final numerical result.</system_prompt>",
+   "n_demos": 3,
+   "score": 0.75,
+   "n_examples": 20,
+   "split": "val-minibatch",
+   "rollouts_used": 260,
+   "note": "tpe"
+  },
+  {
+   "step": 10,
+   "fingerprint": "fd7105e4ff9c44a1",
+   "instruction": "You are a helpful assistant designed to solve Grade school math word problems with exactly two to eight steps of basic arithmetic. Your task is to first derive the answer by clearly stating each step, keeping the total reasoning under 120 words. After listing the steps, provide a final line strictly in the format 'Answer: <number>'. Ensure your reasoning focuses on parsing the text to identify relevant quantities, tracking relationships between entities, and applying order of operations correctly to reach the final value. Do not include any conversational filler outside of the steps and the final answer line.",
+   "n_demos": 1,
+   "score": 0.95,
+   "n_examples": 20,
+   "split": "val-minibatch",
+   "rollouts_used": 280,
+   "note": "tpe"
+  },
+  {
+   "step": 11,
+   "fingerprint": "fd7105e4ff9c44a1",
+   "instruction": "You are a helpful assistant designed to solve Grade school math word problems with exactly two to eight steps of basic arithmetic. Your task is to first derive the answer by clearly stating each step, keeping the total reasoning under 120 words. After listing the steps, provide a final line strictly in the format 'Answer: <number>'. Ensure your reasoning focuses on parsing the text to identify relevant quantities, tracking relationships between entities, and applying order of operations correctly to reach the final value. Do not include any conversational filler outside of the steps and the final answer line.",
+   "n_demos": 1,
+   "score": 0.8666666666666667,
+   "n_examples": 60,
+   "split": "val",
+   "rollouts_used": 320,
+   "note": "final"
+  }
+ ],
+ "info": {
+  "stopped": "completed",
+  "optimizer": "miprov2",
+  "seed": 0
+ },
+ "cost": {
+  "propose": {
+   "calls": 5,
+   "fresh_calls": 5,
+   "prompt_tokens": 3600,
+   "completion_tokens": 543,
+   "truncated": 0,
+   "model_seconds": 160.53129962401,
+   "total_tokens": 4143
+  },
+  "summarize": {
+   "calls": 1,
+   "fresh_calls": 1,
+   "prompt_tokens": 521,
+   "completion_tokens": 165,
+   "truncated": 0,
+   "model_seconds": 33.113086166995345,
+   "total_tokens": 686
+  },
+  "task": {
+   "calls": 320,
+   "fresh_calls": 220,
+   "prompt_tokens": 107427,
+   "completion_tokens": 37315,
+   "truncated": 3,
+   "model_seconds": 19203.104185006,
+   "total_tokens": 144742
+  }
+ },
+ "wall_seconds": 1046.0
+}
