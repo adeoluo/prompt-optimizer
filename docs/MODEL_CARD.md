@@ -10,7 +10,7 @@ prompts with their search histories (`benchmarks/results/runs/`).
 |---|---|---:|---|
 | Qwen/Qwen3.5-0.8B (Feb 2026) | unsloth/Qwen3.5-0.8B-GGUF, Q4_K_M | 533 MB | transfer evaluation |
 | Qwen/Qwen3.5-2B (Feb 2026) | unsloth/Qwen3.5-2B-GGUF, Q4_K_M | 1.28 GB | optimization and evaluation |
-| Qwen/Qwen3.5-4B (Feb 2026) | unsloth/Qwen3.5-4B-GGUF, Q4_K_M | 2.74 GB | transfer evaluation |
+| Qwen/Qwen3.5-4B (Feb 2026) | unsloth/Qwen3.5-4B-GGUF, Q4_K_M | 2.74 GB | supported for transfer; not run in this release |
 
 - **License:** Apache 2.0 (model and GGUF builds).
 - **Serving:** llama.cpp `llama-server` (Homebrew build 9.0, b12110), Metal, flash attention,

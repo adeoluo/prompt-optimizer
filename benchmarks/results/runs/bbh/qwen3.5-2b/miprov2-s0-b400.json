@@ -1,0 +1,167 @@
+{
+ "task": "bbh",
+ "optimizer": "miprov2",
+ "model": "qwen3.5-2b",
+ "seed": 0,
+ "budget": 400,
+ "overrides": {},
+ "splits": {
+  "train": 216,
+  "val": 54,
+  "test": 405
+ },
+ "val_score": 0.6111111111111112,
+ "rollouts_used": 274,
+ "program": {
+  "instruction": "Answer the question.",
+  "demos": []
+ },
+ "fingerprint": "3fdde98294d77a89",
+ "trials": [
+  {
+   "step": 0,
+   "fingerprint": "3fdde98294d77a89",
+   "instruction": "Answer the question.",
+   "n_demos": 0,
+   "score": 0.6111111111111112,
+   "n_examples": 54,
+   "split": "val",
+   "rollouts_used": 54,
+   "note": "seed"
+  },
+  {
+   "step": 0,
+   "fingerprint": "3fdde98294d77a89",
+   "instruction": "Answer the question.",
+   "n_demos": 0,
+   "score": 0.4444444444444444,
+   "n_examples": 54,
+   "split": "train",
+   "rollouts_used": 108,
+   "note": "bootstrap"
+  },
+  {
+   "step": 2,
+   "fingerprint": "920a679ec599c859",
+   "instruction": "Answer the reasoning task by performing step-by-step logical deduction and semantic tracking of objects, relationships, or states as described in the problem. First, explicitly identify the initial conditions or the specific sequence of events provided. Second, simulate the transformations or logical operations step-by-step to update the relevant state or conclusion. Third, synthesize the chain of reasoning into a concise, coherent explanation. Finally, output a single line starting with 'Answer:' followed strictly by the correct option or boolean value (e.g., Answer: True, Answer: False, Answer: (B), or Answer: Yes/No), ensuring no markdown formatting other than the specified answer line. Common mistakes to avoid include providing an explanation for tasks with short exact answers, omitting the required 'Answer:' prefix, formatting the final answer with bold or code blocks, and failing to simulate the multi-step state changes in complex scenarios like tracking objects or pronouns.",
+   "n_demos": 24,
+   "score": 0.5,
+   "n_examples": 20,
+   "split": "val-minibatch",
+   "rollouts_used": 128,
+   "note": "tpe"
+  },
+  {
+   "step": 3,
+   "fingerprint": "7a5c949c75d38bbb",
+   "instruction": "Answer the question.",
+   "n_demos": 18,
+   "score": 0.5,
+   "n_examples": 20,
+   "split": "val-minibatch",
+   "rollouts_used": 148,
+   "note": "tpe"
+  },
+  {
+   "step": 4,
+   "fingerprint": "4cdcbda94b6404f5",
+   "instruction": "Answer the question by reasoning clearly in a few short sentences (under 120 words) and ending with the specific format: \"Answer: <answer>\", where <answer> is the correct option letter (e.g., (A)), a True/False statement, a Yes/No judgment, a number, or a space-separated sequence. For logic and causal tasks, explicitly state your chain of reasoning; for object tracking tasks, describe the object's position changes; for semantic parsing, identify the exact reference.",
+   "n_demos": 24,
+   "score": 0.75,
+   "n_examples": 20,
+   "split": "val-minibatch",
+   "rollouts_used": 168,
+   "note": "tpe"
+  },
+  {
+   "step": 5,
+   "fingerprint": "7cbd61c96aa76bf7",
+   "instruction": "Answer the reasoning task by performing step-by-step logical deduction and semantic tracking of objects, relationships, or states as described in the problem. First, explicitly identify the initial conditions or the specific sequence of events provided. Second, simulate the transformations or logical operations step-by-step to update the relevant state or conclusion. Third, synthesize the chain of reasoning into a concise, coherent explanation. Finally, output a single line starting with 'Answer:' followed strictly by the correct option or boolean value (e.g., Answer: True, Answer: False, Answer: (B), or Answer: Yes/No), ensuring no markdown formatting other than the specified answer line. Common mistakes to avoid include providing an explanation for tasks with short exact answers, omitting the required 'Answer:' prefix, formatting the final answer with bold or code blocks, and failing to simulate the multi-step state changes in complex scenarios like tracking objects or pronouns.",
+   "n_demos": 18,
+   "score": 0.55,
+   "n_examples": 20,
+   "split": "val-minibatch",
+   "rollouts_used": 188,
+   "note": "tpe"
+  },
+  {
+   "step": 6,
+   "fingerprint": "3208a20de69c5be1",
+   "instruction": "Answer the question by reasoning clearly in a few short sentences (under 120 words) and ending with the specific format: \"Answer: <answer>\", where <answer> is the correct option letter (e.g., (A)), a True/False statement, a Yes/No judgment, a number, or a space-separated sequence. For logic and causal tasks, explicitly state your chain of reasoning; for object tracking tasks, describe the object's position changes; for semantic parsing, identify the exact reference.",
+   "n_demos": 0,
+   "score": 0.45,
+   "n_examples": 20,
+   "split": "val-minibatch",
+   "rollouts_used": 208,
+   "note": "tpe"
+  },
+  {
+   "step": 7,
+   "fingerprint": "a337f213519c622f",
+   "instruction": "You are an expert reasoning assistant. First, analyze the provided reasoning chain to identify the specific logical gap or missing step that causes the final conclusion to be incorrect. Second, construct a brief, step-by-step analysis demonstrating how to bridge this gap to reach the correct conclusion. Finally, provide the answer in the exact format requested: \"Answer: <option_letter> (A), (B), etc.",
+   "n_demos": 18,
+   "score": 0.45,
+   "n_examples": 20,
+   "split": "val-minibatch",
+   "rollouts_used": 228,
+   "note": "tpe"
+  },
+  {
+   "step": 8,
+   "fingerprint": "4cdcbda94b6404f5",
+   "instruction": "Answer the question by reasoning clearly in a few short sentences (under 120 words) and ending with the specific format: \"Answer: <answer>\", where <answer> is the correct option letter (e.g., (A)), a True/False statement, a Yes/No judgment, a number, or a space-separated sequence. For logic and causal tasks, explicitly state your chain of reasoning; for object tracking tasks, describe the object's position changes; for semantic parsing, identify the exact reference.",
+   "n_demos": 24,
+   "score": 0.5185185185185185,
+   "n_examples": 54,
+   "split": "val",
+   "rollouts_used": 262,
+   "note": "trial-6"
+  },
+  {
+   "step": 8,
+   "fingerprint": "7cbd61c96aa76bf7",
+   "instruction": "Answer the reasoning task by performing step-by-step logical deduction and semantic tracking of objects, relationships, or states as described in the problem. First, explicitly identify the initial conditions or the specific sequence of events provided. Second, simulate the transformations or logical operations step-by-step to update the relevant state or conclusion. Third, synthesize the chain of reasoning into a concise, coherent explanation. Finally, output a single line starting with 'Answer:' followed strictly by the correct option or boolean value (e.g., Answer: True, Answer: False, Answer: (B), or Answer: Yes/No), ensuring no markdown formatting other than the specified answer line. Common mistakes to avoid include providing an explanation for tasks with short exact answers, omitting the required 'Answer:' prefix, formatting the final answer with bold or code blocks, and failing to simulate the multi-step state changes in complex scenarios like tracking objects or pronouns.",
+   "n_demos": 18,
+   "score": 0.55,
+   "n_examples": 20,
+   "split": "val-minibatch",
+   "rollouts_used": 274,
+   "note": "tpe"
+  }
+ ],
+ "info": {
+  "stopped": "completed",
+  "optimizer": "miprov2",
+  "seed": 0
+ },
+ "cost": {
+  "propose": {
+   "calls": 5,
+   "fresh_calls": 5,
+   "prompt_tokens": 3628,
+   "completion_tokens": 576,
+   "truncated": 0,
+   "model_seconds": 202.6261727490055,
+   "total_tokens": 4204
+  },
+  "summarize": {
+   "calls": 1,
+   "fresh_calls": 1,
+   "prompt_tokens": 771,
+   "completion_tokens": 164,
+   "truncated": 0,
+   "model_seconds": 22.873166334000416,
+   "total_tokens": 935
+  },
+  "task": {
+   "calls": 274,
+   "fresh_calls": 129,
+   "prompt_tokens": 100307,
+   "completion_tokens": 38446,
+   "truncated": 26,
+   "model_seconds": 17704.053894331897,
+   "total_tokens": 138753
+  }
+ },
+ "wall_seconds": 698.0
+}
