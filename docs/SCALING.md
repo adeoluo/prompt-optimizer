@@ -1,6 +1,7 @@
-# Scaling and Design Tradeoffs - Prompt Optimizer
+# Scaling and Design Tradeoffs: Prompt Optimizer
 
-How the reference design grows, and the tradeoffs taken.
+How the reference design grows, and the tradeoffs taken. For the experiment system the
+bottleneck is model throughput on the shared Apple M1 (see ADR-0004 and the evaluation report).
 
 ## Reference architecture (today)
 

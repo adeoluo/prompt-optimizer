@@ -69,11 +69,15 @@ def _cmd_optimize(args: argparse.Namespace) -> None:
         FakeLM() if args.fake else LlamaCppLM(args.url, args.model, concurrency=args.concurrency)
     )
     cache = ResponseCache(args.cache) if args.cache else ResponseCache()
-    lm = CachedLM(inner, cache, meter, model_id=f"{args.model}-q4km")
+    model_id = inner.model_id if args.fake else f"{args.model}-q4km"
+    lm = CachedLM(inner, cache, meter, model_id=model_id)
     overrides = {k: json.loads(v) for k, v in (item.split("=", 1) for item in args.set)}
     optimizer = build(args.optimizer, **overrides)
     result = optimizer.compile(task, lm, train, val, budget=Budget(args.budget), seed=args.seed)
-    print(f"{args.optimizer} on {task.name}: {len(train)} train, {len(val)} validation")
+    print(
+        f"{args.optimizer} on {task.name} with {model_id}: "
+        f"{len(train)} train, {len(val)} validation, budget {args.budget}"
+    )
     for trial in result.trials:
         if trial.split == "val":
             print(

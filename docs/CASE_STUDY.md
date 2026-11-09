@@ -1,6 +1,8 @@
-# End-to-End Case Study - Compiling and Serving a Prompt
+# End-to-End Case Study: Compiling and Serving a Prompt
 
-How a naive prompt becomes a production classifier, and what each step buys.
+How a naive prompt becomes a production classifier, and what each step buys. This case study
+covers the reference pipeline on the simulated model; the real-model study is in
+[EVALUATION_REPORT.md](EVALUATION_REPORT.md).
 
 ## Scenario
 

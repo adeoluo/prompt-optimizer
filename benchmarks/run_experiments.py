@@ -76,7 +76,9 @@ def ensure_server(model: str, port: int) -> None:
         parallel=spec.parallel,
         ctx_per_slot=spec.ctx_per_slot,
         log_path=BENCH / "logs" / f"server_{model}.log",
-        extra_args=("-fa", "on", "-ctk", "q8_0", "-ctv", "q8_0"),
+        # --cache-ram 0: the default 8 GiB host-RAM prompt cache made the shared 8 GB
+        # machine swap heavily; the response cache already makes repeats free.
+        extra_args=("-fa", "on", "-ctk", "q8_0", "-ctv", "q8_0", "--cache-ram", "0"),
     )
     log(f"starting {model}: {' '.join(server.command())}")
     server.start()

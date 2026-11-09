@@ -21,7 +21,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from prompt_optimizer.optim.base import Optimizer, OptimizerContext, clip
+from prompt_optimizer.optim.base import Optimizer, OptimizerContext, clip, reference_output
 from prompt_optimizer.program import PromptProgram
 from prompt_optimizer.tasks.base import TaskExample
 
@@ -53,7 +53,7 @@ class OPRO(Optimizer):
         )
         shots = "\n\n".join(
             f"input:\nQ: <INS>\n{clip(ex.question, 600)}\nA:\noutput:\n"
-            f"{clip(ctx.task.gold_output(ex), 400)}"
+            f"{clip(reference_output(ctx.task, ex), 400)}"
             for ex in exemplars
         )
         return (

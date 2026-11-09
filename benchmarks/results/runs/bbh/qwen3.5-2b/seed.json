@@ -10,7 +10,7 @@
   "val": 54,
   "test": 405
  },
- "val_score": 0.4444444444444444,
+ "val_score": 0.6111111111111112,
  "rollouts_used": 54,
  "program": {
   "instruction": "Answer the question.",
@@ -22,13 +22,13 @@
  "cost": {
   "task": {
    "calls": 54,
-   "fresh_calls": 54,
-   "prompt_tokens": 10658,
-   "completion_tokens": 19174,
-   "truncated": 18,
-   "model_seconds": 23176.83806037897,
-   "total_tokens": 29832
+   "fresh_calls": 0,
+   "prompt_tokens": 11522,
+   "completion_tokens": 6306,
+   "truncated": 4,
+   "model_seconds": 3388.4567614190164,
+   "total_tokens": 17828
   }
  },
- "wall_seconds": 973.1
+ "wall_seconds": 0.0
 }

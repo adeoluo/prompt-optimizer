@@ -1,6 +1,8 @@
-# Operations Guide - Prompt Optimizer
+# Operations Guide: Prompt Optimizer
 
-The operational contract of the prediction service.
+The operational contract of the prediction service of the reference pipeline. Running the
+local model server for experiments is covered in [ARCHITECTURE.md](ARCHITECTURE.md) and the
+README Quickstart.
 
 ## Running the service
 
