@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 type: software
 title: "Prompt Optimizer"
-abstract: "Automated prompt optimization from scratch: instruction search and bootstrapped few-shot selection compiled against a metric, with a four-way ablation and an HTTP service."
+abstract: "Seven prompt optimizers (APE, OPRO, MIPROv2, TextGrad, GEPA, PromptBreeder, bootstrapped few-shot) compared on local Qwen3.5 models on GSM8K and BIG-Bench Hard at equal budgets, with bootstrap intervals, cost accounting, a DSPy 3.4.1 head-to-head and transfer to a smaller model"
 authors:
   - family-names: "Ogunnoiki"
     given-names: "Adeolu"
@@ -14,9 +14,11 @@ url: "https://github.com/adeoluo/prompt-optimizer"
 keywords:
   - "dspy"
   - "few-shot"
-  - "from-scratch"
   - "in-context-learning"
   - "llm"
   - "prompt-engineering"
   - "prompt-optimization"
   - "python"
+  - "gsm8k"
+  - "llama-cpp"
+  - "llm-evaluation"
