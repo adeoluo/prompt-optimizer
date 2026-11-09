@@ -160,7 +160,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--optimizers", nargs="+", default=["seed", "bootstrap_rs", "miprov2", "gepa"]
     )
-    parser.add_argument("--model", default="qwen3.5-2b")
+    parser.add_argument("--model", default="qwen3.5-2b", help="optimization model")
+    parser.add_argument("--eval-model", default=None, help="test model (default: --model)")
+    parser.add_argument("--transfer-only", action="store_true", help="score saved programs only")
     parser.add_argument("--budget", type=int, default=400)
     parser.add_argument("--test-limit", type=int, default=None)
     parser.add_argument("--seed", type=int, default=0)
@@ -169,6 +171,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--root", type=Path, default=RESULTS_ROOT)
     args = parser.parse_args(argv)
 
+    eval_model = args.eval_model or args.model
     task, splits = load_task(args.task)
     index = {ex.id: ex for ex in (*splits.train, *splits.val, *splits.test)}
     trainset, valset = to_examples(list(splits.train)), to_examples(list(splits.val))
@@ -206,6 +209,9 @@ def main(argv: list[str] | None = None) -> int:
         start = time.perf_counter()
         log(f"dspy {DSPY_VERSION} {name} on {args.task}")
         student = make_program(task)
+        if args.transfer_only and not run_path.exists():
+            log(f"skip {spec.run_id}: no run file")
+            continue
         if run_path.exists():
             run = json.loads(run_path.read_text())
             compiled = make_program(task)
@@ -285,14 +291,25 @@ def main(argv: list[str] | None = None) -> int:
             run_path.write_text(json.dumps(run, indent=1, ensure_ascii=False) + "\n")
         log(f"{name}: val={run['val_score']:.3f} task calls={run['rollouts_used']}")
 
-        test_path = spec.test_path(args.model, args.root)
+        if eval_model != args.model:
+            from run_experiments import ensure_server
+
+            ensure_server(eval_model, int(args.url.rsplit(":", 1)[1]))
+            eval_client = CachedLM(
+                LlamaCppLM(args.url, eval_model, concurrency=args.threads),
+                cache,
+                meter,
+                model_id=f"{eval_model}-q4km",
+            )
+            dspy.configure(lm=RoutedLM(eval_client, "task", task.max_tokens))
+        test_path = spec.test_path(eval_model, args.root)
         ordered = ordered_examples(splits.test)
         wanted = ordered if args.test_limit is None else ordered[: args.test_limit]
         if test_path.exists() and json.loads(test_path.read_text())["n"] >= len(wanted):
             continue
         records: list[dict[str, Any]] = []
         test_start = time.perf_counter()
-        with meter.phase(f"test:{args.model}"):
+        with meter.phase(f"test:{eval_model}"):
             evaluator = dspy.Evaluate(
                 devset=to_examples(wanted),
                 metric=metric,
@@ -319,19 +336,19 @@ def main(argv: list[str] | None = None) -> int:
             "optimizer": spec.optimizer,
             "library": f"dspy {DSPY_VERSION}",
             "optimized_on": args.model,
-            "eval_model": args.model,
+            "eval_model": eval_model,
             "fingerprint": "",
             "n": len(records),
             "n_available": len(ordered),
             "accuracy": accuracy,
             "truncated": 0,
             "records": records,
-            "cost": meter.breakdown().get(f"test:{args.model}", {}),
+            "cost": meter.breakdown().get(f"test:{eval_model}", {}),
             "wall_seconds": round(time.perf_counter() - test_start, 1),
         }
         test_path.parent.mkdir(parents=True, exist_ok=True)
         test_path.write_text(json.dumps(payload, indent=1, ensure_ascii=False) + "\n")
-        log(f"test {spec.run_id}: acc={accuracy:.3f} n={len(records)}")
+        log(f"test {spec.run_id} on {eval_model}: acc={accuracy:.3f} n={len(records)}")
     return 0
 
 
