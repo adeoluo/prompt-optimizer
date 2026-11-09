@@ -49,13 +49,16 @@ class GSM8K(Task):
     """Exact numeric match on the final answer."""
 
     name = "gsm8k"
-    contract = "End your response with a final line of the form 'Answer: <number>'."
+    contract = (
+        "Show your reasoning in a few short steps (no more than about 120 words), then end "
+        "with a final line of the form 'Answer: <number>'."
+    )
     seed_instruction = "Solve the math word problem."
     description = (
         "Grade school math word problems that need two to eight steps of basic arithmetic; "
         "the answer is a single number."
     )
-    max_tokens = 512
+    max_tokens = 384
 
     def extract(self, output: str) -> str:
         return extract_number(output)

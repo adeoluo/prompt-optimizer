@@ -23,7 +23,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from prompt_optimizer.optim.base import Optimizer, OptimizerContext, clip
+from prompt_optimizer.optim.base import Optimizer, OptimizerContext, clip, reference_output
 from prompt_optimizer.program import PromptProgram
 
 _SYSTEM = (
@@ -47,7 +47,8 @@ class APE(Optimizer):
     def induction_prompt(self, ctx: OptimizerContext) -> str:
         pairs = ctx.sample(ctx.trainset, self.pairs_per_proposal)
         blocks = [
-            f"Input:\n{clip(ex.question, 700)}\nOutput:\n{clip(ctx.task.gold_output(ex), 500)}"
+            f"Input:\n{clip(ex.question, 700)}\n"
+            f"Output:\n{clip(reference_output(ctx.task, ex), 500)}"
             for ex in pairs
         ]
         return (

@@ -122,9 +122,9 @@ def main_table(task: str, eval_model: str, opt_model: str, root: Path = RESULTS_
     seed = next((r for r in rows if r.run_id == SEED_RUN), None)
     ids = common_ids(r.test for r in rows)
     lines = [
-        "| Method | Val acc | Test acc [95% CI] | Diff vs seed [95% CI] | p | "
+        "| Method | Val acc | Test acc [95% CI] | Diff vs seed [95% CI] | p | Truncated | "
         "Task rollouts | Proposer calls | Opt. tokens |",
-        "|---|---:|---:|---:|---:|---:|---:|---:|",
+        "|---|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for row in rows:
         scores = _scores(row.test, ids)
@@ -137,16 +137,19 @@ def main_table(task: str, eval_model: str, opt_model: str, root: Path = RESULTS_
             diff, p = "", ""
         task_calls, other_calls, tokens = _usage(row.run)
         val = f"{100 * row.val:.1f}" if row.val is not None else ""
+        shared = set(ids)
+        cut = sum(1 for r in row.test["records"] if r["id"] in shared and r.get("truncated"))
         lines.append(
-            f"| {row.label} | {val} | {ci.fmt()} | {diff} | {p} | {task_calls:,} | "
-            f"{other_calls:,} | {tokens / 1e6:.2f}M |"
+            f"| {row.label} | {val} | {ci.fmt()} | {diff} | {p} | {100 * cut / len(ids):.1f}% | "
+            f"{task_calls:,} | {other_calls:,} | {tokens / 1e6:.2f}M |"
         )
     lines.append("")
     lines.append(
         f"Test examples: {len(ids)} shared by every row (of {rows[0].test['n_available']} "
         f"available). Accuracy in percent; intervals are 95% percentile bootstrap over "
         "examples (10,000 resamples); differences and p-values are paired bootstrap against "
-        "the seed prompt on the same examples."
+        "the seed prompt on the same examples. Truncated is the share of test answers cut off "
+        "by the task's max_tokens (scored wrong when no final answer was reached)."
     )
     return "\n".join(lines)
 
@@ -176,6 +179,43 @@ def overfit_table(task: str, eval_model: str, opt_model: str, root: Path = RESUL
             f"| {row.label} | {candidates} | {100 * row.val:.1f} | {100 * test:.1f} | "
             f"{100 * (row.val - test):+.1f} |"
         )
+    return "\n".join(lines)
+
+
+def anytime_table(
+    task: str,
+    opt_model: str,
+    checkpoints: Sequence[int] = (100, 200, 300, 400),
+    root: Path = RESULTS_ROOT,
+) -> str:
+    """Best full-validation score each method had reached within N task rollouts.
+
+    Read from the trial history of each run, so it costs no extra model calls; it shows
+    how quickly a method finds its gains, not only where it ended.
+    """
+
+    run_dir = root / "runs" / task / opt_model
+    if not run_dir.exists():
+        return f"No runs for {task}."
+    header = "| Method | " + " | ".join(f"<= {c} rollouts" for c in checkpoints) + " |"
+    lines = [header, "|---|" + "---:|" * len(checkpoints)]
+    order = list(LABELS)
+    paths = sorted(
+        run_dir.glob("*.json"),
+        key=lambda p: order.index(p.stem.split("-s")[0]) if p.stem.split("-s")[0] in order else 99,
+    )
+    for path in paths:
+        run = _load(path)
+        trials = [t for t in run.get("trials", []) if t.get("split") == "val"]
+        if not trials:
+            continue
+        cells = []
+        for limit in checkpoints:
+            reached = [t["score"] for t in trials if t["rollouts_used"] <= limit]
+            cells.append(f"{100 * max(reached):.1f}" if reached else "")
+        lines.append(f"| {label_for(path.stem, run['optimizer'])} | " + " | ".join(cells) + " |")
+    if len(lines) == 2:
+        return f"No runs with trial histories for {task}."
     return "\n".join(lines)
 
 

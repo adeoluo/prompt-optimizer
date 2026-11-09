@@ -379,6 +379,7 @@ class TestDemos:
         pool = teacher_pool(self._ctx(train), 9)
         assert sorted(ex.group for ex in pool) == ["g0"] * 3 + ["g1"] * 3 + ["g2"] * 3
         assert len(teacher_pool(self._ctx(), 7)) == 7
+        assert len(teacher_pool(self._ctx(train), 4)) == 6  # rounds up to 2 per group
 
 
 class TestHelpers:
@@ -424,3 +425,12 @@ class TestHelpers:
         ctx.score_batch_many([PromptProgram("A."), PromptProgram("B.")], TRAIN[:5])
         assert len(lm.requests) == 10
         assert ctx.evaluator.pending(PromptProgram("A."), TRAIN[:6]) == 1
+
+
+def test_reference_output_falls_back_without_gold() -> None:
+    from prompt_optimizer.optim.base import reference_output
+    from prompt_optimizer.tasks.ifeval import IFEval
+
+    example = TaskExample("i1", "Write two words.", "", meta={"instruction_id_list": []})
+    assert "no reference output" in reference_output(IFEval(), example)
+    assert reference_output(TASK, TRAIN[0]).endswith(f"Answer: {TRAIN[0].answer}")

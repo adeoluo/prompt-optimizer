@@ -18,6 +18,7 @@ per-subtask demonstrations next to one shared instruction.
 
 from __future__ import annotations
 
+import math
 import random
 from collections import defaultdict
 from collections.abc import Sequence
@@ -89,7 +90,9 @@ def teacher_pool(ctx: OptimizerContext, size: int) -> list[TaskExample]:
         by_group[ex.group].append(ex)
     if len(by_group) <= 1:
         return ctx.sample(ctx.trainset, size)
-    per_group = max(1, size // len(by_group))
+    # Round up so that every group gets at least two teacher rollouts when the pool
+    # allows it; with one per group every random demo set would be identical.
+    per_group = max(1, math.ceil(size / len(by_group)))
     out: list[TaskExample] = []
     for _, members in sorted(by_group.items()):
         out.extend(ctx.rng.sample(members, min(per_group, len(members))))

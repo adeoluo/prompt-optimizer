@@ -10,7 +10,7 @@
   "val": 60,
   "test": 1319
  },
- "val_score": 0.85,
+ "val_score": 0.7666666666666667,
  "rollouts_used": 60,
  "program": {
   "instruction": "Solve the math word problem.",
@@ -22,13 +22,13 @@
  "cost": {
   "task": {
    "calls": 60,
-   "fresh_calls": 0,
-   "prompt_tokens": 5947,
-   "completion_tokens": 17231,
-   "truncated": 3,
-   "model_seconds": 8604.688953044883,
-   "total_tokens": 23178
+   "fresh_calls": 24,
+   "prompt_tokens": 7027,
+   "completion_tokens": 6917,
+   "truncated": 0,
+   "model_seconds": 5373.649406749988,
+   "total_tokens": 13944
   }
  },
- "wall_seconds": 0.1
+ "wall_seconds": 324.8
 }

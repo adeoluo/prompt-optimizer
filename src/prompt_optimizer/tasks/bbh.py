@@ -100,7 +100,8 @@ class BBH(Task):
 
     name = "bbh"
     contract = (
-        "End your response with a final line of the form 'Answer: <answer>', where <answer> is "
+        "Reason in a few short sentences (no more than about 120 words), then end with a final "
+        "line of the form 'Answer: <answer>', where <answer> is "
         "only the final answer in the form the question asks for: an option letter such as (A), "
         "True or False, Yes or No, valid or invalid, a number, or a space-separated sequence."
     )
@@ -109,7 +110,7 @@ class BBH(Task):
         "BIG-Bench Hard: 27 reasoning tasks (logic, arithmetic, dates, tracking objects, "
         "language understanding) with short exact answers."
     )
-    max_tokens = 512
+    max_tokens = 384
 
     def extract(self, output: str) -> str:
         return _final_answer(output)
