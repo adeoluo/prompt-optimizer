@@ -122,9 +122,9 @@ def main_table(task: str, eval_model: str, opt_model: str, root: Path = RESULTS_
     seed = next((r for r in rows if r.run_id == SEED_RUN), None)
     ids = common_ids(r.test for r in rows)
     lines = [
-        "| Method | Val acc | Test acc [95% CI] | Diff vs seed [95% CI] | p | "
+        "| Method | Val acc | Test acc [95% CI] | Diff vs seed [95% CI] | p | Truncated | "
         "Task rollouts | Proposer calls | Opt. tokens |",
-        "|---|---:|---:|---:|---:|---:|---:|---:|",
+        "|---|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for row in rows:
         scores = _scores(row.test, ids)
@@ -137,16 +137,19 @@ def main_table(task: str, eval_model: str, opt_model: str, root: Path = RESULTS_
             diff, p = "", ""
         task_calls, other_calls, tokens = _usage(row.run)
         val = f"{100 * row.val:.1f}" if row.val is not None else ""
+        shared = set(ids)
+        cut = sum(1 for r in row.test["records"] if r["id"] in shared and r.get("truncated"))
         lines.append(
-            f"| {row.label} | {val} | {ci.fmt()} | {diff} | {p} | {task_calls:,} | "
-            f"{other_calls:,} | {tokens / 1e6:.2f}M |"
+            f"| {row.label} | {val} | {ci.fmt()} | {diff} | {p} | {100 * cut / len(ids):.1f}% | "
+            f"{task_calls:,} | {other_calls:,} | {tokens / 1e6:.2f}M |"
         )
     lines.append("")
     lines.append(
         f"Test examples: {len(ids)} shared by every row (of {rows[0].test['n_available']} "
         f"available). Accuracy in percent; intervals are 95% percentile bootstrap over "
         "examples (10,000 resamples); differences and p-values are paired bootstrap against "
-        "the seed prompt on the same examples."
+        "the seed prompt on the same examples. Truncated is the share of test answers cut off "
+        "by the task's max_tokens (scored wrong when no final answer was reached)."
     )
     return "\n".join(lines)
 
