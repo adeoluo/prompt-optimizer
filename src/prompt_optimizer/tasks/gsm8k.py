@@ -10,6 +10,7 @@ solution is used as a labeled demonstration.
 from __future__ import annotations
 
 import json
+import math
 import re
 from pathlib import Path
 
@@ -26,6 +27,10 @@ def normalize_number(text: str) -> str:
     try:
         value = float(cleaned)
     except ValueError:
+        return cleaned
+    if not math.isfinite(value):
+        # A run of digits too long for a float (a degenerate generation) is kept verbatim;
+        # it can never equal a GSM8K answer, so it scores 0 instead of raising.
         return cleaned
     if value == int(value):
         return str(int(value))

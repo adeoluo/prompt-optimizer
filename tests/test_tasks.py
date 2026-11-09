@@ -163,6 +163,9 @@ class TestGSM8K:
         assert self.task.score(ex, "Answer: 999") == 0.0
         assert self.task.score(ex, "nothing") == 0.0
         assert gsm8k.normalize_number("abc") == "abc"
+        huge = "9" * 400  # overflows float to infinity
+        assert gsm8k.normalize_number(huge) == huge
+        assert self.task.score(ex, f"Answer: {huge}") == 0.0
         weird = TaskExample("w", "q", "n/a")
         assert self.task.score(weird, "Answer: 3") == 0.0
 
