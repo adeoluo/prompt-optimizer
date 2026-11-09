@@ -1,0 +1,222 @@
+{
+ "task": "bbh",
+ "optimizer": "ape",
+ "model": "qwen3.5-2b",
+ "seed": 0,
+ "budget": 400,
+ "overrides": {},
+ "splits": {
+  "train": 216,
+  "val": 54,
+  "test": 405
+ },
+ "val_score": 0.6111111111111112,
+ "rollouts_used": 316,
+ "program": {
+  "instruction": "Answer the question.",
+  "demos": []
+ },
+ "fingerprint": "3fdde98294d77a89",
+ "trials": [
+  {
+   "step": 0,
+   "fingerprint": "3fdde98294d77a89",
+   "instruction": "Answer the question.",
+   "n_demos": 0,
+   "score": 0.6111111111111112,
+   "n_examples": 54,
+   "split": "val",
+   "rollouts_used": 54,
+   "note": "seed"
+  },
+  {
+   "step": 0,
+   "fingerprint": "3fdde98294d77a89",
+   "instruction": "Answer the question.",
+   "n_demos": 0,
+   "score": 0.5625,
+   "n_examples": 16,
+   "split": "train",
+   "rollouts_used": 198,
+   "note": "induced"
+  },
+  {
+   "step": 0,
+   "fingerprint": "2cfd2ff4fd644fa6",
+   "instruction": "You are tasked with correcting user-generated input/output pairs where a model failed to identify a specific type of problem. Your goal is to generate a precise instruction that defines the category of problems each example belongs to, so a future model can automatically solve similar inputs. For every provided example, you must determine the correct category label and write a concise instruction that explains what this category entails. The instruction must include a clear \"Problem Definition\" section defining the specific task and a \"Required Format\" section specifying the output structure.",
+   "n_demos": 0,
+   "score": 0.1875,
+   "n_examples": 16,
+   "split": "train",
+   "rollouts_used": 198,
+   "note": "induced"
+  },
+  {
+   "step": 0,
+   "fingerprint": "54c6430ee7a830c5",
+   "instruction": "Follow the input/output pairs to determine the correct output format and answer style for a new task. Specifically, output the answer as the option letter in parentheses (e.g., (C)) preceded by a line starting with \"Answer: \" immediately following the reasoning. Ensure the reasoning is a few short sentences (under 120 words) and never includes any markdown code blocks, bold text, or explanations outside the required format.",
+   "n_demos": 0,
+   "score": 0.5,
+   "n_examples": 16,
+   "split": "train",
+   "rollouts_used": 198,
+   "note": "induced"
+  },
+  {
+   "step": 0,
+   "fingerprint": "c8a2687b2d883dd8",
+   "instruction": "When evaluating a problem based on a provided Input/Output example, analyze the reasoning pattern used in the sample. Specifically, check if the output format matches the required structure: 'Reason in a few short sentences (no more than about 120 words), then end with a final line of the form 'Answer: <answer>'. Then, perform the actual solution using this specific reasoning pattern (e.g., count the parentheses in the Dyck word example or determine the truth value via logical deduction as shown in the boolean examples). Finally, ensure the output is wrapped in Markdown code blocks.",
+   "n_demos": 0,
+   "score": 0.5625,
+   "n_examples": 16,
+   "split": "train",
+   "rollouts_used": 198,
+   "note": "induced"
+  },
+  {
+   "step": 0,
+   "fingerprint": "0e428eb9fdec88db",
+   "instruction": "When provided with input-output pairs from a reasoning task, analyze the pattern of how the final answer was derived. You must output a concise reasoning summary followed by the exact final answer in the format \"Answer: <option letter>\".",
+   "n_demos": 0,
+   "score": 0.5625,
+   "n_examples": 16,
+   "split": "train",
+   "rollouts_used": 198,
+   "note": "induced"
+  },
+  {
+   "step": 0,
+   "fingerprint": "067731c0b21734db",
+   "instruction": "Always output the answer by including the instruction \"Answer: <answer>\" at the very end, with <answer> containing only the final answer option letter (e.g., (A), (B), etc.) or the specific correct value required by the question.",
+   "n_demos": 0,
+   "score": 0.5625,
+   "n_examples": 16,
+   "split": "train",
+   "rollouts_used": 198,
+   "note": "induced"
+  },
+  {
+   "step": 0,
+   "fingerprint": "977ff048232f905c",
+   "instruction": "Write a concise instruction template for a language model to solve reasoning tasks involving ambiguous pronoun clarification, movie recommendations, navigation path analysis, and logical object sequencing. This instruction must explicitly define the input format (such as problem type, sentence/paragraph content, and multiple-choice options) and mandate that the model's output must strictly follow a specific two-line format: first, a reasoning paragraph limited to approximately 120 words or fewer; second, a final line using the exact syntax 'Answer: <answer>', where <answer> is the correct option (e.g., (A), (B), (C), (D), (E), or a space-separated sequence) based on the provided input data.",
+   "n_demos": 0,
+   "score": 0.3125,
+   "n_examples": 16,
+   "split": "train",
+   "rollouts_used": 198,
+   "note": "induced"
+  },
+  {
+   "step": 0,
+   "fingerprint": "ca2cc1f5ae5a53ab",
+   "instruction": "You must provide one instruction inside <instruction> tags. Your output must contain exactly one instruction, starting with \"<instruction>\" and ending with",
+   "n_demos": 0,
+   "score": 0.5625,
+   "n_examples": 16,
+   "split": "train",
+   "rollouts_used": 198,
+   "note": "induced"
+  },
+  {
+   "step": 0,
+   "fingerprint": "adeda14c33b17425",
+   "instruction": "Analyze a user's instruction that defines a new input-output pair format and applies it to provided examples to derive the specific instruction format that produced those outputs.",
+   "n_demos": 0,
+   "score": 0.3125,
+   "n_examples": 16,
+   "split": "train",
+   "rollouts_used": 198,
+   "note": "induced"
+  },
+  {
+   "step": 1,
+   "fingerprint": "eedfd26db4721d1d",
+   "instruction": "Provide a response to the query.",
+   "n_demos": 0,
+   "score": 0.25,
+   "n_examples": 16,
+   "split": "train",
+   "rollouts_used": 262,
+   "note": "variant"
+  },
+  {
+   "step": 1,
+   "fingerprint": "b956e543ff1531a0",
+   "instruction": "Generate a variation of the following instruction while keeping the semantic meaning.\nInput: Answer the question.\nOutput: Provide the answer.",
+   "n_demos": 0,
+   "score": 0.4375,
+   "n_examples": 16,
+   "split": "train",
+   "rollouts_used": 262,
+   "note": "variant"
+  },
+  {
+   "step": 1,
+   "fingerprint": "0e98e4b61255a2a9",
+   "instruction": "You are tasked with rewriting the provided instruction for a language model, but you must strictly adhere to the constraint that the entire response must contain exactly one instruction enclosed within <instruction>",
+   "n_demos": 0,
+   "score": 0.3125,
+   "n_examples": 16,
+   "split": "train",
+   "rollouts_used": 262,
+   "note": "variant"
+  },
+  {
+   "step": 1,
+   "fingerprint": "d4cd267e3b939304",
+   "instruction": "Generate a variation of the following instruction while keeping the semantic meaning.\n\nInput: When evaluating a problem based on a provided Input/Output example, analyze the reasoning pattern used in the sample. Specifically, check if the output format matches the required structure: 'Reason in a few short sentences (no more than about 120 words), then end with a final line of the form 'Answer: <answer>'. Then, perform the actual solution using this specific reasoning pattern (e.g., count the parentheses in the Dyck word example or determine the truth value via logical deduction as shown in the boolean examples). Finally, ensure the output is wrapped in Markdown code blocks.\n\nOutput the variation only.",
+   "n_demos": 0,
+   "score": 0.5,
+   "n_examples": 16,
+   "split": "train",
+   "rollouts_used": 262,
+   "note": "variant"
+  },
+  {
+   "step": 2,
+   "fingerprint": "c8a2687b2d883dd8",
+   "instruction": "When evaluating a problem based on a provided Input/Output example, analyze the reasoning pattern used in the sample. Specifically, check if the output format matches the required structure: 'Reason in a few short sentences (no more than about 120 words), then end with a final line of the form 'Answer: <answer>'. Then, perform the actual solution using this specific reasoning pattern (e.g., count the parentheses in the Dyck word example or determine the truth value via logical deduction as shown in the boolean examples). Finally, ensure the output is wrapped in Markdown code blocks.",
+   "n_demos": 0,
+   "score": 0.5555555555555556,
+   "n_examples": 54,
+   "split": "val",
+   "rollouts_used": 316,
+   "note": "finalist"
+  }
+ ],
+ "info": {
+  "stopped": "completed",
+  "optimizer": "ape",
+  "seed": 0
+ },
+ "cost": {
+  "mutate": {
+   "calls": 4,
+   "fresh_calls": 4,
+   "prompt_tokens": 492,
+   "completion_tokens": 256,
+   "truncated": 0,
+   "model_seconds": 90.81254691700451,
+   "total_tokens": 748
+  },
+  "propose": {
+   "calls": 8,
+   "fresh_calls": 8,
+   "prompt_tokens": 5228,
+   "completion_tokens": 746,
+   "truncated": 0,
+   "model_seconds": 396.7696301260148,
+   "total_tokens": 5974
+  },
+  "task": {
+   "calls": 316,
+   "fresh_calls": 246,
+   "prompt_tokens": 88211,
+   "completion_tokens": 42324,
+   "truncated": 20,
+   "model_seconds": 18913.64836788416,
+   "total_tokens": 130535
+  }
+ },
+ "wall_seconds": 1389.2
+}

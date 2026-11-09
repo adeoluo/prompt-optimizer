@@ -1,0 +1,169 @@
+{
+ "task": "bbh",
+ "optimizer": "promptbreeder",
+ "model": "qwen3.5-2b",
+ "seed": 0,
+ "budget": 400,
+ "overrides": {},
+ "splits": {
+  "train": 216,
+  "val": 54,
+  "test": 405
+ },
+ "val_score": 0.6111111111111112,
+ "rollouts_used": 258,
+ "program": {
+  "instruction": "Answer the question.",
+  "demos": []
+ },
+ "fingerprint": "3fdde98294d77a89",
+ "trials": [
+  {
+   "step": 0,
+   "fingerprint": "3fdde98294d77a89",
+   "instruction": "Answer the question.",
+   "n_demos": 0,
+   "score": 0.6111111111111112,
+   "n_examples": 54,
+   "split": "val",
+   "rollouts_used": 54,
+   "note": "seed"
+  },
+  {
+   "step": 0,
+   "fingerprint": "3fdde98294d77a89",
+   "instruction": "Answer the question.",
+   "n_demos": 0,
+   "score": 0.5,
+   "n_examples": 12,
+   "split": "train",
+   "rollouts_used": 90,
+   "note": "fitness"
+  },
+  {
+   "step": 0,
+   "fingerprint": "0ef1469780ec3a66",
+   "instruction": "You are an advanced problem-solving assistant specialized in logical reasoning, arithmetic, and date calculations. Your primary task is to solve the following question based ONLY on the provided reasoning and data context.\n\n**Rules for Solving:**\n1. **Reverse Engineering Strategy**:\n   - Start by identifying the core question asked in the prompt.\n   - Analyze the provided reasoning context, data tables, and constraints.\n   - Formulate the specific logical or arithmetic relationship that the data implies to answer the question.\n   - Execute the solution to the implied relationship.\n\n2. **Context Utilization**:\n   - You must rely exclusively on the provided \"reasoning\" and \"data\" sections to derive the answer.\n   - Do not introduce external knowledge or assumptions not contained in the provided text.\n   - If the context allows for multiple valid answers, select the most logical one or state that the information is insufficient.\n\n3. **Output Format**:\n   - Provide a clear, step-by-step derivation.\n   - State the final answer clearly at the end, separated from your reasoning.\n\n**Question to Solve:**\n[INSERT QUESTION HERE]\n\n**Context to Analyze:**\n[INSERT REASONING AND DATA CONTEXT HERE]",
+   "n_demos": 0,
+   "score": 0.6666666666666666,
+   "n_examples": 12,
+   "split": "train",
+   "rollouts_used": 90,
+   "note": "fitness"
+  },
+  {
+   "step": 0,
+   "fingerprint": "80ff15082d1f85b4",
+   "instruction": "Answer the question. Then, present your final response directly below.",
+   "n_demos": 0,
+   "score": 0.4166666666666667,
+   "n_examples": 12,
+   "split": "train",
+   "rollouts_used": 90,
+   "note": "fitness"
+  },
+  {
+   "step": 2,
+   "fingerprint": "e1fe7e75ff86b09e",
+   "instruction": "You are an expert logical reasoning and arithmetic solver. Your task is to derive the solution to the following question based **exclusively** on the provided \"Reasoning\" and \"Data\" context.\n\n**Task Requirements:**\n1. **Analyze the Core Problem**: Identify the specific unknown variable, the mathematical relationship between known values, and the constraints given in the context.\n2. **Derive the Logic**: Trace the logical steps or arithmetic operations implied by the context data to reach the solution. Do not rely on external knowledge.\n3. **Validate the Answer**: Ensure the solution is consistent with all rules and constraints found in the provided text.\n4. **Constraint Compliance**: If the context is insufficient to solve the problem, explicitly state that the answer cannot be determined.\n\n**Output Format:**\n- Present the step-by-step derivation clearly using numbered steps.\n- Conclude the derivation with a single line containing the final answer, formatted as: \"Answer: [Your Final Answer]\".\n\n**Question to Solve:**\n[INSERT QUESTION HERE]\n\n**Context to Analyze:**\n[INSERT REASONING AND DATA CONTEXT HERE]",
+   "n_demos": 0,
+   "score": 0.5833333333333334,
+   "n_examples": 12,
+   "split": "train",
+   "rollouts_used": 102,
+   "note": "fitness"
+  },
+  {
+   "step": 3,
+   "fingerprint": "11ca6dbc34c29e05",
+   "instruction": "You are an advanced problem-solving assistant specialized in logical reasoning, arithmetic, and date calculations. Your primary task is to solve the following question based ONLY on the provided reasoning and data context.\n\n**Rules for Solving:**\n1. **Reverse Engineering Strategy**:\n   - Start by identifying the core question asked in the prompt.\n   - Analyze the provided reasoning context, data tables, and constraints.\n   - Formulate the specific logical or arithmetic relationship that the data implies to answer the question.\n   - Execute the solution to the implied relationship.\n\n2. **Context Utilization**:\n   - You must rely exclusively on the provided \"reasoning\" and \"data\" sections to derive the answer.\n   - Do not introduce external knowledge or assumptions not contained in the provided text.\n   - If the context allows for multiple valid answers, select the most logical one or state that the information is insufficient.\n\n3. **Output Format**:\n   - Provide a clear, step-by-step derivation.\n   - State the final answer clearly at the end, separated from your reasoning.\n\n**Question to Solve:**\n[INSERT QUESTION HERE]\n\n**Context to Analyze:**\n[INSERT REASONING AND DATA CONTEXT HERE]\n\nINSTRUCTION MUTANT",
+   "n_demos": 0,
+   "score": 0.5,
+   "n_examples": 12,
+   "split": "train",
+   "rollouts_used": 114,
+   "note": "fitness"
+  },
+  {
+   "step": 4,
+   "fingerprint": "67748c8e9589c4cc",
+   "instruction": "You are an advanced problem-solving assistant specialized in logical reasoning, arithmetic, and date calculations. Your primary task is to solve the following question based ONLY on the provided reasoning and data context.\n\n**Rules for Solving:**\n\n1.  **Reverse Engineering Strategy**:\n    -   First, identify the exact wording of the question being asked in the prompt.\n    -   Next, analyze the provided reasoning context, data tables, and explicit constraints.\n    -   Then, formulate the specific logical or arithmetic relationship implied by the context to answer the question.\n    -   Finally, execute the solution to this implied relationship.\n\n2.  **Context Utilization**:\n    -   You must rely exclusively on the provided \"reasoning\" and \"data\" sections to derive the answer.\n    -   Do not introduce external knowledge, common sense facts, or assumptions not contained within the text provided.\n    -   If the context contains contradictory information, select the more specific constraint. If multiple valid answers exist based on the data, state that the information is insufficient.\n\n3.  **Output Format**:\n    -   Present a clear, step-by-step derivation of your findings.\n    -   State the final answer clearly and concisely at the end of the response, separated from your reasoning by a clear delimiter (e.g., \"Answer: [Answer]\").\n\n**Question to Solve:**\n[INSERT QUESTION HERE]\n\n**Context to Analyze:**\n[INSERT REASONING AND DATA CONTEXT HERE]",
+   "n_demos": 0,
+   "score": 0.6666666666666666,
+   "n_examples": 12,
+   "split": "train",
+   "rollouts_used": 126,
+   "note": "fitness"
+  },
+  {
+   "step": 5,
+   "fingerprint": "31cc8a8839eb25ae",
+   "instruction": "You are an advanced problem-solving assistant specialized in logical reasoning, arithmetic, and date calculations. Your primary task is to solve the following question based ONLY on the provided reasoning and data context.\n\n**Rules for Solving:**\n1. **Reverse Engineering Strategy**:\n   - Start by identifying the core question asked in the prompt.\n   - Carefully analyze the provided \"reasoning\" and \"data\" sections to locate specific numbers, relationships, constraints, or conditions.\n   - Formulate the specific logical or arithmetic relationship that the data implies to answer the question.\n   - Execute the solution to the implied relationship using the exact numbers from the context.\n\n2. **Context Utilization**:\n   - You must rely exclusively on the provided \"reasoning\" and \"data\" sections to derive the answer.\n   - Do not introduce external knowledge or assumptions not contained in the provided text.\n   - Do not rely on general world knowledge. If the context allows for multiple valid answers, select the most logical one or state that the information is insufficient based strictly on the given data.\n\n3. **Output Format**:\n   - Provide a clear, step-by-step derivation that explicitly links the data values to the answer.\n   - State the final answer clearly at the end, separated from your reasoning with a bold header \"FINAL ANSWER:\".\n\n**Question to Solve:**\n[INSERT QUESTION HERE]\n\n**Context to Analyze:**\n[INSERT REASONING AND DATA CONTEXT HERE]",
+   "n_demos": 0,
+   "score": 0.4166666666666667,
+   "n_examples": 12,
+   "split": "train",
+   "rollouts_used": 138,
+   "note": "fitness"
+  },
+  {
+   "step": 6,
+   "fingerprint": "5bcd8d3411e85ac0",
+   "instruction": "For the BIG-Bench Hard reasoning tasks, the following instructions must be followed:\n\n1. **Task Classification**: Identify the specific domain of each problem (e.g., logic, arithmetic, dates, tracking, language understanding) before attempting to solve it.\n2. **Intermediate Step Verification**: Before generating any solution, perform a logical or mathematical check on every intermediate result. Verify that previous steps are correct before proceeding to the next.\n3. **Exact Answer Generation**: If an exact numerical or text answer is required, ensure the final output is precise and matches the format specified in the problem description (e.g., a single integer, a string of words, or a specific date).\n4. **Reasoning Path**: Clearly articulate the step-by-step reasoning process used to reach the final answer.\n5. **Error Handling**: If an intermediate step leads to a contradiction or is impossible, explicitly state the issue and adjust the approach accordingly before concluding.\n6. **Final Output Format**: Present the solution concisely at the end, ensuring no extra conversational text or unnecessary formatting beyond the answer itself.",
+   "n_demos": 0,
+   "score": 0.5833333333333334,
+   "n_examples": 12,
+   "split": "train",
+   "rollouts_used": 150,
+   "note": "fitness"
+  },
+  {
+   "step": 6,
+   "fingerprint": "0ef1469780ec3a66",
+   "instruction": "You are an advanced problem-solving assistant specialized in logical reasoning, arithmetic, and date calculations. Your primary task is to solve the following question based ONLY on the provided reasoning and data context.\n\n**Rules for Solving:**\n1. **Reverse Engineering Strategy**:\n   - Start by identifying the core question asked in the prompt.\n   - Analyze the provided reasoning context, data tables, and constraints.\n   - Formulate the specific logical or arithmetic relationship that the data implies to answer the question.\n   - Execute the solution to the implied relationship.\n\n2. **Context Utilization**:\n   - You must rely exclusively on the provided \"reasoning\" and \"data\" sections to derive the answer.\n   - Do not introduce external knowledge or assumptions not contained in the provided text.\n   - If the context allows for multiple valid answers, select the most logical one or state that the information is insufficient.\n\n3. **Output Format**:\n   - Provide a clear, step-by-step derivation.\n   - State the final answer clearly at the end, separated from your reasoning.\n\n**Question to Solve:**\n[INSERT QUESTION HERE]\n\n**Context to Analyze:**\n[INSERT REASONING AND DATA CONTEXT HERE]",
+   "n_demos": 0,
+   "score": 0.46296296296296297,
+   "n_examples": 54,
+   "split": "val",
+   "rollouts_used": 258,
+   "note": "finalist"
+  },
+  {
+   "step": 6,
+   "fingerprint": "5bcd8d3411e85ac0",
+   "instruction": "For the BIG-Bench Hard reasoning tasks, the following instructions must be followed:\n\n1. **Task Classification**: Identify the specific domain of each problem (e.g., logic, arithmetic, dates, tracking, language understanding) before attempting to solve it.\n2. **Intermediate Step Verification**: Before generating any solution, perform a logical or mathematical check on every intermediate result. Verify that previous steps are correct before proceeding to the next.\n3. **Exact Answer Generation**: If an exact numerical or text answer is required, ensure the final output is precise and matches the format specified in the problem description (e.g., a single integer, a string of words, or a specific date).\n4. **Reasoning Path**: Clearly articulate the step-by-step reasoning process used to reach the final answer.\n5. **Error Handling**: If an intermediate step leads to a contradiction or is impossible, explicitly state the issue and adjust the approach accordingly before concluding.\n6. **Final Output Format**: Present the solution concisely at the end, ensuring no extra conversational text or unnecessary formatting beyond the answer itself.",
+   "n_demos": 0,
+   "score": 0.5740740740740741,
+   "n_examples": 54,
+   "split": "val",
+   "rollouts_used": 258,
+   "note": "finalist"
+  }
+ ],
+ "info": {
+  "stopped": "completed",
+  "optimizer": "promptbreeder",
+  "seed": 0
+ },
+ "cost": {
+  "mutate": {
+   "calls": 14,
+   "fresh_calls": 14,
+   "prompt_tokens": 2862,
+   "completion_tokens": 2560,
+   "truncated": 0,
+   "model_seconds": 433.1758629580145,
+   "total_tokens": 5422
+  },
+  "task": {
+   "calls": 258,
+   "fresh_calls": 192,
+   "prompt_tokens": 99588,
+   "completion_tokens": 51091,
+   "truncated": 34,
+   "model_seconds": 17470.668128383113,
+   "total_tokens": 150679
+  }
+ },
+ "wall_seconds": 1716.2
+}

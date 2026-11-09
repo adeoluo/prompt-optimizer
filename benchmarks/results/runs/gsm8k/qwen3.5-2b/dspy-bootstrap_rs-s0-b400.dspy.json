@@ -1,0 +1,57 @@
+{
+  "predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "question": "Lloyd, Mark, and Michael have their Pokemon cards collection. Currently, Mark has thrice as many cards as Lloyd but has 10 fewer cards than Michael. If Michael has 100 cards now, how many more cards should they collect so that all three of them will have a total of 300 cards?",
+        "reasoning": "1. Calculate Michael's current cards: 100.\n2. Calculate Mark's current cards: 100 - 10 = 90.\n3. Calculate Lloyd's current cards: 90 / 3 = 30.\n4. Calculate the total current cards: 100 + 90 + 30 = 220.\n5. Determine the target total: 300.\n6. Calculate the difference needed: 300 - 220 = 80.\n7. Since the goal is to have 300 cards total, and they currently have 220, they need to add 80 cards to reach the target.",
+        "answer": "80"
+      },
+      {
+        "augmented": true,
+        "question": "Every time Janet folds her blanket its thickness doubles. If it starts out 3 inches thick, how thick will it be after 4 foldings?",
+        "reasoning": "1. Start with the initial thickness: 3 inches.\n2. After the first fold, the thickness doubles: 3 * 2 = 6 inches.\n3. After the second fold, it doubles again: 6 * 2 = 12 inches.\n4. After the third fold, it doubles again: 12 * 2 = 24 inches.\n5. After the fourth fold, it doubles again: 24 * 2 = 48 inches.\n6. The final thickness is 48 inches.",
+        "answer": "48"
+      },
+      {
+        "augmented": true,
+        "question": "On a school trip to the seashore, Alan and his friends collected shells. Alan collected four times as many shells as Ben did. Ben got a late start and only collected a third of what Laurie did. If Laurie collected 36 shells how many did Alan collect?",
+        "reasoning": "1. Determine how many shells Laurie collected: 36.\n2. Calculate Ben's shells: 36 divided by 3 equals 12.\n3. Calculate Alan's shells: 12 multiplied by 4 equals 48.\n4. The final answer is 48.",
+        "answer": "48"
+      },
+      {
+        "augmented": true,
+        "question": "There are 400 students in the senior class at East High School. 52% of the students play sports. Of the students that play sports, 12.5% play soccer. How many students play soccer?",
+        "reasoning": "First, calculate the number of students who play sports: 52% of 400 is 0.52 * 400 = 208 students. Next, find the number of soccer players by taking 12.5% of the 208 sports players. 0.125 * 208 = 26 students.",
+        "answer": "26"
+      }
+    ],
+    "signature": {
+      "instructions": "Solve the math word problem.",
+      "fields": [
+        {
+          "prefix": "Question:",
+          "description": "${question}"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "your reasoning in a few short steps (no more than about 120 words)"
+        },
+        {
+          "prefix": "Answer:",
+          "description": "the final answer as a single number"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.12",
+      "dspy": "3.4.1",
+      "cloudpickle": "3.1"
+    }
+  }
+}

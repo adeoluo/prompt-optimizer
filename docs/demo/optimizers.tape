@@ -1,6 +1,8 @@
 # Records docs/demo/optimizers.gif from a real run: `vhs docs/demo/optimizers.tape` from the repo root.
 # The optimizer runs against the deterministic fake model, so the recording needs no server.
 Output docs/demo/optimizers.gif
+Set WaitTimeout 600s
+Set WaitPattern /\$\s*$/
 Set Shell "bash"
 Set FontSize 15
 Set Width 1300
@@ -14,6 +16,8 @@ Type `export PS1='$ ' && uv sync -q && source .venv/bin/activate && clear` Enter
 Sleep 10s
 Show
 Type `python -m prompt_optimizer optimizers` Enter
-Sleep 2.5s
+Wait
+Sleep 2s
 Type `python -m prompt_optimizer optimize --fake --optimizer gepa --budget 300` Enter
-Sleep 4s
+Wait
+Sleep 2s

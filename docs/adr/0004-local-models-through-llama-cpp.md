@@ -19,13 +19,16 @@ far more than single-request latency.
   server's continuous batching packs the in-flight sequences into shared forward passes.
 - Disable Qwen3.5 thinking at the server (`--reasoning off`): every method then pays for
   the same visible reasoning, and hidden thinking tokens do not inflate the cost columns.
-- Size the server to the machine: 8 slots of 4,096 tokens per model (longer than the
-  longest prompt plus answer measured, 2,172 tokens), flash attention, a q8_0 KV cache and
-  no host-RAM prompt cache (`--cache-ram 0`). The 2B server then needs about 0.5 GB beyond
+- Size the server to the machine: 8 slots sharing one unified 16,384-token KV pool (`-kvu`;
+  each request still fits the longest prompt plus answer measured, 2,172 tokens), a
+  128-token micro-batch (`-ub 128`), flash attention, a q8_0 KV cache and no host-RAM
+  prompt cache (`--cache-ram 0`). Earlier runs used 8 slots of 4,096 tokens each. The 2B server then needs about 0.5 GB beyond
   its memory-mapped weights, which keeps the shared machine out of swap. The first runs
   used 12 to 24 slots of 3,072 tokens; the slot count changes speed, and only through
   llama.cpp's batch-composition nondeterminism could it change an answer.
-- Optimize with the 2B model; score the final prompts on 0.8B, 2B and 4B for transfer.
+- Optimize with the 2B model; score the final prompts on 0.8B for transfer. The 4B model is
+  supported, and its transfer runs are left for a later release because they did not fit
+  this release's compute budget.
 
 ## Alternatives considered
 
