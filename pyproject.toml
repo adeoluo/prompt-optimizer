@@ -22,7 +22,7 @@ dependencies = [
 
 [dependency-groups]
 compare = [
-    "dspy==3.4.1",
+    "dspy[optuna]==3.4.1",
 ]
 dev = [
     "ruff>=0.17",
