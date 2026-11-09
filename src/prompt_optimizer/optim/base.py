@@ -512,12 +512,21 @@ class Optimizer(ABC):
         )
 
 
+def reference_output(task: Task, example: TaskExample) -> str:
+    """The gold output shown to proposers, or a note when the task has none (IFEval)."""
+
+    try:
+        return task.gold_output(example)
+    except ValueError:
+        return "(no reference output: responses are checked against the request's constraints)"
+
+
 def format_examples(examples: Sequence[TaskExample], task: Task, limit: int = 3) -> str:
     """Render a few gold input/output pairs for a proposer prompt."""
 
     blocks = []
     for ex in examples[:limit]:
-        blocks.append(f"Input:\n{ex.question}\n\nReference output:\n{task.gold_output(ex)}")
+        blocks.append(f"Input:\n{ex.question}\n\nReference output:\n{reference_output(task, ex)}")
     return "\n\n---\n\n".join(blocks)
 
 
