@@ -1,0 +1,116 @@
+{
+ "task": "bbh",
+ "optimizer": "bootstrap_fewshot",
+ "model": "qwen3.5-2b",
+ "seed": 0,
+ "budget": 400,
+ "overrides": {},
+ "splits": {
+  "train": 216,
+  "val": 54,
+  "test": 405
+ },
+ "val_score": 0.6111111111111112,
+ "rollouts_used": 378,
+ "program": {
+  "instruction": "Answer the question.",
+  "demos": []
+ },
+ "fingerprint": "3fdde98294d77a89",
+ "trials": [
+  {
+   "step": 0,
+   "fingerprint": "3fdde98294d77a89",
+   "instruction": "Answer the question.",
+   "n_demos": 0,
+   "score": 0.6111111111111112,
+   "n_examples": 54,
+   "split": "val",
+   "rollouts_used": 54,
+   "note": "seed"
+  },
+  {
+   "step": 0,
+   "fingerprint": "3fdde98294d77a89",
+   "instruction": "Answer the question.",
+   "n_demos": 0,
+   "score": 0.4444444444444444,
+   "n_examples": 54,
+   "split": "train",
+   "rollouts_used": 108,
+   "note": "bootstrap"
+  },
+  {
+   "step": 1,
+   "fingerprint": "d6d899b52c047468",
+   "instruction": "Answer the question.",
+   "n_demos": 24,
+   "score": 0.5555555555555556,
+   "n_examples": 54,
+   "split": "val",
+   "rollouts_used": 162,
+   "note": "bootstrap-first"
+  },
+  {
+   "step": 2,
+   "fingerprint": "7a5b5ce239eb6475",
+   "instruction": "Answer the question.",
+   "n_demos": 18,
+   "score": 0.5740740740740741,
+   "n_examples": 54,
+   "split": "val",
+   "rollouts_used": 216,
+   "note": "bootstrap-random-0"
+  },
+  {
+   "step": 3,
+   "fingerprint": "2d3c00c491970817",
+   "instruction": "Answer the question.",
+   "n_demos": 24,
+   "score": 0.5555555555555556,
+   "n_examples": 54,
+   "split": "val",
+   "rollouts_used": 270,
+   "note": "bootstrap-random-1"
+  },
+  {
+   "step": 4,
+   "fingerprint": "ffdada054ecb6905",
+   "instruction": "Answer the question.",
+   "n_demos": 24,
+   "score": 0.5555555555555556,
+   "n_examples": 54,
+   "split": "val",
+   "rollouts_used": 324,
+   "note": "bootstrap-random-2"
+  },
+  {
+   "step": 5,
+   "fingerprint": "545b478f8260ce53",
+   "instruction": "Answer the question.",
+   "n_demos": 24,
+   "score": 0.5555555555555556,
+   "n_examples": 54,
+   "split": "val",
+   "rollouts_used": 378,
+   "note": "bootstrap-random-3"
+  }
+ ],
+ "info": {
+  "stopped": "completed",
+  "optimizer": "bootstrap_fewshot",
+  "seed": 0
+ },
+ "cost": {
+  "task": {
+   "calls": 378,
+   "fresh_calls": 112,
+   "prompt_tokens": 130625,
+   "completion_tokens": 46415,
+   "truncated": 27,
+   "model_seconds": 35136.699422945836,
+   "total_tokens": 177040
+  }
+ },
+ "wall_seconds": 1579.3
+}

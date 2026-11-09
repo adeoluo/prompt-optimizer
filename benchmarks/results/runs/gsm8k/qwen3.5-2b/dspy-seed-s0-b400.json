@@ -1,0 +1,31 @@
+{
+ "task": "gsm8k",
+ "optimizer": "dspy-seed",
+ "library": "dspy 3.4.1",
+ "model": "qwen3.5-2b",
+ "seed": 0,
+ "budget": 400,
+ "splits": {
+  "train": 200,
+  "val": 60,
+  "test": 1319
+ },
+ "val_score": 0.8,
+ "rollouts_used": 60,
+ "program": {
+  "instruction": "Solve the math word problem.",
+  "demos": []
+ },
+ "cost": {
+  "task": {
+   "calls": 60,
+   "fresh_calls": 60,
+   "prompt_tokens": 15667,
+   "completion_tokens": 6962,
+   "truncated": 0,
+   "model_seconds": 14282.678022213018,
+   "total_tokens": 22629
+  }
+ },
+ "wall_seconds": 1252.2
+}
