@@ -379,6 +379,7 @@ class TestDemos:
         pool = teacher_pool(self._ctx(train), 9)
         assert sorted(ex.group for ex in pool) == ["g0"] * 3 + ["g1"] * 3 + ["g2"] * 3
         assert len(teacher_pool(self._ctx(), 7)) == 7
+        assert len(teacher_pool(self._ctx(train), 4)) == 6  # rounds up to 2 per group
 
 
 class TestHelpers:
