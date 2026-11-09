@@ -1,0 +1,971 @@
+{
+ "task": "bbh",
+ "run_id": "seed",
+ "optimizer": "seed",
+ "optimized_on": "qwen3.5-2b",
+ "eval_model": "qwen3.5-2b",
+ "fingerprint": "3fdde98294d77a89",
+ "n": 135,
+ "n_available": 405,
+ "accuracy": 0.45925925925925926,
+ "truncated": 55,
+ "records": [
+  {
+   "id": "bbh-boolean_expressions-56",
+   "score": 1.0,
+   "pred": "True",
+   "truncated": false,
+   "group": "boolean_expressions"
+  },
+  {
+   "id": "bbh-causal_judgement-31",
+   "score": 1.0,
+   "pred": "No",
+   "truncated": false,
+   "group": "causal_judgement"
+  },
+  {
+   "id": "bbh-date_understanding-89",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "date_understanding"
+  },
+  {
+   "id": "bbh-disambiguation_qa-182",
+   "score": 1.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "disambiguation_qa"
+  },
+  {
+   "id": "bbh-dyck_languages-139",
+   "score": 0.0,
+   "pred": "Current stack:",
+   "truncated": true,
+   "group": "dyck_languages"
+  },
+  {
+   "id": "bbh-formal_fallacies-186",
+   "score": 0.0,
+   "pred": "Premise 1 states: If (not in D) and (not in L), then (in P",
+   "truncated": true,
+   "group": "formal_fallacies"
+  },
+  {
+   "id": "bbh-geometric_shapes-214",
+   "score": 0.0,
+   "pred": "-   Side 3: $\\sqrt{(56-51)^2 + (58-63)^2} = \\sqrt{5^2 + (-5)^2} = \\sqrt",
+   "truncated": true,
+   "group": "geometric_shapes"
+  },
+  {
+   "id": "bbh-hyperbaton-141",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "hyperbaton"
+  },
+  {
+   "id": "bbh-logical_deduction_five_objects-47",
+   "score": 0.0,
+   "pred": "So, the sequence starts: [",
+   "truncated": true,
+   "group": "logical_deduction_five_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_seven_objects-86",
+   "score": 0.0,
+   "pred": "- If Min",
+   "truncated": true,
+   "group": "logical_deduction_seven_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_three_objects-137",
+   "score": 1.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "logical_deduction_three_objects"
+  },
+  {
+   "id": "bbh-movie_recommendation-191",
+   "score": 0.0,
+   "pred": "**(D) No Small Affair**: This is a 2013 film about a woman who is forced to take a job with a man who is a former child molester. It is a drama about crime and family, similar to *Catch Me If You Can*",
+   "truncated": true,
+   "group": "movie_recommendation"
+  },
+  {
+   "id": "bbh-multistep_arithmetic_two-122",
+   "score": 1.0,
+   "pred": "$-264$",
+   "truncated": true,
+   "group": "multistep_arithmetic_two"
+  },
+  {
+   "id": "bbh-navigate-48",
+   "score": 1.0,
+   "pred": "Yes",
+   "truncated": false,
+   "group": "navigate"
+  },
+  {
+   "id": "bbh-object_counting-5",
+   "score": 1.0,
+   "pred": "3",
+   "truncated": false,
+   "group": "object_counting"
+  },
+  {
+   "id": "bbh-penguins_in_a_table-41",
+   "score": 1.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "penguins_in_a_table"
+  },
+  {
+   "id": "bbh-reasoning_about_colored_objects-165",
+   "score": 1.0,
+   "pred": "(D)",
+   "truncated": false,
+   "group": "reasoning_about_colored_objects"
+  },
+  {
+   "id": "bbh-ruin_names-37",
+   "score": 1.0,
+   "pred": "(A)** because \"whiney\" is the intended pun.",
+   "truncated": true,
+   "group": "ruin_names"
+  },
+  {
+   "id": "bbh-salient_translation_error_detection-126",
+   "score": 1.0,
+   "pred": "(E)",
+   "truncated": false,
+   "group": "salient_translation_error_detection"
+  },
+  {
+   "id": "bbh-snarks-62",
+   "score": 0.0,
+   "pred": "Sentence B presents a scenario where the speaker claims to have \"more than enough sleep.\" This is a direct contradiction to the sarcastic question. The speaker is saying, \"It's not bad,\" but using sar",
+   "truncated": true,
+   "group": "snarks"
+  },
+  {
+   "id": "bbh-sports_understanding-198",
+   "score": 1.0,
+   "pred": "No",
+   "truncated": false,
+   "group": "sports_understanding"
+  },
+  {
+   "id": "bbh-temporal_sequences-123",
+   "score": 1.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "temporal_sequences"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_five_objects-230",
+   "score": 1.0,
+   "pred": "(D)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_five_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_seven_objects-238",
+   "score": 0.0,
+   "pred": "*Current State:* Alice (Benchwarmer), Bob (Center midfielder), Claire (Cheerleader), Dave (Goal",
+   "truncated": true,
+   "group": "tracking_shuffled_objects_seven_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_three_objects-60",
+   "score": 1.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_three_objects"
+  },
+  {
+   "id": "bbh-web_of_lies-103",
+   "score": 0.0,
+   "pred": "- From statement 4: Since $S$ is true, Delfina's claim is",
+   "truncated": true,
+   "group": "web_of_lies"
+  },
+  {
+   "id": "bbh-word_sorting-174",
+   "score": 0.0,
+   "pred": "3",
+   "truncated": true,
+   "group": "word_sorting"
+  },
+  {
+   "id": "bbh-boolean_expressions-210",
+   "score": 1.0,
+   "pred": "True",
+   "truncated": false,
+   "group": "boolean_expressions"
+  },
+  {
+   "id": "bbh-causal_judgement-24",
+   "score": 1.0,
+   "pred": "Yes",
+   "truncated": false,
+   "group": "causal_judgement"
+  },
+  {
+   "id": "bbh-date_understanding-26",
+   "score": 0.0,
+   "pred": "The calculated date matches option",
+   "truncated": true,
+   "group": "date_understanding"
+  },
+  {
+   "id": "bbh-disambiguation_qa-236",
+   "score": 0.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "disambiguation_qa"
+  },
+  {
+   "id": "bbh-dyck_languages-148",
+   "score": 0.0,
+   "pred": "26. `",
+   "truncated": true,
+   "group": "dyck_languages"
+  },
+  {
+   "id": "bbh-formal_fallacies-188",
+   "score": 0.0,
+   "pred": "However, the premises only guarantee that there is a specific person (a classmate of Terri) who is a workmate of Dolores. They do not guarantee that *anyone* outside the set of workmates is an ancesto",
+   "truncated": true,
+   "group": "formal_fallacies"
+  },
+  {
+   "id": "bbh-geometric_shapes-120",
+   "score": 0.0,
+   "pred": "**Side 3",
+   "truncated": true,
+   "group": "geometric_shapes"
+  },
+  {
+   "id": "bbh-hyperbaton-236",
+   "score": 0.0,
+   "pred": "42. **Weight",
+   "truncated": true,
+   "group": "hyperbaton"
+  },
+  {
+   "id": "bbh-logical_deduction_five_objects-45",
+   "score": 0.0,
+   "pred": "- \"The cardinal is to",
+   "truncated": true,
+   "group": "logical_deduction_five_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_seven_objects-167",
+   "score": 0.0,
+   "pred": "Statement 1 says \"Eli finished below Amy\". Amy is at Position 1. There is no position below 1. Therefore, this statement is only true if Eli is not below Amy (which is impossible) OR if the statement ",
+   "truncated": true,
+   "group": "logical_deduction_seven_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_three_objects-77",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "logical_deduction_three_objects"
+  },
+  {
+   "id": "bbh-movie_recommendation-50",
+   "score": 1.0,
+   "pred": "(D)",
+   "truncated": false,
+   "group": "movie_recommendation"
+  },
+  {
+   "id": "bbh-multistep_arithmetic_two-164",
+   "score": 1.0,
+   "pred": "30",
+   "truncated": false,
+   "group": "multistep_arithmetic_two"
+  },
+  {
+   "id": "bbh-navigate-106",
+   "score": 1.0,
+   "pred": "Yes",
+   "truncated": false,
+   "group": "navigate"
+  },
+  {
+   "id": "bbh-object_counting-0",
+   "score": 1.0,
+   "pred": "8",
+   "truncated": false,
+   "group": "object_counting"
+  },
+  {
+   "id": "bbh-penguins_in_a_table-110",
+   "score": 1.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "penguins_in_a_table"
+  },
+  {
+   "id": "bbh-reasoning_about_colored_objects-57",
+   "score": 1.0,
+   "pred": "(F)",
+   "truncated": false,
+   "group": "reasoning_about_colored_objects"
+  },
+  {
+   "id": "bbh-ruin_names-171",
+   "score": 0.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "ruin_names"
+  },
+  {
+   "id": "bbh-salient_translation_error_detection-119",
+   "score": 0.0,
+   "pred": "(D)",
+   "truncated": false,
+   "group": "salient_translation_error_detection"
+  },
+  {
+   "id": "bbh-snarks-44",
+   "score": 0.0,
+   "pred": "(A) \"People never foment wars to relinquish territory\" -> This implies people *do* foment wars to relinquish territory. This is false.",
+   "truncated": true,
+   "group": "snarks"
+  },
+  {
+   "id": "bbh-sports_understanding-93",
+   "score": 1.0,
+   "pred": "No",
+   "truncated": false,
+   "group": "sports_understanding"
+  },
+  {
+   "id": "bbh-temporal_sequences-195",
+   "score": 0.0,
+   "pred": "(A) 6am to 2pm: During this time, she was walking to the Statue of Liberty. It is possible she went to the park *before* 6am (e.g., 5am)",
+   "truncated": true,
+   "group": "temporal_sequences"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_five_objects-115",
+   "score": 1.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_five_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_seven_objects-50",
+   "score": 0.0,
+   "pred": "- Dave - Melissa",
+   "truncated": true,
+   "group": "tracking_shuffled_objects_seven_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_three_objects-10",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_three_objects"
+  },
+  {
+   "id": "bbh-web_of_lies-218",
+   "score": 1.0,
+   "pred": "No",
+   "truncated": false,
+   "group": "web_of_lies"
+  },
+  {
+   "id": "bbh-word_sorting-214",
+   "score": 0.0,
+   "pred": "anaplasmosis bumble chopstick clue fresco fiesta footwork ingot orthography palisade pilate saul smalley storey teen",
+   "truncated": false,
+   "group": "word_sorting"
+  },
+  {
+   "id": "bbh-boolean_expressions-153",
+   "score": 1.0,
+   "pred": "False",
+   "truncated": false,
+   "group": "boolean_expressions"
+  },
+  {
+   "id": "bbh-causal_judgement-6",
+   "score": 1.0,
+   "pred": "Yes",
+   "truncated": false,
+   "group": "causal_judgement"
+  },
+  {
+   "id": "bbh-date_understanding-135",
+   "score": 0.0,
+   "pred": "\"Today",
+   "truncated": true,
+   "group": "date_understanding"
+  },
+  {
+   "id": "bbh-disambiguation_qa-106",
+   "score": 0.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "disambiguation_qa"
+  },
+  {
+   "id": "bbh-dyck_languages-34",
+   "score": 0.0,
+   "pred": "",
+   "truncated": true,
+   "group": "dyck_languages"
+  },
+  {
+   "id": "bbh-formal_fallacies-89",
+   "score": 0.0,
+   "pred": "From Premise 2",
+   "truncated": true,
+   "group": "formal_fallacies"
+  },
+  {
+   "id": "bbh-geometric_shapes-162",
+   "score": 0.0,
+   "pred": "(A) circle - No, it's a",
+   "truncated": true,
+   "group": "geometric_shapes"
+  },
+  {
+   "id": "bbh-hyperbaton-168",
+   "score": 0.0,
+   "pred": "Wait",
+   "truncated": true,
+   "group": "hyperbaton"
+  },
+  {
+   "id": "bbh-logical_deduction_five_objects-136",
+   "score": 0.0,
+   "pred": "Position 1: Must be Amy",
+   "truncated": true,
+   "group": "logical_deduction_five_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_seven_objects-37",
+   "score": 0.0,
+   "pred": "We know",
+   "truncated": true,
+   "group": "logical_deduction_seven_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_three_objects-189",
+   "score": 1.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "logical_deduction_three_objects"
+  },
+  {
+   "id": "bbh-movie_recommendation-120",
+   "score": 0.0,
+   "pred": "3.",
+   "truncated": true,
+   "group": "movie_recommendation"
+  },
+  {
+   "id": "bbh-multistep_arithmetic_two-57",
+   "score": 0.0,
+   "pred": "$221 + (-10) = 221 - 10 = 211",
+   "truncated": true,
+   "group": "multistep_arithmetic_two"
+  },
+  {
+   "id": "bbh-navigate-222",
+   "score": 1.0,
+   "pred": "Yes",
+   "truncated": false,
+   "group": "navigate"
+  },
+  {
+   "id": "bbh-object_counting-22",
+   "score": 1.0,
+   "pred": "8",
+   "truncated": false,
+   "group": "object_counting"
+  },
+  {
+   "id": "bbh-penguins_in_a_table-107",
+   "score": 0.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "penguins_in_a_table"
+  },
+  {
+   "id": "bbh-reasoning_about_colored_objects-62",
+   "score": 1.0,
+   "pred": "(H)",
+   "truncated": false,
+   "group": "reasoning_about_colored_objects"
+  },
+  {
+   "id": "bbh-ruin_names-145",
+   "score": 0.0,
+   "pred": "(D) jethro",
+   "truncated": true,
+   "group": "ruin_names"
+  },
+  {
+   "id": "bbh-salient_translation_error_detection-31",
+   "score": 0.0,
+   "pred": "Is the translation",
+   "truncated": true,
+   "group": "salient_translation_error_detection"
+  },
+  {
+   "id": "bbh-snarks-107",
+   "score": 0.0,
+   "pred": "Sentence B",
+   "truncated": true,
+   "group": "snarks"
+  },
+  {
+   "id": "bbh-sports_understanding-11",
+   "score": 0.0,
+   "pred": "Yes",
+   "truncated": false,
+   "group": "sports_understanding"
+  },
+  {
+   "id": "bbh-temporal_sequences-78",
+   "score": 0.0,
+   "pred": "(D) 4pm to 7",
+   "truncated": true,
+   "group": "temporal_sequences"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_five_objects-152",
+   "score": 1.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_five_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_seven_objects-68",
+   "score": 0.0,
+   "pred": "Dave: Claire",
+   "truncated": true,
+   "group": "tracking_shuffled_objects_seven_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_three_objects-95",
+   "score": 0.0,
+   "pred": "- Start: A-Ophelia, B-Rodrigo, C",
+   "truncated": true,
+   "group": "tracking_shuffled_objects_three_objects"
+  },
+  {
+   "id": "bbh-web_of_lies-241",
+   "score": 1.0,
+   "pred": "No",
+   "truncated": false,
+   "group": "web_of_lies"
+  },
+  {
+   "id": "bbh-word_sorting-147",
+   "score": 0.0,
+   "pred": "bighorn demystify nigeria odysseus penny proton stirrup sociolinguistic voltaire",
+   "truncated": false,
+   "group": "word_sorting"
+  },
+  {
+   "id": "bbh-boolean_expressions-232",
+   "score": 1.0,
+   "pred": "True",
+   "truncated": false,
+   "group": "boolean_expressions"
+  },
+  {
+   "id": "bbh-causal_judgement-26",
+   "score": 0.0,
+   "pred": "If we interpret this strictly: The breakdown is the result of the machine not being greased. Kate's not greasing is a",
+   "truncated": true,
+   "group": "causal_judgement"
+  },
+  {
+   "id": "bbh-date_understanding-20",
+   "score": 0.0,
+   "pred": "Maybe the question implies \"What is the",
+   "truncated": true,
+   "group": "date_understanding"
+  },
+  {
+   "id": "bbh-disambiguation_qa-169",
+   "score": 1.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "disambiguation_qa"
+  },
+  {
+   "id": "bbh-dyck_languages-56",
+   "score": 1.0,
+   "pred": ">",
+   "truncated": false,
+   "group": "dyck_languages"
+  },
+  {
+   "id": "bbh-formal_fallacies-112",
+   "score": 0.0,
+   "pred": "2.  Since $\\neg R$ is true, by Premise 2 ($\\neg R",
+   "truncated": true,
+   "group": "formal_fallacies"
+  },
+  {
+   "id": "bbh-geometric_shapes-92",
+   "score": 0.0,
+   "pred": "The vertices form a kite shape (specifically, a rhombus or a square rotated, but \"kite\" is the standard classification for this type of symmetric quadrilateral in multiple-choice",
+   "truncated": true,
+   "group": "geometric_shapes"
+  },
+  {
+   "id": "bbh-hyperbaton-210",
+   "score": 1.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "hyperbaton"
+  },
+  {
+   "id": "bbh-logical_deduction_five_objects-55",
+   "score": 1.0,
+   "pred": "(D)",
+   "truncated": false,
+   "group": "logical_deduction_five_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_seven_objects-107",
+   "score": 0.0,
+   "pred": "Let's re-evaluate the Cardinal. The",
+   "truncated": true,
+   "group": "logical_deduction_seven_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_three_objects-202",
+   "score": 1.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "logical_deduction_three_objects"
+  },
+  {
+   "id": "bbh-movie_recommendation-185",
+   "score": 0.0,
+   "pred": "Often, these questions come from specific datasets (like MovieQA or similar benchmarks). In many of these contexts, the question asks for a movie that",
+   "truncated": true,
+   "group": "movie_recommendation"
+  },
+  {
+   "id": "bbh-multistep_arithmetic_two-232",
+   "score": 1.0,
+   "pred": "8",
+   "truncated": false,
+   "group": "multistep_arithmetic_two"
+  },
+  {
+   "id": "bbh-navigate-60",
+   "score": 1.0,
+   "pred": "No",
+   "truncated": false,
+   "group": "navigate"
+  },
+  {
+   "id": "bbh-object_counting-65",
+   "score": 1.0,
+   "pred": "8",
+   "truncated": false,
+   "group": "object_counting"
+  },
+  {
+   "id": "bbh-penguins_in_a_table-34",
+   "score": 0.0,
+   "pred": "(D)",
+   "truncated": false,
+   "group": "penguins_in_a_table"
+  },
+  {
+   "id": "bbh-reasoning_about_colored_objects-22",
+   "score": 0.0,
+   "pred": "(R)",
+   "truncated": false,
+   "group": "reasoning_about_colored_objects"
+  },
+  {
+   "id": "bbh-ruin_names-150",
+   "score": 0.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "ruin_names"
+  },
+  {
+   "id": "bbh-salient_translation_error_detection-0",
+   "score": 0.0,
+   "pred": "(F) Facts: While \"imperial field marshal\" might be factually incorrect regarding the specific historical title (he was a general, not specifically an imperial field marshal in the context of the Germa",
+   "truncated": true,
+   "group": "salient_translation_error_detection"
+  },
+  {
+   "id": "bbh-snarks-121",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "snarks"
+  },
+  {
+   "id": "bbh-sports_understanding-218",
+   "score": 0.0,
+   "pred": "Yes",
+   "truncated": false,
+   "group": "sports_understanding"
+  },
+  {
+   "id": "bbh-temporal_sequences-57",
+   "score": 0.0,
+   "pred": "(C) 2pm to 4pm",
+   "truncated": true,
+   "group": "temporal_sequences"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_five_objects-59",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_five_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_seven_objects-204",
+   "score": 0.0,
+   "pred": "Ger",
+   "truncated": true,
+   "group": "tracking_shuffled_objects_seven_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_three_objects-70",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_three_objects"
+  },
+  {
+   "id": "bbh-web_of_lies-88",
+   "score": 1.0,
+   "pred": "No",
+   "truncated": false,
+   "group": "web_of_lies"
+  },
+  {
+   "id": "bbh-word_sorting-223",
+   "score": 0.0,
+   "pred": "Let's re-order the",
+   "truncated": true,
+   "group": "word_sorting"
+  },
+  {
+   "id": "bbh-boolean_expressions-158",
+   "score": 1.0,
+   "pred": "True",
+   "truncated": false,
+   "group": "boolean_expressions"
+  },
+  {
+   "id": "bbh-causal_judgement-110",
+   "score": 0.0,
+   "pred": "No",
+   "truncated": false,
+   "group": "causal_judgement"
+  },
+  {
+   "id": "bbh-date_understanding-164",
+   "score": 0.0,
+   "pred": "Jan 20 -",
+   "truncated": true,
+   "group": "date_understanding"
+  },
+  {
+   "id": "bbh-disambiguation_qa-36",
+   "score": 0.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "disambiguation_qa"
+  },
+  {
+   "id": "bbh-dyck_languages-184",
+   "score": 0.0,
+   "pred": "5",
+   "truncated": true,
+   "group": "dyck_languages"
+  },
+  {
+   "id": "bbh-formal_fallacies-150",
+   "score": 0.0,
+   "pred": "The premises do **not",
+   "truncated": true,
+   "group": "formal_fallacies"
+  },
+  {
+   "id": "bbh-geometric_shapes-123",
+   "score": 1.0,
+   "pred": "(E)",
+   "truncated": false,
+   "group": "geometric_shapes"
+  },
+  {
+   "id": "bbh-hyperbaton-137",
+   "score": 1.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "hyperbaton"
+  },
+  {
+   "id": "bbh-logical_deduction_five_objects-192",
+   "score": 0.0,
+   "pred": "Truck = 4",
+   "truncated": true,
+   "group": "logical_deduction_five_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_seven_objects-15",
+   "score": 0.0,
+   "pred": "The only available position less",
+   "truncated": true,
+   "group": "logical_deduction_seven_objects"
+  },
+  {
+   "id": "bbh-logical_deduction_three_objects-233",
+   "score": 1.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "logical_deduction_three_objects"
+  },
+  {
+   "id": "bbh-movie_recommendation-40",
+   "score": 0.0,
+   "pred": "While \"Brave\" is a direct thematic successor, \"Go\" is frequently recommended as a spiritual successor or a film with a similar weight and focus on the human experience of conflict, making it a strong ",
+   "truncated": true,
+   "group": "movie_recommendation"
+  },
+  {
+   "id": "bbh-multistep_arithmetic_two-128",
+   "score": 1.0,
+   "pred": "-196",
+   "truncated": false,
+   "group": "multistep_arithmetic_two"
+  },
+  {
+   "id": "bbh-navigate-99",
+   "score": 1.0,
+   "pred": "No",
+   "truncated": false,
+   "group": "navigate"
+  },
+  {
+   "id": "bbh-object_counting-88",
+   "score": 1.0,
+   "pred": "13",
+   "truncated": false,
+   "group": "object_counting"
+  },
+  {
+   "id": "bbh-penguins_in_a_table-139",
+   "score": 0.0,
+   "pred": "(A)",
+   "truncated": false,
+   "group": "penguins_in_a_table"
+  },
+  {
+   "id": "bbh-reasoning_about_colored_objects-232",
+   "score": 0.0,
+   "pred": "(E)",
+   "truncated": false,
+   "group": "reasoning_about_colored_objects"
+  },
+  {
+   "id": "bbh-ruin_names-22",
+   "score": 1.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "ruin_names"
+  },
+  {
+   "id": "bbh-salient_translation_error_detection-113",
+   "score": 0.0,
+   "pred": "(D)",
+   "truncated": false,
+   "group": "salient_translation_error_detection"
+  },
+  {
+   "id": "bbh-snarks-132",
+   "score": 1.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "snarks"
+  },
+  {
+   "id": "bbh-sports_understanding-202",
+   "score": 0.0,
+   "pred": "Plausible",
+   "truncated": false,
+   "group": "sports_understanding"
+  },
+  {
+   "id": "bbh-temporal_sequences-36",
+   "score": 1.0,
+   "pred": "(C)",
+   "truncated": false,
+   "group": "temporal_sequences"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_five_objects-51",
+   "score": 1.0,
+   "pred": "(E)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_five_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_seven_objects-241",
+   "score": 0.0,
+   "pred": "*Current:* Alice (Fellowship), Bob (Hound), Claire (Frankenstein), Dave (Gatsby), Eve (Ulysses), Fred (Lolita), Gertrude (Catch-",
+   "truncated": true,
+   "group": "tracking_shuffled_objects_seven_objects"
+  },
+  {
+   "id": "bbh-tracking_shuffled_objects_three_objects-178",
+   "score": 1.0,
+   "pred": "(B)",
+   "truncated": false,
+   "group": "tracking_shuffled_objects_three_objects"
+  },
+  {
+   "id": "bbh-web_of_lies-29",
+   "score": 0.0,
+   "pred": "True",
+   "truncated": false,
+   "group": "web_of_lies"
+  },
+  {
+   "id": "bbh-word_sorting-187",
+   "score": 0.0,
+   "pred": "12. **somewhat** (s)",
+   "truncated": true,
+   "group": "word_sorting"
+  }
+ ],
+ "cost": {
+  "task": {
+   "calls": 135,
+   "fresh_calls": 0,
+   "prompt_tokens": 27076,
+   "completion_tokens": 49070,
+   "truncated": 55,
+   "model_seconds": 68905.70294616319,
+   "total_tokens": 76146
+  }
+ },
+ "wall_seconds": 0.0
+}
