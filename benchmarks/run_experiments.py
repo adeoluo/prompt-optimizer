@@ -19,8 +19,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
-import signal
 import sys
 import time
 from pathlib import Path
@@ -28,7 +26,7 @@ from pathlib import Path
 import httpx
 
 from prompt_optimizer.backends import CachedLM, CostMeter, LlamaCppLM, ResponseCache
-from prompt_optimizer.backends.llamacpp import LlamaServer
+from prompt_optimizer.backends.llamacpp import LlamaServer, terminate_pid
 from prompt_optimizer.backends.models import get_model
 from prompt_optimizer.experiments import RESULTS_ROOT, RunSpec, evaluate_program, optimize
 from prompt_optimizer.program import PromptProgram
@@ -63,11 +61,8 @@ def ensure_server(model: str, port: int) -> None:
     if current is not None and PID_FILE.exists():
         pid = int(PID_FILE.read_text().strip())
         log(f"stopping server pid {pid} ({Path(current).name})")
-        os.kill(pid, signal.SIGTERM)
-        for _ in range(60):
-            if served_model(url) is None:
-                break
-            time.sleep(1.0)
+        if terminate_pid(pid):
+            log(f"server pid {pid} ignored SIGTERM; killed")
     elif current is not None:
         raise RuntimeError(f"port {port} serves {current} and no pid file says who owns it")
     server = LlamaServer(
@@ -76,9 +71,10 @@ def ensure_server(model: str, port: int) -> None:
         parallel=spec.parallel,
         ctx_per_slot=spec.ctx_per_slot,
         log_path=BENCH / "logs" / f"server_{model}.log",
+        unified_kv=True,
         # --cache-ram 0: the default 8 GiB host-RAM prompt cache made the shared 8 GB
         # machine swap heavily; the response cache already makes repeats free.
-        extra_args=("-fa", "on", "-ctk", "q8_0", "-ctv", "q8_0", "--cache-ram", "0"),
+        extra_args=("-fa", "on", "-ctk", "q8_0", "-ctv", "q8_0", "--cache-ram", "0", "-ub", "128"),
     )
     log(f"starting {model}: {' '.join(server.command())}")
     server.start()

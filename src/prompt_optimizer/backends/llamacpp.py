@@ -190,9 +190,52 @@ class LlamaCppLM:
         return box["out"]
 
 
+def _alive(pid: int) -> bool:
+    """True while ``pid`` runs (a finished child of this process is reaped here)."""
+
+    try:
+        finished, _ = os.waitpid(pid, os.WNOHANG)
+        if finished == pid:
+            return False
+    except ChildProcessError:
+        pass
+    try:
+        os.kill(pid, 0)
+    except ProcessLookupError:
+        return False
+    return True
+
+
+def terminate_pid(pid: int, grace_s: float = 30.0, poll_s: float = 0.2) -> bool:
+    """Stop a process: SIGTERM, wait up to ``grace_s`` for it to exit, then SIGKILL.
+
+    ``llama-server`` closes its listening socket on SIGTERM but can keep running
+    while clients hold open requests, so a closed port does not mean the memory is
+    free. Returns True when the process had to be killed.
+    """
+
+    if not _alive(pid):
+        return False
+    os.kill(pid, signal.SIGTERM)
+    deadline = time.monotonic() + grace_s
+    while time.monotonic() < deadline:
+        if not _alive(pid):
+            return False
+        time.sleep(poll_s)
+    os.kill(pid, signal.SIGKILL)
+    while _alive(pid):
+        time.sleep(poll_s)
+    return True
+
+
 @dataclass
 class LlamaServer:
-    """Start, health-check and stop one ``llama-server`` process."""
+    """Start, health-check and stop one ``llama-server`` process.
+
+    The KV cache holds ``parallel * ctx_per_slot`` tokens. With ``unified_kv`` the
+    slots share that pool (``-kvu``), so one long prompt can use more than its share
+    while the total stays small.
+    """
 
     model_path: Path
     port: int = 8091
@@ -201,6 +244,7 @@ class LlamaServer:
     binary: str = "llama-server"
     log_path: Path | None = None
     extra_args: tuple[str, ...] = ()
+    unified_kv: bool = False
     _process: subprocess.Popen[bytes] | None = field(default=None, init=False, repr=False)
 
     @property
@@ -225,6 +269,7 @@ class LlamaServer:
             "--reasoning",
             "off",
             "--no-webui",
+            *(("-kvu",) if self.unified_kv else ()),
             *self.extra_args,
         ]
 

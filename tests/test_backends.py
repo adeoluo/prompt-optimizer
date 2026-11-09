@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import asyncio
 import json
+import subprocess
+import sys
 from pathlib import Path
 
 import httpx
@@ -24,7 +26,7 @@ from prompt_optimizer.backends import (
     get_model,
     system_user,
 )
-from prompt_optimizer.backends.llamacpp import parse_completion
+from prompt_optimizer.backends.llamacpp import _alive, parse_completion, terminate_pid
 from prompt_optimizer.backends.models import ModelSpec
 
 
@@ -224,6 +226,30 @@ class TestLlamaCpp:
         missing = LlamaServer(tmp_path / "m.gguf", binary="definitely-not-a-binary-xyz")
         with pytest.raises(FileNotFoundError):
             missing.start()
+
+    def test_unified_kv_flag(self, tmp_path: Path) -> None:
+        shared = LlamaServer(tmp_path / "m.gguf", parallel=8, ctx_per_slot=2048, unified_kv=True)
+        cmd = shared.command()
+        assert "-kvu" in cmd and cmd[cmd.index("-c") + 1] == "16384"
+        assert "-kvu" not in LlamaServer(tmp_path / "m.gguf").command()
+
+    def test_terminate_pid_graceful_and_forced(self) -> None:
+        polite = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(60)"])
+        assert terminate_pid(polite.pid, grace_s=10) is False
+        assert not _alive(polite.pid)
+        stubborn = subprocess.Popen(
+            [
+                sys.executable,
+                "-c",
+                "import signal, sys, time; signal.signal(signal.SIGTERM, signal.SIG_IGN); "
+                "sys.stdout.write('ready\\n'); sys.stdout.flush(); time.sleep(60)",
+            ],
+            stdout=subprocess.PIPE,
+        )
+        assert stubborn.stdout is not None and stubborn.stdout.readline() == b"ready\n"
+        assert terminate_pid(stubborn.pid, grace_s=0.5) is True
+        assert not _alive(stubborn.pid)
+        assert terminate_pid(stubborn.pid) is False  # already gone: a no-op
 
     def test_server_exits_early(self, tmp_path: Path) -> None:
         server = LlamaServer(tmp_path / "m.gguf", binary="false", port=1, log_path=tmp_path / "log")
