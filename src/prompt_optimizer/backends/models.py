@@ -3,6 +3,9 @@
 All three are Qwen3.5 instruction models (February 2026) quantized to
 Q4_K_M GGUF by Unsloth. The 2B model runs every optimization loop; the final
 prompts are then evaluated on 0.8B, 2B and 4B to measure transfer across scale.
+Each server runs 8 slots that share one 16,384-token KV pool (``parallel`` times
+``ctx_per_slot``, unified), which fits the longest prompt plus answer while
+keeping memory low on the shared 8 GB machine (ADR-0004).
 """
 
 from __future__ import annotations
@@ -53,13 +56,13 @@ class ModelSpec:
 
 MODELS: dict[str, ModelSpec] = {
     "qwen3.5-0.8b": ModelSpec(
-        "qwen3.5-0.8b", "unsloth/Qwen3.5-0.8B-GGUF", "Qwen3.5-0.8B-Q4_K_M.gguf", 8, 4096
+        "qwen3.5-0.8b", "unsloth/Qwen3.5-0.8B-GGUF", "Qwen3.5-0.8B-Q4_K_M.gguf", 8, 2048
     ),
     "qwen3.5-2b": ModelSpec(
-        "qwen3.5-2b", "unsloth/Qwen3.5-2B-GGUF", "Qwen3.5-2B-Q4_K_M.gguf", 8, 4096
+        "qwen3.5-2b", "unsloth/Qwen3.5-2B-GGUF", "Qwen3.5-2B-Q4_K_M.gguf", 8, 2048
     ),
     "qwen3.5-4b": ModelSpec(
-        "qwen3.5-4b", "unsloth/Qwen3.5-4B-GGUF", "Qwen3.5-4B-Q4_K_M.gguf", 8, 4096
+        "qwen3.5-4b", "unsloth/Qwen3.5-4B-GGUF", "Qwen3.5-4B-Q4_K_M.gguf", 8, 2048
     ),
 }
 
