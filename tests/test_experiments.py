@@ -16,6 +16,7 @@ from prompt_optimizer.backends import CachedLM, CostMeter, FakeLM
 from prompt_optimizer.experiments import RunSpec, evaluate_program, optimize, ordered_examples
 from prompt_optimizer.program import PromptProgram
 from prompt_optimizer.report import (
+    anytime_table,
     common_ids,
     label_for,
     load_rows,
@@ -175,6 +176,9 @@ class TestReport:
         assert "Test examples: 50 shared" in table
         transfer = transfer_table("arith", ["fake", "fake-b"], "fake", tmp_path)
         assert "fake-b" in transfer and "OPRO" in transfer
+        anytime = anytime_table("arith", "fake", (50, 150), root=tmp_path)
+        assert "<= 150 rollouts" in anytime and "GEPA-style" in anytime
+        assert "No runs" in anytime_table("x", "m", root=tmp_path)
         overfit = overfit_table("arith", "fake", "fake", tmp_path)
         assert "Val minus test" in overfit and "| Seed prompt (zero-shot) | 1 |" in overfit
         assert "No overfitting" in overfit_table("x", "m", "m", tmp_path)

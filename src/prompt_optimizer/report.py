@@ -182,6 +182,43 @@ def overfit_table(task: str, eval_model: str, opt_model: str, root: Path = RESUL
     return "\n".join(lines)
 
 
+def anytime_table(
+    task: str,
+    opt_model: str,
+    checkpoints: Sequence[int] = (100, 200, 300, 400),
+    root: Path = RESULTS_ROOT,
+) -> str:
+    """Best full-validation score each method had reached within N task rollouts.
+
+    Read from the trial history of each run, so it costs no extra model calls; it shows
+    how quickly a method finds its gains, not only where it ended.
+    """
+
+    run_dir = root / "runs" / task / opt_model
+    if not run_dir.exists():
+        return f"No runs for {task}."
+    header = "| Method | " + " | ".join(f"<= {c} rollouts" for c in checkpoints) + " |"
+    lines = [header, "|---|" + "---:|" * len(checkpoints)]
+    order = list(LABELS)
+    paths = sorted(
+        run_dir.glob("*.json"),
+        key=lambda p: order.index(p.stem.split("-s")[0]) if p.stem.split("-s")[0] in order else 99,
+    )
+    for path in paths:
+        run = _load(path)
+        trials = [t for t in run.get("trials", []) if t.get("split") == "val"]
+        if not trials:
+            continue
+        cells = []
+        for limit in checkpoints:
+            reached = [t["score"] for t in trials if t["rollouts_used"] <= limit]
+            cells.append(f"{100 * max(reached):.1f}" if reached else "")
+        lines.append(f"| {label_for(path.stem, run['optimizer'])} | " + " | ".join(cells) + " |")
+    if len(lines) == 2:
+        return f"No runs with trial histories for {task}."
+    return "\n".join(lines)
+
+
 def transfer_table(
     task: str, eval_models: Sequence[str], opt_model: str, root: Path = RESULTS_ROOT
 ) -> str:
