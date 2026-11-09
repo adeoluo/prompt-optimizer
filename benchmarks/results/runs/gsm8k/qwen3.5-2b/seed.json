@@ -1,0 +1,34 @@
+{
+ "task": "gsm8k",
+ "optimizer": "seed",
+ "model": "qwen3.5-2b",
+ "seed": 0,
+ "budget": 400,
+ "overrides": {},
+ "splits": {
+  "train": 200,
+  "val": 60,
+  "test": 1319
+ },
+ "val_score": 0.7666666666666667,
+ "rollouts_used": 60,
+ "program": {
+  "instruction": "Solve the math word problem.",
+  "demos": []
+ },
+ "fingerprint": "5505bd69fbcfb580",
+ "trials": [],
+ "info": {},
+ "cost": {
+  "task": {
+   "calls": 60,
+   "fresh_calls": 24,
+   "prompt_tokens": 7027,
+   "completion_tokens": 6917,
+   "truncated": 0,
+   "model_seconds": 5373.649406749988,
+   "total_tokens": 13944
+  }
+ },
+ "wall_seconds": 324.8
+}
