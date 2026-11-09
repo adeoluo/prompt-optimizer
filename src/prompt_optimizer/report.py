@@ -10,6 +10,8 @@ renders Markdown tables:
   optimization cost (task rollouts, proposer calls, tokens).
 * **Transfer table**: programs optimized on one model scored on the others,
   restricted to the examples every listed model has scored.
+* **DSPy table**: each in-repo method next to its DSPy counterpart, with the
+  paired difference between the two on the same test examples.
 
 Reproduce with ``python -m prompt_optimizer report``.
 """
@@ -17,6 +19,7 @@ Reproduce with ``python -m prompt_optimizer report``.
 from __future__ import annotations
 
 import json
+import re
 from collections.abc import Iterable, Sequence
 from dataclasses import dataclass
 from pathlib import Path
@@ -34,6 +37,7 @@ LABELS: dict[str, str] = {
     "textgrad": "TextGrad-style",
     "gepa": "GEPA-style",
     "promptbreeder": "PromptBreeder-style",
+    "dspy-seed": "DSPy ChainOfThought (zero-shot)",
     "dspy-bootstrap_rs": "DSPy BootstrapFewShotWithRandomSearch",
     "dspy-miprov2": "DSPy MIPROv2",
     "dspy-gepa": "DSPy GEPA",
@@ -60,10 +64,28 @@ def _scores(test: dict[str, Any], ids: Sequence[str] | None = None) -> list[floa
     return [by_id[i] for i in ids] if ids is not None else list(by_id.values())
 
 
+_RUN_SEED = re.compile(r"-s(\d+)-b\d+$")
+
+
 def label_for(run_id: str, optimizer: str) -> str:
     base = LABELS.get(optimizer, optimizer)
-    seed = run_id.split("-s")[-1].split("-")[0] if "-s" in run_id else ""
-    return f"{base} (seed {seed})" if seed and seed != "0" else base
+    match = _RUN_SEED.search(run_id)
+    return f"{base} (seed {match.group(1)})" if match and match.group(1) != "0" else base
+
+
+#: In-repo method and its DSPy counterpart, compared on the same test examples.
+DSPY_PAIRS: tuple[tuple[str, str, str], ...] = (
+    ("Zero-shot", "seed", "dspy-seed"),
+    ("Bootstrapped few-shot", "bootstrap_fewshot", "dspy-bootstrap_rs"),
+    ("MIPROv2", "miprov2", "dspy-miprov2"),
+    ("GEPA", "gepa", "dspy-gepa"),
+)
+
+
+def is_library(row: Row) -> bool:
+    """True for rows produced by a reference library (DSPy) rather than this repository."""
+
+    return row.optimizer.startswith("dspy-")
 
 
 def load_rows(task: str, eval_model: str, opt_model: str, root: Path = RESULTS_ROOT) -> list[Row]:
@@ -116,7 +138,9 @@ def common_ids(tests: Iterable[dict[str, Any]]) -> list[str]:
 
 
 def main_table(task: str, eval_model: str, opt_model: str, root: Path = RESULTS_ROOT) -> str:
-    rows = load_rows(task, eval_model, opt_model, root)
+    """The in-repo methods against the seed prompt (DSPy rows are in ``dspy_table``)."""
+
+    rows = [r for r in load_rows(task, eval_model, opt_model, root) if not is_library(r)]
     if not rows:
         return f"No results for {task} on {eval_model}."
     seed = next((r for r in rows if r.run_id == SEED_RUN), None)
@@ -159,25 +183,38 @@ def overfit_table(task: str, eval_model: str, opt_model: str, root: Path = RESUL
 
     The validation score is what selected the program (the maximum over the
     candidates a method scored), so it is biased upward; the gap to the test score
-    measures how much of the apparent gain was selection noise.
+    measures how much of the apparent gain was selection noise. The seed prompt was
+    not selected, so its gap is the baseline difference between the validation and
+    test distributions; the last column subtracts it to isolate selection optimism.
     """
 
-    rows = [r for r in load_rows(task, eval_model, opt_model, root) if r.val is not None]
+    rows = [
+        r
+        for r in load_rows(task, eval_model, opt_model, root)
+        if r.val is not None and not is_library(r)
+    ]
     if not rows:
         return f"No overfitting data for {task}."
     ids = common_ids(r.test for r in rows)
     lines = [
-        "| Method | Candidates scored on val | Val acc | Test acc | Val minus test |",
-        "|---|---:|---:|---:|---:|",
+        "| Method | Candidates scored on val | Val acc | Test acc | Val minus test | "
+        "Minus the seed's gap |",
+        "|---|---:|---:|---:|---:|---:|",
     ]
+    gaps: dict[str, float] = {}
     for row in rows:
-        test = bootstrap_ci(_scores(row.test, ids)).mean
         assert row.val is not None
+        gaps[row.run_id] = row.val - bootstrap_ci(_scores(row.test, ids)).mean
+    seed_gap = gaps.get(SEED_RUN)
+    for row in rows:
+        assert row.val is not None
+        gap = gaps[row.run_id]
         trials = (row.run or {}).get("trials", [])
         candidates = len({t["fingerprint"] for t in trials if t.get("split") == "val"}) or 1
+        excess = f"{100 * (gap - seed_gap):+.1f}" if seed_gap is not None else ""
         lines.append(
-            f"| {row.label} | {candidates} | {100 * row.val:.1f} | {100 * test:.1f} | "
-            f"{100 * (row.val - test):+.1f} |"
+            f"| {row.label} | {candidates} | {100 * row.val:.1f} | {100 * (row.val - gap):.1f} | "
+            f"{100 * gap:+.1f} | {excess} |"
         )
     return "\n".join(lines)
 
@@ -219,6 +256,59 @@ def anytime_table(
     return "\n".join(lines)
 
 
+def dspy_table(task: str, eval_model: str, opt_model: str, root: Path = RESULTS_ROOT) -> str:
+    """Each in-repo method next to its DSPy counterpart on the same test examples.
+
+    Both sides start from the same seed instruction and get the same rollout budget,
+    model, splits and cached client; DSPy formats prompts with its chat adapter, so
+    each side's gain is measured against its own zero-shot program, and the last
+    columns are the paired difference (in-repo minus DSPy) on shared examples.
+    """
+
+    by_optimizer = {r.optimizer: r for r in load_rows(task, eval_model, opt_model, root)}
+    pairs = [
+        (name, by_optimizer.get(ours), by_optimizer[theirs])
+        for name, ours, theirs in DSPY_PAIRS
+        if theirs in by_optimizer
+    ]
+    if not pairs:
+        return f"No DSPy results for {task}."
+    present = [row for _, ours, theirs in pairs for row in (ours, theirs) if row is not None]
+    ids = common_ids(r.test for r in present)
+    baselines = {False: by_optimizer.get(SEED_RUN), True: by_optimizer.get("dspy-seed")}
+    lines = [
+        "| Method | Implementation | Test acc [95% CI] | Diff vs own zero-shot [95% CI] | "
+        "In-repo minus DSPy [95% CI] | p | Task rollouts | Proposer calls | Opt. tokens |",
+        "|---|---|---:|---:|---:|---:|---:|---:|---:|",
+    ]
+    for name, ours, theirs in pairs:
+        for row in (ours, theirs):
+            if row is None:
+                continue
+            scores = _scores(row.test, ids)
+            base = baselines[is_library(row)]
+            gain = ""
+            if base is not None and base is not row:
+                gain = paired_bootstrap(scores, _scores(base.test, ids)).diff.fmt()
+            versus, p = "", ""
+            if is_library(row) and ours is not None:
+                paired = paired_bootstrap(_scores(ours.test, ids), scores)
+                versus, p = paired.diff.fmt(), f"{paired.p_value:.3f}"
+            source = (row.test.get("library") or "dspy") if is_library(row) else "this repository"
+            task_calls, other_calls, tokens = _usage(row.run)
+            lines.append(
+                f"| {name} | {row.label} ({source}) | {bootstrap_ci(scores).fmt()} | {gain} | "
+                f"{versus} | {p} | {task_calls:,} | {other_calls:,} | {tokens / 1e6:.2f}M |"
+            )
+    lines.append("")
+    lines.append(
+        f"Test examples: {len(ids)} shared by every row. Accuracy in percent with 95% "
+        "bootstrap intervals; the gain column is paired against the same implementation's "
+        "zero-shot program, the head-to-head column is paired in-repo minus DSPy."
+    )
+    return "\n".join(lines)
+
+
 def transfer_table(
     task: str, eval_models: Sequence[str], opt_model: str, root: Path = RESULTS_ROOT
 ) -> str:
@@ -252,6 +342,9 @@ def render(root: Path = RESULTS_ROOT, opt_model: str = "qwen3.5-2b") -> str:
         task = task_dir.name
         parts.append(f"## {task}\n")
         parts.append(main_table(task, opt_model, opt_model, root))
+        if any(is_library(r) for r in load_rows(task, opt_model, opt_model, root)):
+            parts.append("\n### Against DSPy\n")
+            parts.append(dspy_table(task, opt_model, opt_model, root))
         parts.append("\n### Validation versus test\n")
         parts.append(overfit_table(task, opt_model, opt_model, root))
         models = sorted(p.name for p in task_dir.iterdir() if p.is_dir())
