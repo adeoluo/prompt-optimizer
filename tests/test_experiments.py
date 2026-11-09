@@ -18,6 +18,7 @@ from prompt_optimizer.program import PromptProgram
 from prompt_optimizer.report import (
     anytime_table,
     common_ids,
+    dspy_table,
     label_for,
     load_rows,
     main_table,
@@ -181,9 +182,37 @@ class TestReport:
         assert "No runs" in anytime_table("x", "m", root=tmp_path)
         overfit = overfit_table("arith", "fake", "fake", tmp_path)
         assert "Val minus test" in overfit and "| Seed prompt (zero-shot) | 1 |" in overfit
+        seed_line = next(x for x in overfit.splitlines() if x.startswith("| Seed prompt"))
+        assert seed_line.rstrip(" |").endswith("+0.0")
         assert "No overfitting" in overfit_table("x", "m", "m", tmp_path)
         text = render(tmp_path, opt_model="fake")
         assert "## arith" in text and "### Transfer" in text
+
+    def test_dspy_table(self, tmp_path: Path) -> None:
+        _fake_results(tmp_path)
+        test_dir = tmp_path / "test" / "arith" / "fake"
+        run_dir = tmp_path / "runs" / "arith" / "fake"
+        for ours, theirs in (("seed", "dspy-seed-s0-b150"), ("gepa-s0-b150", "dspy-gepa-s0-b150")):
+            test = json.loads((test_dir / f"{ours}.json").read_text())
+            test.update(optimizer=theirs.split("-s0")[0], run_id=theirs, library="dspy 3.4.1")
+            if theirs == "dspy-gepa-s0-b150":
+                for record in test["records"][:5]:
+                    record["score"] = 1.0 - record["score"]
+            (test_dir / f"{theirs}.json").write_text(json.dumps(test))
+            run = json.loads((run_dir / f"{ours}.json").read_text())
+            (run_dir / f"{theirs}.json").write_text(json.dumps(run))
+        table = dspy_table("arith", "fake", "fake", tmp_path)
+        assert "| Zero-shot | Seed prompt (zero-shot) (this repository) |" in table
+        assert "DSPy ChainOfThought (zero-shot) (dspy 3.4.1)" in table
+        assert "| GEPA | DSPy GEPA (dspy 3.4.1) |" in table
+        assert "Test examples: 50 shared" in table
+        gepa_row = next(line for line in table.splitlines() if "| DSPy GEPA" in line)
+        assert gepa_row.split("|")[6].strip() not in ("", "0.0 [0.0, 0.0]")
+        main = main_table("arith", "fake", "fake", tmp_path)
+        assert "DSPy" not in main
+        assert "DSPy" not in overfit_table("arith", "fake", "fake", tmp_path)
+        assert "### Against DSPy" in render(tmp_path, opt_model="fake")
+        assert "No DSPy results" in dspy_table("x", "m", "m", tmp_path)
 
     def test_empty(self, tmp_path: Path) -> None:
         assert render(tmp_path) == "No results yet."
@@ -196,6 +225,8 @@ class TestReport:
         assert label_for("gepa-s0-b400", "gepa") == "GEPA-style"
         assert label_for("gepa-s2-b400", "gepa") == "GEPA-style (seed 2)"
         assert label_for("custom", "custom") == "custom"
+        assert label_for("dspy-seed", "dspy-seed") == "DSPy ChainOfThought (zero-shot)"
+        assert label_for("dspy-miprov2-s1-b400", "dspy-miprov2") == "DSPy MIPROv2 (seed 1)"
 
 
 class TestCli:
