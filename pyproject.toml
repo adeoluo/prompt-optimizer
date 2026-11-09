@@ -1,6 +1,6 @@
 [project]
 name = "prompt-optimizer"
-version = "0.1.0"
+version = "0.2.0"
 description = "Automated prompt and few-shot optimization: compile prompts against a metric with search over instructions and labeled demonstrations"
 readme = "README.md"
 requires-python = ">=3.12"

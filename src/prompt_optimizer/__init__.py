@@ -14,7 +14,7 @@ from prompt_optimizer.optimizers import (
 from prompt_optimizer.predictor import Predictor
 from prompt_optimizer.types import Example, Metric, Prompt
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 __all__ = [
     "BootstrapFewShot",
