@@ -252,7 +252,9 @@ class TestLlamaCpp:
         assert terminate_pid(stubborn.pid) is False  # already gone: a no-op
 
     def test_server_exits_early(self, tmp_path: Path) -> None:
-        server = LlamaServer(tmp_path / "m.gguf", binary="false", port=1, log_path=tmp_path / "log")
+        server = LlamaServer(
+            tmp_path / "m.gguf", binary="false", port=18099, log_path=tmp_path / "log"
+        )
         with pytest.raises(RuntimeError):
             server.start(wait_s=5)
 
