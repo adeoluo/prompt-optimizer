@@ -13,6 +13,8 @@
 
 ---
 
+> **Evidence level: publicly benchmarked.** GSM8K and BIG-Bench Hard with local Qwen models against DSPy 3.4.1, on one optimization seed. Not independently reproduced and not used in production. [What the levels mean](https://github.com/adeoluo#evidence-levels).
+
 ## Motivation
 
 The instruction and the in-context examples of a prompt move accuracy as much as many model
