@@ -15,7 +15,7 @@
 
 > **Evidence level: publicly benchmarked.** GSM8K and BIG-Bench Hard with local Qwen models against DSPy 3.4.1, on one optimization seed. Not independently reproduced and not used in production. [What the levels mean](https://github.com/adeoluo#evidence-levels).
 
-## Summary
+## Highlights
 
 The wording of a prompt changes how well an AI model does. This project rewrites prompts
 automatically, using seven published methods, and checks which ones truly help.
