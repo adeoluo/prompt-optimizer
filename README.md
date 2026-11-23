@@ -15,6 +15,20 @@
 
 > **Evidence level: publicly benchmarked.** GSM8K and BIG-Bench Hard with local Qwen models against DSPy 3.4.1, on one optimization seed. Not independently reproduced and not used in production. [What the levels mean](https://github.com/adeoluo#evidence-levels).
 
+## In plain English
+
+The wording of a prompt changes how well an AI model does. This project rewrites prompts
+automatically, using seven published methods, and checks which ones truly help.
+
+- **One method gave a clear gain.** On GSM8K math word problems, a small local model went
+  from 64.7% to 75.0% correct. That gain is statistically solid (p < 0.001).
+- **It is strict about luck.** Seven methods were tried. After correcting for trying seven
+  things, only that one gain still counts, and the README says so.
+- **Every call is cached,** so the whole comparison can be re-scored.
+
+**Where it falls short:** on a second, broader benchmark (BIG-Bench Hard) no method beat the
+starting prompt. Only one small model (Qwen3.5-2B) was tested.
+
 ## Motivation
 
 The instruction and the in-context examples of a prompt move accuracy as much as many model
