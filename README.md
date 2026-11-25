@@ -13,7 +13,7 @@
 
 ---
 
-> **Evidence level: publicly benchmarked.** The methods were tested on two public benchmarks, GSM8K and BIG-Bench Hard, with local Qwen models, and compared with DSPy 3.4.1. Each search used one optimization seed (one fixed setting of the random choices). No one else has reproduced the results, and the project is not used in production. [What the levels mean](https://github.com/adeoluo#evidence-levels).
+> **Evidence level: publicly benchmarked.** The methods were tested on two public benchmarks, GSM8K and BIG-Bench Hard, with local Qwen models, and compared with DSPy 3.4.1. Each search used one optimization seed (one fixed setting of the random choices). No one else has reproduced the results, and the project is not used in production.
 
 ## Highlights
 
